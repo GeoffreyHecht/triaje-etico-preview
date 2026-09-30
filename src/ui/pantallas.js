@@ -97,7 +97,7 @@ function pregunta(s        , p          )              {
   const actual = s.estado.respuestas[p.id];
   const marcados = Array.isArray(actual) ? actual : typeof actual === 'string' ? [actual] : [];
   const indicaId = `q_${p.id}_indica`;
-  const fs = h('fieldset', { class: 'pregunta', 'aria-describedby': indicaId },
+  const fs = h('fieldset', { id: `q_${p.id}`, class: 'pregunta', 'aria-describedby': indicaId },
     h('legend', {}, s.tq(p.texto)),
     h('p', { id: indicaId, class: 'indicacion' }, s.t(multiple ? 'indicacionMultiple' : 'indicacionUnica')));
   if (p.ayuda !== undefined) fs.append(ayudaDesplegable(s, p.id, s.tq(p.ayuda)));

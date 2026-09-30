@@ -90,7 +90,7 @@ function seccionReglas(s        , reglas                  )              {
 
 /**
  * Con el cuestionario incompleto (REQ-14), las pantallas de resultado y de documentos muestran solo las
- * preguntas pendientes (con enlace a su pantalla), la exportación del borrador y «Anterior».
+ * preguntas pendientes (con enlace a cada pregunta), la exportación del borrador y «Anterior».
  */
 export function pantallaPendientes(s        , titulo        )              {
   const { config, resultado } = s;
@@ -101,7 +101,7 @@ export function pantallaPendientes(s        , titulo        )              {
     const p = config.cuestionario.bloques.flatMap((b) => b.preguntas).find((q) => q.id === id);
     if (p === undefined) continue;
     const b = h('button', { type: 'button', class: 'enlace', title: s.t('pendientesIr') }, s.tq(p.texto));
-    b.addEventListener('click', () => s.irA(pasoDePregunta(config, id)));
+    b.addEventListener('click', () => s.irA(pasoDePregunta(config, id), id));
     ul.append(h('li', {}, b));
   }
   raiz.append(h('h3', {}, `${s.t('pendientes')} (${resultado.pendientes.length})`), ul);

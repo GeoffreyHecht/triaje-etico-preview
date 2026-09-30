@@ -209,15 +209,6 @@ bloques:
           observadas. Las grabaciones y mediciones (audio, pantalla, seguimiento ocular, sensores) se
           declaran más adelante.
         opciones:
-          - valor: ninguna
-            etiqueta: Ninguna
-            ayuda: >-
-              Simulaciones, análisis de datos ya existentes (se declaran en el bloque de datos),
-              pruebas de equipos o software sin usuarios, o validación con el propio equipo de la MT.
-              Si se mide o se registra a personas, no corresponde «Ninguna».
-            exclusiva: true
-            efectos:
-              - motivo: 'Sin participación directa de personas: se cierra el bloque de personas.'
           - valor: encuesta
             etiqueta: Encuesta
             ayuda: Cuestionario en línea o en papel.
@@ -255,6 +246,15 @@ bloques:
               - nivel: "1"
                 paquetes: [RP-PERS]
                 motivo: 'Intervención o comparación de condiciones: el nivel depende de sus riesgos (pregunta siguiente); si solo compara condiciones habituales y sin riesgo, se gestiona con compromisos.'
+          - valor: ninguna
+            etiqueta: Ninguna
+            ayuda: >-
+              Simulaciones, análisis de datos ya existentes (se declaran en el bloque de datos),
+              pruebas de equipos o software sin usuarios, o validación con el propio equipo de la MT.
+              Si se mide o se registra a personas, no corresponde «Ninguna».
+            exclusiva: true
+            efectos:
+              - motivo: 'Sin participación directa de personas: se cierra el bloque de personas.'
           - valor: nose
             etiqueta: No estoy seguro/a
             exclusiva: true
@@ -456,12 +456,6 @@ bloques:
           se graba ni se mide nada, corresponde «Ninguno».
         mostrarSi: { cond: HAY_PERS }
         opciones:
-          - valor: ninguno
-            etiqueta: Ninguno
-            ayuda: Solo se registran las respuestas o las notas del equipo.
-            exclusiva: true
-            efectos:
-              - motivo: 'Sin grabaciones ni mediciones de los participantes.'
           - valor: audio
             etiqueta: Audio (solo para transcribir)
             ayuda: >-
@@ -517,6 +511,12 @@ bloques:
               - nivel: "2"
                 motivo: 'Video o fotografías en que se reconoce a personas son datos personales y potencialmente biométricos: requiere evaluación del CEBB (Ley 21.719, art. 16 ter).'
 
+          - valor: ninguno
+            etiqueta: Ninguno
+            ayuda: Solo se registran las respuestas o las notas del equipo.
+            exclusiva: true
+            efectos:
+              - motivo: 'Sin grabaciones ni mediciones de los participantes.'
       - id: P-PER-06
         tipo: unica
         texto: ¿Habrá algún incentivo por participar?
@@ -610,12 +610,6 @@ bloques:
           correos de commits) que no se almacenan ni se analizan tampoco cuentan; si se almacenan o
           se analizan, corresponde «Web scraping de contenido público con datos de personas».
         opciones:
-          - valor: ninguno
-            etiqueta: Ninguno
-            ayuda: No se usan datos existentes sobre personas.
-            exclusiva: true
-            efectos:
-              - motivo: 'Sin datos existentes sobre personas: se cierra el bloque de datos.'
           - valor: abierto_anonimo
             etiqueta: Datos abiertos ya anonimizados
             ayuda: >-
@@ -653,6 +647,12 @@ bloques:
               - nivel: "1"
                 paquetes: [RP-SEC]
                 motivo: 'Extracción automatizada de contenido público con datos personales: los datos de fuentes de acceso público siguen sujetos a la ley (Ley 21.719, art. 2 i y art. 14 letra b). Sin temas sensibles ni perfilamiento se gestiona en nivel 1 con la regla RP-SEC.6; las preguntas sobre temas sensibles e IA pueden subir el nivel.'
+          - valor: ninguno
+            etiqueta: Ninguno
+            ayuda: No se usan datos existentes sobre personas.
+            exclusiva: true
+            efectos:
+              - motivo: 'Sin datos existentes sobre personas: se cierra el bloque de datos.'
           - valor: nose
             etiqueta: No estoy seguro/a
             exclusiva: true
@@ -742,11 +742,6 @@ bloques:
           ¿Se usará inteligencia artificial, minería de datos o perfilamiento con datos de personas?
         mostrarSi: { alguna: [{ cond: HAY_DATOS }, { cond: TRATA_DP_PREVIA }] }
         opciones:
-          - valor: ninguno
-            etiqueta: Ninguno
-            exclusiva: true
-            efectos:
-              - motivo: 'Sin IA ni perfilamiento sobre datos de personas.'
           - valor: asistente_institucional
             etiqueta: Asistente de IA institucional de UdeC (datos seudonimizados)
             ayuda: >-
@@ -777,6 +772,11 @@ bloques:
               - nivel: "2"
                 motivo: 'Perfilamiento o decisiones automatizadas sobre personas identificables: requiere evaluación del CEBB (Ley 21.719, arts. 2 w y 8 bis).'
 
+          - valor: ninguno
+            etiqueta: Ninguno
+            exclusiva: true
+            efectos:
+              - motivo: 'Sin IA ni perfilamiento sobre datos de personas.'
       - id: P-DAT-04
         tipo: multiple
         texto: >-
@@ -784,15 +784,6 @@ bloques:
           institucionales?
         mostrarSi: { cond: TRATA_DP_PREVIA_IA }
         opciones:
-          - valor: ninguno
-            etiqueta: Ninguno
-            ayuda: >-
-              Los datos personales los ven solo el IR y el estudiante, y están en servicios de UdeC o
-              contratados por UdeC con contrato de encargo (cuentas institucionales, servidores del
-              departamento).
-            exclusiva: true
-            efectos:
-              - motivo: 'Los datos permanecen bajo control institucional; un servicio contratado con contrato de encargo no es cesión (RP-DATOS.8; Ley 21.719, art. 15 bis).'
           - valor: externo
             etiqueta: Servicios externos sin contrato institucional
             ayuda: >-
@@ -810,6 +801,15 @@ bloques:
             efectos:
               - nivel: "2"
                 motivo: 'Entrega de datos personales no agregados a terceros: requiere evaluación del CEBB (Ley 21.719, arts. 2 v y 15).'
+          - valor: ninguno
+            etiqueta: Ninguno
+            ayuda: >-
+              Los datos personales los ven solo el IR y el estudiante, y están en servicios de UdeC o
+              contratados por UdeC con contrato de encargo (cuentas institucionales, servidores del
+              departamento).
+            exclusiva: true
+            efectos:
+              - motivo: 'Los datos permanecen bajo control institucional; un servicio contratado con contrato de encargo no es cesión (RP-DATOS.8; Ley 21.719, art. 15 bis).'
           - valor: nose
             etiqueta: No estoy seguro/a
             exclusiva: true
@@ -885,14 +885,6 @@ bloques:
         texto: ¿La MT incluye alguna de estas actividades?
         ayuda: En caso de duda, corresponde «No estoy seguro/a».
         opciones:
-          - valor: ninguna
-            etiqueta: Ninguna
-            ayuda: >-
-              Programación, simulación, análisis de datos, trabajo en oficina y uso de un laboratorio
-              de computación (sala de computadores, cluster).
-            exclusiva: true
-            efectos:
-              - motivo: 'Trabajo puramente computacional o de oficina: no se evalúan riesgos de laboratorio, terreno ni bioseguridad.'
           - valor: laboratorio
             etiqueta: Laboratorio de ingeniería (riesgos estándar)
             ayuda: >-
@@ -940,6 +932,14 @@ bloques:
               - nivel: "2"
                 anexos: [ANX-F-BIOSEG]
                 motivo: 'Sustancias sobre el umbral de peligro (CMR 1A/1B, toxicidad aguda 1–2, STOT 1), patógenos o radiación ionizante requieren evaluación del CEBB y Formulario de Bioseguridad (DS 57/2019, GHS).'
+          - valor: ninguna
+            etiqueta: Ninguna
+            ayuda: >-
+              Programación, simulación, análisis de datos, trabajo en oficina y uso de un laboratorio
+              de computación (sala de computadores, cluster).
+            exclusiva: true
+            efectos:
+              - motivo: 'Trabajo puramente computacional o de oficina: no se evalúan riesgos de laboratorio, terreno ni bioseguridad.'
           - valor: nose
             etiqueta: No estoy seguro/a
             exclusiva: true

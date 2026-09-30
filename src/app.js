@@ -20,7 +20,7 @@ import { pantallaDocumentos } from './ui/documentos.js';
 import { pantallaResultado } from './ui/resultado.js';
                                                     
 
-                                   
+                                                          
 
 function firmaEstructura(s        )         {
   return JSON.stringify([
@@ -67,8 +67,8 @@ function arrancar(raiz             , config        )       {
       guardar();
       if (firmaEstructura(s) !== antes) dibujar('conservar');
     },
-    irA(paso) {
-      ir(irA(s.estado, config, s.resultado, paso).paso);
+    irA(paso, pregunta) {
+      ir(irA(s.estado, config, s.resultado, paso).paso, pregunta);
     },
     avanzar() {
       ir(avanzar(s.estado, config, s.resultado).paso);
@@ -96,10 +96,10 @@ function arrancar(raiz             , config        )       {
     s.resultado = c.resultado;
   }
 
-  function ir(paso      )       {
+  function ir(paso      , pregunta         )       {
     s.estado = { ...s.estado, paso };
     for (let i = avisos.length - 1; i >= 0; i--) if (avisos[i].fijo !== true) avisos.splice(i, 1);
-    dibujar('titulo');
+    dibujar(pregunta !== undefined ? { pregunta } : 'titulo');
   }
 
   function guardar()       {
@@ -219,7 +219,13 @@ function arrancar(raiz             , config        )       {
     dibujarAvisos();
     vaciar(pantalla);
     pantalla.append(dibujarPantalla());
-    if (foco === 'titulo') {
+    const destino = typeof foco === 'object' ? document.getElementById(`q_${foco.pregunta}`) : null;
+    if (destino !== null) {
+      // Pregunta pendiente: se destaca, se lleva a la vista y el foco queda en su primera opción.
+      destino.classList.add('pregunta-destino');
+      destino.querySelector('input')?.focus({ preventScroll: true });
+      destino.scrollIntoView({ block: 'start' });
+    } else if (foco !== 'conservar') {
       document.getElementById('titulo-pantalla')?.focus();
       window.scrollTo(0, 0);
     } else if (idFoco !== '') {

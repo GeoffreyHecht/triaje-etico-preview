@@ -187,6 +187,9 @@ fieldset.pregunta {
 /* La pregunta (legend) va dentro de la tarjeta, no sobre el borde */
 fieldset.pregunta legend { float: left; width: 100%; padding: 0; margin: 0 0 0.35rem; font-weight: 700; color: var(--primario); }
 fieldset.pregunta legend + * { clear: both; }
+/* Pregunta a la que se llegó desde «Preguntas pendientes» */
+fieldset.pregunta { scroll-margin-top: 1rem; }
+fieldset.pregunta-destino { border-color: var(--foco); box-shadow: 0 0 0 2px var(--foco); }
 .indicacion, .ayuda-campo, .ayuda-opcion { font-size: 0.9rem; margin: 0.25rem 0; color: #3c4046; }
 .ayuda-opcion { margin-left: 0; font-size: 0.85rem; color: #4a4f57; }
 .opcion {
