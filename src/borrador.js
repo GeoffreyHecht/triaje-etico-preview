@@ -193,14 +193,14 @@ export function borrarLocal(almacen                     )          {
   }
 }
 
-/** Descarga `borrador-mt-<fecha>.json`. */
+/** Descarga `respuestas-mt-<fecha>.json`. */
 export function descargarBorrador(b          )       {
   const blob = new Blob([serializarBorrador(b)], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   const fecha = b.fecha.replace(/[^0-9A-Za-z-]+/g, '') || 'sin-fecha';
   a.href = url;
-  a.download = `borrador-mt-${fecha}.json`;
+  a.download = `respuestas-mt-${fecha}.json`;
   document.body.appendChild(a);
   a.click();
   a.remove();

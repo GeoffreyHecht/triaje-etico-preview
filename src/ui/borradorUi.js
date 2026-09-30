@@ -29,7 +29,7 @@ async function importar(s        , archivo      )                {
 }
 
 /**
- * Zona «Borrador» de la cabecera (05-diseno §7.1): exportar, retomar desde un archivo y borrar,
+ * Zona «Respuestas guardadas» de la cabecera (05-diseno §7.1): exportar, retomar desde un archivo y borrar,
  * juntas y disponibles en todas las pantallas. `borrar` pide la confirmación y limpia el estado.
  */
 export function menuBorrador(s        , borrar            )              {

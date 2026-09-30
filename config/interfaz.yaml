@@ -3,21 +3,21 @@
 tituloApp: Triaje Ético MT
 subtituloApp: Comité de Ética, Bioética y Bioseguridad (CEBB-FI)
 logoAlt: Facultad de Ingeniería, Universidad de Concepción
-avisoPrivacidad: "Los datos ingresados permanecen en este navegador: no se envían a ningún servidor. Solo salen del equipo en el correo que envía el propio profesor guía al CEBB. El navegador puede guardar un borrador local para retomar el trabajo después; se exporta, se retoma o se elimina desde «Borrador», en la cabecera."
+avisoPrivacidad: "Los datos ingresados permanecen en este navegador: no se envían a ningún servidor. Solo salen del equipo en el correo que envía el propio profesor guía al CEBB. El navegador guarda las respuestas para retomar el trabajo después; se descargan, se retoman o se borran desde «Respuestas guardadas», en la cabecera."
 borrarDatos: Borrar datos
 confirmarBorrar: "¿Borrar todos los datos y respuestas guardados en este navegador? Esta acción no se puede deshacer."
-exportarBorrador: Exportar borrador
+exportarBorrador: Descargar las respuestas en un archivo
 avisoExportar: "Este archivo contiene datos personales del IR y del estudiante. No debe compartirse ni enviarse por canales no institucionales; conviene guardarlo en la cuenta institucional."
-borradorOtraVersion: "El borrador fue creado con otra versión de la configuración ({ajustes.version} es la vigente). Se deben revisar las respuestas."
+borradorOtraVersion: "Las respuestas se guardaron con otra versión de la configuración ({ajustes.version} es la vigente). Se deben revisar las respuestas."
 borradorDescartadas: "Se descartaron respuestas de preguntas u opciones que ya no existen:"
-borradorNoSeGuarda: "No fue posible guardar el borrador en este navegador. Se recomienda exportar un borrador para no perder el trabajo."
+borradorNoSeGuarda: "No fue posible guardar las respuestas en este navegador. Se recomienda descargarlas en un archivo para no perder el trabajo."
 errorBorrador_json_invalido: El archivo no es un JSON válido.
-errorBorrador_forma_invalida: El archivo no tiene la forma de un borrador de esta herramienta.
-errorBorrador_pregunta_desconocida: El borrador contiene una pregunta que no existe en esta versión.
-errorBorrador_valor_desconocido: El borrador contiene una respuesta que no existe en esta versión.
-errorBorrador_dato_desconocido: El borrador contiene un campo de datos que no existe en esta versión.
-errorBorrador_regla_desconocida: El borrador contiene una regla que no existe en esta versión.
-errorBorrador_combinacion_exclusiva: El borrador combina una opción exclusiva (como «ninguna» o «no estoy seguro/a») con otras opciones.
+errorBorrador_forma_invalida: El archivo no es un archivo de respuestas de esta herramienta.
+errorBorrador_pregunta_desconocida: El archivo contiene una pregunta que no existe en esta versión.
+errorBorrador_valor_desconocido: El archivo contiene una respuesta que no existe en esta versión.
+errorBorrador_dato_desconocido: El archivo contiene un campo de datos que no existe en esta versión.
+errorBorrador_regla_desconocida: El archivo contiene una regla que no existe en esta versión.
+errorBorrador_combinacion_exclusiva: El archivo combina una opción exclusiva (como «ninguna» o «no estoy seguro/a») con otras opciones.
 pendientes: Preguntas pendientes
 anterior: Anterior
 siguiente: Siguiente
@@ -79,13 +79,14 @@ cuerpoCompleto: Cuerpo completo del correo
 copiado: Copiado al portapapeles.
 copiarFallo: No fue posible copiar automáticamente; el texto se debe seleccionar y copiar a mano.
 correoAviso: "Un enlace de correo no puede adjuntar archivos: cada documento se debe adjuntar a mano como un PDF independiente. El envío lo decide el profesor guía; la herramienta no envía nada."
-borradorTitulo: Borrador
-borradorAutoguardado: Las respuestas se guardan solas en este navegador. Para continuar en otro equipo, se exporta el borrador y se retoma desde el archivo.
-borradorRestaurado: Se restauró el borrador guardado en este navegador.
-borradorImportado: Se importó el borrador.
-importacionFallida: No se importó el borrador; se conservaron las respuestas actuales.
+borradorTitulo: Respuestas guardadas
+borradorAutoguardado: Las respuestas se guardan solas en este navegador. Para continuar en otro equipo, se descargan en un archivo y se retoman desde él.
+borradorRestaurado: Se recuperaron las respuestas guardadas en este navegador.
+descartarBorrador: Descartar y empezar de cero
+borradorImportado: Se cargaron las respuestas del archivo.
+importacionFallida: No se cargó el archivo; se conservaron las respuestas actuales.
 datosBorrados: Se borraron los datos de este navegador.
-borrarNoPosible: No fue posible borrar el borrador guardado en este navegador; se debe borrar desde la configuración del navegador.
+borrarNoPosible: No fue posible borrar las respuestas guardadas en este navegador; se debe borrar desde la configuración del navegador.
 cerrarAviso: Cerrar aviso
 # --- Claves agregadas por W5a.b (resultado) ---
 sinDecisivosNivel0: Ninguna respuesta activó compromisos ni revisión del CEBB.

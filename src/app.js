@@ -115,8 +115,9 @@ function arrancar(raiz             , config        )       {
   // Esqueleto de la página (se arma una vez)
   // ---------------------------------------------------------------------
   document.title = t('tituloApp');
-  // Zona «Borrador» de la cabecera: exportar, retomar y borrar juntos (05-diseno §7.1; REQ-43 a 45).
-  const zonaBorrador = menuBorrador(s, () => {
+  // Zona «Respuestas guardadas» de la cabecera: exportar, retomar y borrar juntos (05-diseno §7.1; REQ-43 a 45).
+  // También lo usa el aviso de borrador restaurado (descartar y empezar de cero).
+  function borrarTodo()       {
     if (!window.confirm(t('confirmarBorrar'))) return;
     const ok = borrarLocal(almacen);
     const limpio = calcular(estadoInicial(), config);
@@ -129,7 +130,8 @@ function arrancar(raiz             , config        )       {
     if (almacen !== null && !ok) avisos.push({ tipo: 'error', texto: t('borrarNoPosible'), fijo: true });
     else avisos.push({ tipo: 'info', texto: t('datosBorrados') });
     dibujar('titulo');
-  });
+  }
+  const zonaBorrador = menuBorrador(s, borrarTodo);
 
   const navPasos = h('ol', { class: 'pasos' });
   const cajaAvisos = h('div', { id: 'avisos', class: 'avisos', role: 'status', 'aria-live': 'polite' });
@@ -201,7 +203,12 @@ function arrancar(raiz             , config        )       {
       const detalles = a.detalles !== undefined && a.detalles.length > 0
         ? h('ul', {}, ...a.detalles.map((d) => h('li', {}, d)))
         : null;
-      cajaAvisos.append(h('div', { class: `aviso aviso-${a.tipo}` }, h('div', { class: 'aviso-texto' }, h('p', {}, a.texto), detalles), cerrar));
+      let accion                     = null;
+      if (a.accion !== undefined) {
+        accion = h('button', { type: 'button', class: 'secundario accion-aviso' }, a.accion.texto);
+        accion.addEventListener('click', a.accion.ejecutar);
+      }
+      cajaAvisos.append(h('div', { class: `aviso aviso-${a.tipo}` }, h('div', { class: 'aviso-texto' }, h('p', {}, a.texto), detalles, accion), cerrar));
     });
   }
 
@@ -240,7 +247,7 @@ function arrancar(raiz             , config        )       {
   if (previo !== null) {
     if (previo.ok) {
       fijar(aplicarBorrador(config, previo.borrador));
-      avisos.push({ tipo: 'info', texto: t('borradorRestaurado') });
+      avisos.push({ tipo: 'info', texto: t('borradorRestaurado'), accion: { texto: t('descartarBorrador'), ejecutar: borrarTodo } });
       if (previo.otraVersion) avisos.push({ tipo: 'info', texto: t('borradorOtraVersion') });
       if (previo.descartadas.length > 0) avisos.push({ tipo: 'info', texto: t('borradorDescartadas'), detalles: previo.descartadas });
     } else {
