@@ -1,0 +1,101 @@
+# Textos de la interfaz (05-diseno §7.3). Conjunto mínimo provisional; W4.a lo completa.
+# BORRADOR — requiere validación CEBB/Dirección Jurídica UdeC.
+tituloApp: Triaje Ético MT
+subtituloApp: Comité de Ética, Bioética y Bioseguridad (CEBB-FI)
+logoAlt: Facultad de Ingeniería, Universidad de Concepción
+avisoPrivacidad: "Los datos ingresados permanecen en este navegador: no se envían a ningún servidor. Solo salen del equipo en el correo que envía el propio profesor guía al CEBB. El navegador puede guardar un borrador local para retomar el trabajo después; se exporta, se retoma o se elimina desde «Borrador», en la cabecera."
+borrarDatos: Borrar datos
+confirmarBorrar: "¿Borrar todos los datos y respuestas guardados en este navegador? Esta acción no se puede deshacer."
+exportarBorrador: Exportar borrador
+avisoExportar: "Este archivo contiene datos personales del IR y del estudiante. No debe compartirse ni enviarse por canales no institucionales; conviene guardarlo en la cuenta institucional."
+borradorOtraVersion: "El borrador fue creado con otra versión de la configuración ({ajustes.version} es la vigente). Se deben revisar las respuestas."
+borradorDescartadas: "Se descartaron respuestas de preguntas u opciones que ya no existen:"
+borradorNoSeGuarda: "No fue posible guardar el borrador en este navegador. Se recomienda exportar un borrador para no perder el trabajo."
+errorBorrador_json_invalido: El archivo no es un JSON válido.
+errorBorrador_forma_invalida: El archivo no tiene la forma de un borrador de esta herramienta.
+errorBorrador_pregunta_desconocida: El borrador contiene una pregunta que no existe en esta versión.
+errorBorrador_valor_desconocido: El borrador contiene una respuesta que no existe en esta versión.
+errorBorrador_dato_desconocido: El borrador contiene un campo de datos que no existe en esta versión.
+errorBorrador_regla_desconocida: El borrador contiene una regla que no existe en esta versión.
+errorBorrador_combinacion_exclusiva: El borrador combina una opción exclusiva (como «ninguna» o «no estoy seguro/a») con otras opciones.
+pendientes: Preguntas pendientes
+anterior: Anterior
+siguiente: Siguiente
+imprimir: Imprimir o guardar como PDF
+descargarDoc: Descargar .doc
+abrirCorreo: Abrir correo
+copiarCorreo: Copiar correo
+correoRecortado: El comentario se recortó para que el enlace del correo funcione; el cuerpo completo se puede copiar desde el cuadro de abajo.
+adjuntosVerificar: Antes de enviar el correo, se debe verificar que se adjuntan estos documentos.
+version: "Versión de la configuración: {ajustes.version}"
+# --- Claves agregadas por W4.a (pantallas, resultado, borrador) ---
+saltarAlContenido: Saltar al contenido
+pasosEtiqueta: Pasos del asistente
+pasoInicio: Inicio
+pasoCuestionario: Cuestionario
+pasoResultado: Resultado
+pasoDocumentos: Documentos
+tituloInicio: Triaje ético de la Memoria de Título
+introInicio: "Esta herramienta determina, a partir de unas pocas preguntas sobre la MT, qué trámite ético corresponde y prepara los documentos necesarios. El orden es: preguntas, nivel y documentos. Toma alrededor de 15 minutos."
+privacidadTitulo: Privacidad
+tituloResultado: Resultado
+avisoCampoVacio: Este dato está vacío; en los documentos aparecerá como «[completar]».
+ayudaResumen: Ayuda
+indicacionUnica: Se debe elegir una opción.
+indicacionMultiple: Se pueden marcar varias opciones.
+nivelPalabra: Nivel
+sinMotivos: "Aún no hay motivos: se debe responder el cuestionario."
+motivoFlecha: →
+motivoGlobal: Condición del proyecto
+efectoNivel: Nivel
+efectoPaquetes: Paquetes
+efectoAnexos: Anexos
+efectoSecciones: Secciones del formulario de antecedentes
+efectoAlertas: Alertas
+resultadoProvisional: El resultado y los documentos se muestran cuando todas las preguntas estén respondidas. Faltan las siguientes.
+pendientesIr: Ir a la pantalla de esta pregunta
+motivosTitulo: Por qué este nivel
+alertasTitulo: Alertas
+reglasTitulo: Reglas que se aplican al proyecto
+# Aceptación de reglas (05-diseno §7.1; REQ-70). %n = número de reglas.
+reglasIntroNivel1: "Al firmar el compromiso, el profesor guía y el estudiante aceptan estas %n reglas. Si alguna no se puede cumplir, se marca en la lista: el CEBB revisará ese punto."
+reglasIntroNivel2: "Estas %n reglas prellenan el formulario de antecedentes. Si alguna no se puede cumplir, se marca en la lista: su respuesta queda para redactarla."
+reglasTodasAceptadas: Todas las reglas están aceptadas.
+reglasNoAceptadasTitulo: Reglas marcadas como no aceptadas
+reglaVolverAceptar: Volver a aceptar
+reglasRevisar: Revisar las reglas y marcar las que no se pueden cumplir
+reglasVer: Ver las reglas
+reglasOcultar: Ocultar las reglas
+reglaNoSePuedeCumplir: No se puede cumplir
+reglaNoAceptadaEtiqueta: No aceptada
+motivoReglaNoAceptada: Regla no aceptada
+fundamento: Fundamento
+correoTitulo: Enviar el correo al CEBB
+correoPara: Para
+correoAsunto: Asunto
+adjuntosTitulo: Documentos por adjuntar
+adjuntoEnlace: Ver enlace de ayuda
+cuerpoCompleto: Cuerpo completo del correo
+copiado: Copiado al portapapeles.
+copiarFallo: No fue posible copiar automáticamente; el texto se debe seleccionar y copiar a mano.
+correoAviso: "Un enlace de correo no puede adjuntar archivos: cada documento se debe adjuntar a mano como un PDF independiente. El envío lo decide el profesor guía; la herramienta no envía nada."
+borradorTitulo: Borrador
+borradorAutoguardado: Las respuestas se guardan solas en este navegador. Para continuar en otro equipo, se exporta el borrador y se retoma desde el archivo.
+borradorRestaurado: Se restauró el borrador guardado en este navegador.
+borradorImportado: Se importó el borrador.
+importacionFallida: No se importó el borrador; se conservaron las respuestas actuales.
+datosBorrados: Se borraron los datos de este navegador.
+borrarNoPosible: No fue posible borrar el borrador guardado en este navegador; se debe borrar desde la configuración del navegador.
+cerrarAviso: Cerrar aviso
+# --- Claves agregadas por W5a.b (resultado) ---
+sinDecisivosNivel0: Ninguna respuesta activó compromisos ni revisión del CEBB.
+todasRespuestas: Todas las respuestas y sus efectos
+# --- Claves agregadas por W6.a (flujo con documentos al final) ---
+comenzar: Comenzar
+retomarResumen: Retomar desde un archivo
+prepararDocumentos: Preparar los documentos
+tituloDocumentos: Documentos
+introDocumentos: Los pasos siguientes preparan lo que se envía al CEBB. Los datos solo se usan para rellenar los documentos y no cambian el nivel.
+pasoDatosProyecto: Completar los datos del proyecto
+datosFaltantesUno: "Falta 1 dato: aparecerá como «[completar]» en los documentos."
+datosFaltantes: "Faltan %n datos: aparecerán como «[completar]» en los documentos."

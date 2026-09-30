@@ -1,0 +1,1080 @@
+# Paquetes de reglas y compromisos (specs/03-compromisos.md, REQ-11, 31, 38, 57, 58).
+# Todos los textos son BORRADOR hasta la validación de CEBB y de la Dirección Jurídica UdeC.
+# Los anclajes YAML (&x / *x) reutilizan condiciones y motivos idénticos dentro de este archivo.
+borrador: "BORRADOR — requiere validación CEBB/Dirección Jurídica UdeC"
+# Regla que el IR declara que no puede cumplir (03-compromisos §1, «Reglas no aceptadas»; REQ-71, 72).
+noAceptada:
+  motivo: El IR declara que no puede cumplir la regla
+  # Continúa el prefijo textos.DOC-F04.noPrellenado («No se prellenó porque»), como los demás motivoExclusion.
+  motivoExclusion: >-
+    se declaró que no se puede cumplir esta regla: se debe agregar lo que se hará en su lugar.
+  notaCI: >-
+    Se declaró que no se puede cumplir la regla correspondiente a este elemento: se debe redactar con lo que
+    se hará en su lugar y adaptar el resto del consentimiento.
+paquetes:
+  # ---------------------------------------------------------------------------
+  - id: RP-PERS
+    nombre: Participación de personas
+    proposito: >-
+      Asegurar participación libre, informada y de riesgo mínimo de adultos en encuestas, entrevistas, pruebas de usabilidad, observación no encubierta o intervenciones de riesgo mínimo.
+    reglas:
+      - id: RP-PERS.1
+        titulo: Participación voluntaria y sin perjuicio
+        compromiso: >-
+          La participación en «{D-TITULO}» será voluntaria. Nadie será presionado a participar y negarse no tendrá consecuencias académicas, laborales ni de otro tipo.
+        fundamento: >-
+          CIOMS pauta 9 (consentimiento informado) [verificar]; Recomendaciones CEBB-FI §II.1 (seguridad, dignidad y autonomía) y §II.3.
+        respuestas:
+          - item: F04-1.6
+            texto: >-
+              La participación es voluntaria y quien decline no sufre perjuicio alguno. La dignidad y la autonomía se resguardan porque solo se participa tras informarse y consentir libremente, sin presión del equipo ni de terceros.
+
+      - id: RP-PERS.2
+        titulo: Consentimiento informado previo según modelo CEBB
+        compromiso: >-
+          Antes de recolectar cualquier dato se obtendrá el consentimiento informado de cada participante, con el modelo del CEBB-VRID ({ajustes.urlModeloCI}) adaptado a esta MT. No se usarán datos de quien no lo haya otorgado.
+        fundamento: >-
+          Ley 21.719, art. 12 (consentimiento previo e informado) y art. 2 p (definición; sirve una clara acción afirmativa); CIOMS pauta 9 [verificar] y pauta 12; Recomendaciones CEBB-FI §II.3.
+        respuestas:
+          - item: F04-1.6
+            texto: >-
+              Cada participante recibe y acepta un consentimiento informado previo a su participación, basado en el modelo del CEBB-VRID.
+          - item: F04-II-3
+            texto: >-
+              Se adjunta el consentimiento informado, basado en el modelo del CEBB-VRID. Está redactado en lenguaje comprensible para adultos, expone el objetivo, el procedimiento, la duración, los riesgos y beneficios, los contactos del equipo y del CEBB, el derecho a retirarse, el tratamiento de datos y la difusión de resultados, e incluye espacio para las firmas del participante, del investigador y del ministro de fe.
+          - item: F04-II-3
+            texto: No se solicita dispensa del consentimiento.
+            excluirSi: { p: P-PER-04, incluyeAlguno: ["si", "nose"] }
+            motivoExclusion: >-
+              hay engaño u ocultación del objetivo (o no se sabe si los hay) y puede requerirse una dispensa del consentimiento, que debe redactar el IR.
+        variantes:
+          - clave: casilla_mixta
+            si: { todas: [ { cond: CI_CASILLA }, { p: P-PER-08, es: mixta } ] }
+            compromiso: >-
+              El consentimiento se obtendrá según el canal de aplicación. En el formulario en línea, se dará con una casilla de aceptación al inicio, después de leer la información del estudio, y quien no acepte no accederá al cuestionario. En la aplicación en papel se usará el consentimiento informado estándar firmado, con el modelo del CEBB-VRID ({ajustes.urlModeloCI}). Los consentimientos firmados se guardarán separados de los cuestionarios, sin códigos ni marcas que permitan vincularlos con las respuestas, bajo custodia del IR durante {ajustes.conservacionRespaldoMeses} meses, y luego se destruirán de forma segura. En ningún caso se asociarán firmas ni identificadores a las respuestas.
+            respuestas:
+              - item: F04-1.6
+                texto: >-
+                  Cada participante acepta participar antes de responder: en línea, marcando una casilla tras leer la información del estudio (sin aceptación no se accede al cuestionario); en papel, firmando el consentimiento informado estándar. Los consentimientos firmados se guardan separados de los cuestionarios y no se vinculan con las respuestas, lo que protege el anonimato.
+              - item: F04-II-3
+                texto: >-
+                  Se adjunta el consentimiento informado en dos versiones: (a) para la aplicación en línea, el texto de información al inicio del formulario con aceptación por casilla («Acepto participar» / «No acepto»), sin firmas ni ministro de fe; (b) para la aplicación en papel, el consentimiento estándar basado en el modelo del CEBB-VRID, con espacio para las firmas del participante, del investigador y del ministro de fe. Los consentimientos firmados se guardan separados de los cuestionarios y no se vinculan con las respuestas. Ambas versiones incluyen objetivo, procedimiento, duración, riesgos y beneficios, contactos del equipo y del CEBB, derecho a retirarse y tratamiento de datos.
+              - item: F04-II-3
+                texto: No se solicita dispensa del consentimiento.
+                excluirSi: { p: P-PER-04, incluyeAlguno: ["si", "nose"] }
+                motivoExclusion: >-
+                  hay engaño u ocultación del objetivo (o no se sabe si los hay) y puede requerirse una dispensa del consentimiento, que debe redactar el IR.
+          - clave: casilla
+            si: { cond: CI_CASILLA }
+            compromiso: >-
+              El consentimiento se dará con una casilla de aceptación al inicio del formulario en línea, después de leer la información del estudio. No se recogerán firmas ni intervendrá ministro de fe, para no vincular la identidad con las respuestas. Quien no acepte no accederá al cuestionario.
+            respuestas:
+              - item: F04-1.6
+                texto: >-
+                  Al inicio del formulario en línea cada participante lee la información del estudio y acepta participar marcando una casilla; sin aceptación no se accede al cuestionario. No se recogen firmas ni identificadores, lo que protege el anonimato.
+              - item: F04-II-3
+                texto: >-
+                  Se adjunta el consentimiento informado en versión de encuesta anónima en línea: el texto de información se muestra al inicio del formulario y se acepta con una casilla («Acepto participar» / «No acepto»). No incluye firmas ni ministro de fe, porque la encuesta es anónima y las firmas identificarían a los participantes. Incluye objetivo, procedimiento, duración, riesgos y beneficios, contactos del equipo y del CEBB, derecho a retirarse (cerrar el formulario antes de enviarlo) y tratamiento de datos.
+              - item: F04-II-3
+                texto: No se solicita dispensa del consentimiento.
+                excluirSi: { p: P-PER-04, incluyeAlguno: ["si", "nose"] }
+                motivoExclusion: >-
+                  hay engaño u ocultación del objetivo (o no se sabe si los hay) y puede requerirse una dispensa del consentimiento, que debe redactar el IR.
+
+      - id: RP-PERS.3
+        titulo: Derecho a retirarse en cualquier momento sin expresión de causa
+        compromiso: >-
+          Cada participante podrá retirarse en cualquier momento, sin dar razones y sin perjuicio. El consentimiento informado explicará qué ocurre con los datos ya recolectados.
+        fundamento: >-
+          CIOMS pauta 9 [verificar]; Recomendaciones CEBB-FI §II.3 (derecho de retiro).
+        respuestas:
+          - item: F04-1.6
+            texto: >-
+              Se informa a los participantes que pueden retirarse en cualquier momento sin expresar causa ni sufrir perjuicio personal.
+
+      - id: RP-PERS.4
+        titulo: Solo adultos capaces de consentir; sin grupos vulnerables ni subordinación
+        compromiso: >-
+          Solo participarán personas de 18 años o más capaces de consentir por sí mismas. No se reclutará a personas en situación de vulnerabilidad ni con relación de dependencia o subordinación con el equipo (p. ej., estudiantes del propio IR).
+        fundamento: >-
+          CIOMS pauta 15 (grupos vulnerables) [verificar] y pauta 9 [verificar]; Recomendaciones CEBB-FI §II.1 (medidas para vulnerables; criterios de inclusión y exclusión equitativos).
+        respuestas:
+          - item: F04-1.7
+            texto: >-
+              No aplica: la MT incluye solo adultos capaces de consentir y excluye a personas en situación de vulnerabilidad y a quienes tengan relación de subordinación con el equipo.
+            excluirSi: &excl_pers4 { p: P-PER-03, algunaSalvo: [ninguno] }
+            motivoExclusion: >-
+              se declararon participantes de grupos vulnerables o con relación de subordinación con el equipo (o no se sabe si los hay), y el IR debe describir las protecciones correspondientes.
+          - item: F04-1.11
+            texto: >-
+              Se incluye a adultos que cumplan el perfil descrito en la población objetivo. La exclusión se limita a menores de edad, personas que no puedan consentir por sí mismas, grupos vulnerables y quienes dependan del equipo, y no se discrimina por otras características.
+            excluirSi: *excl_pers4
+            motivoExclusion: >-
+              se declararon participantes de grupos vulnerables o con relación de subordinación con el equipo (o no se sabe si los hay), y el IR debe redactar los criterios de inclusión y exclusión.
+
+      - id: RP-PERS.5
+        titulo: Sin incentivos que afecten la voluntariedad
+        compromiso: >-
+          No se ofrecerá ningún incentivo que pueda influir en la decisión de participar (montos relevantes, notas u otros beneficios académicos). Solo se admite un incentivo simbólico que no condicione la participación, y se informará en el consentimiento.
+        fundamento: >-
+          CIOMS pauta 13 (reembolso y compensación) [verificar]; Recomendaciones CEBB-FI §II.3 (costos y compensaciones).
+        respuestas:
+          - item: F04-1.6
+            texto: >-
+              No se ofrecen incentivos que afecten la voluntariedad; si hay algún reconocimiento simbólico, no condiciona la participación y se informa en el consentimiento.
+            excluirSi: { p: P-PER-06, es: relevante }
+            motivoExclusion: >-
+              se declaró un incentivo relevante que puede influir en la decisión de participar, y el IR debe justificarlo.
+
+      - id: RP-PERS.6
+        titulo: "Riesgo mínimo: omitir preguntas e interrumpir ante incomodidad"
+        compromiso: >-
+          La MT no superará el riesgo mínimo. Los participantes podrán omitir cualquier pregunta o tarea, o interrumpir la actividad en cualquier momento, y el equipo se detendrá ante señales de incomodidad. Si la incomodidad persiste, se sugerirá apoyo o derivación adecuada.
+        fundamento: >-
+          CIOMS pauta 4 (riesgos y beneficios) [verificar]; Recomendaciones CEBB-FI §II.1 y §II.2 (medidas ante incomodidad).
+        respuestas:
+          - item: F04-1.8
+            texto: >-
+              El riesgo es mínimo: eventual incomodidad por el tiempo requerido o por el contenido de la actividad, y riesgos a la confidencialidad de los datos, mitigados con las medidas de protección de datos descritas. No se abordan temas de riesgo (violencia, trauma, ilícitos, desempeño) ni se tratan datos personales sensibles.
+            excluirSi: &excl_pers6
+              alguna:
+                - { p: P-DAT-02, incluyeAlguno: [violencia_trauma, ilicitos, desempeno, nose] }
+                - { p: P-PER-04, incluyeAlguno: ["si", "nose"] }
+                - { cond: RIESGO_PROC }
+            motivoExclusion: &mot_pers6 >-
+              hay temas de riesgo, engaño (o no se sabe si los hay), una intervención con elementos de riesgo (o no se sabe si los tiene) o mediciones fisiológicas, y la MT podría superar el riesgo mínimo; el IR debe redactar los riesgos y su mitigación.
+          - item: F04-1.9
+            texto: >-
+              Los participantes pueden omitir preguntas o tareas, o interrumpir cuando quieran. El equipo suspende la actividad ante incomodidad. Los instrumentos se limitan a lo necesario y los datos se protegen conforme al plan de gestión de datos.
+            excluirSi: *excl_pers6
+            motivoExclusion: *mot_pers6
+          - item: F04-2.3
+            texto: >-
+              Antes de comenzar se informa que pueden omitir preguntas o tareas, o interrumpir. Si un participante manifiesta incomodidad, se detiene la actividad y, si corresponde, se le sugiere apoyo o derivación adecuada.
+            excluirSi: *excl_pers6
+            motivoExclusion: *mot_pers6
+
+      - id: RP-PERS.7
+        titulo: Autorización de la organización donde se recluta o actúa
+        aplicaCuando: { p: P-PER-07, incluyeAlguno: ["si", "nose"] }
+        compromiso: >-
+          Antes de reclutar o realizar actividades en «{D-ORG-EXTERNA}», el IR obtendrá autorización escrita de la organización y la adjuntará al envío. La organización no tendrá acceso a respuestas individuales.
+        fundamento: >-
+          Recomendaciones CEBB-FI §I y §II.1; UdeC Política de Protección de Datos Personales [verificar].
+        respuestas: []
+
+      - id: RP-PERS.8
+        titulo: Devolución de resultados agregados
+        compromiso: >-
+          Al concluir la MT, el equipo informará los resultados agregados a los participantes que lo deseen, sin identificar a personas.
+        fundamento: >-
+          CIOMS pauta 12 (gobernanza y uso de los datos) [verificar aplicabilidad al retorno de resultados]; Recomendaciones CEBB-FI §II.1.
+        respuestas:
+          - item: F04-1.14
+            texto: >-
+              Al concluir el estudio se ofrecerá a los participantes un resumen de resultados agregados, por el medio que hayan indicado (consentimiento).
+          - item: F04-1.15
+            texto: >-
+              No aplica, porque no participa ninguna institución.
+        variantes:
+          - clave: con_organizacion
+            si: { p: P-PER-07, incluyeAlguno: ["si", "nose"] }
+            compromiso: >-
+              Al concluir la MT, el equipo informará los resultados agregados a los participantes que lo deseen y a «{D-ORG-EXTERNA}», sin identificar a personas.
+            respuestas:
+              - item: F04-1.14
+                texto: >-
+                  Al concluir el estudio se ofrecerá a los participantes un resumen de resultados agregados, por el medio que hayan indicado (consentimiento).
+              - item: F04-1.15
+                texto: >-
+                  Se entregará a la organización participante ({D-ORG-EXTERNA}) un informe de resultados agregados, sin datos individuales ni identificación de personas.
+
+      - id: RP-PERS.9
+        titulo: Instrumentos revisados por el IR
+        compromiso: >-
+          El IR revisará los instrumentos y materiales que se usarán con los participantes antes de su uso, verificando su pertinencia y su lenguaje comprensible para la población, y los conservará junto a este compromiso.
+        fundamento: >-
+          Recomendaciones CEBB-FI §II.2 (preguntas pertinentes y sin ambigüedades; adecuación del lenguaje).
+        respuestas:
+          - item: F04-2.2
+            texto: >-
+              Los instrumentos derivan directamente de los objetivos. Cada pregunta se justifica en ellos y fue revisada por el IR para evitar ambigüedades y ajustar el lenguaje a la población. Se adjuntan.
+
+      - id: RP-PERS.10
+        titulo: "Encuestas anónimas: tramos, sin singularización, reporte agregado"
+        aplicaCuando: { p: P-PER-02, es: anonimo }
+        compromiso: >-
+          En encuestas anónimas no se registrarán nombre, correo, RUT, IP ni marcas de tiempo que permitan vincular respuestas con personas. Las variables sensibles o cuasi-identificadoras (p. ej., ingresos, edad, comuna) se preguntarán en tramos gruesos y las preguntas demográficas se limitarán al mínimo necesario. Los resultados se reportarán solo de forma agregada, con grupos de al menos 5 personas. Si hay sorteo, la inscripción se hará en un formulario separado y no vinculable a las respuestas, y los correos se borrarán después del sorteo. El CI indicará que las respuestas son anónimas y que la inscripción al sorteo es confidencial.
+        fundamento: >-
+          Ley 21.719, art. 2 k (el dato verdaderamente anonimizado deja de ser dato personal) y art. 2 f (identificable según los medios razonables de identificación; riesgo con muestras pequeñas); CIOMS pauta 12; Recomendaciones CEBB-FI §II.2 (confidencialidad y anonimato) y §IV.
+        respuestas:
+          - item: F04-2.1
+            texto: >-
+              La encuesta es anónima: no se recogen nombre, correo, RUT, IP ni marcas de tiempo vinculables, y las variables sensibles o cuasi-identificadoras se piden en tramos gruesos, con pocas preguntas demográficas. Si hay sorteo, se hace en un formulario separado y no vinculable, y los correos se borran tras el sorteo. Los resultados se reportan solo de forma agregada.
+            excluirSi: &excl_pers10 { p: P-DAT-02, incluyeAlguno: [salud, biometricos, etnia, convicciones, sexualidad, nose] }
+            motivoExclusion: &mot_pers10 >-
+              se declararon datos sensibles (o no se sabe si los hay), lo que contradice el carácter anónimo de la encuesta; el IR debe describir cómo se protege la confidencialidad.
+          - item: F04-7.14
+            texto: >-
+              Para evitar la reidentificación se usan tramos gruesos, se limitan las variables demográficas y se reporta solo con grupos de al menos 5 personas; los grupos menores se agregan o se suprimen. Los datos no se cruzan con otras fuentes.
+            excluirSi: *excl_pers10
+            motivoExclusion: *mot_pers10
+
+      - id: RP-PERS.11
+        titulo: "Intervención de riesgo mínimo: condiciones habituales, sin privar de beneficios ni afectar evaluaciones"
+        aplicaCuando: { p: P-PER-09, es: [ninguno] }
+        compromiso: >-
+          Las condiciones que se comparen serán de uso habitual y no expondrán a los participantes a riesgos físicos ni emocionales mayores que los de la vida diaria. Ningún grupo recibirá menos que la práctica habitual, y la condición asignada no afectará notas, evaluaciones, remuneración ni condiciones de trabajo. Si el diseño cambia y aparece alguno de estos elementos, se solicitará la revisión del CEBB-FI antes de continuar.
+        fundamento: >-
+          CIOMS 2016 pauta 4 (riesgos y beneficios) [verificar] y pauta 5 (elección del control) [verificar]; Recomendaciones CEBB-FI §II.1.
+        respuestas:
+          - item: F04-1.8
+            texto: >-
+              La intervención compara condiciones de uso habitual; ningún grupo recibe menos que la práctica habitual y la condición asignada no afecta evaluaciones ni condiciones laborales. El riesgo no supera el de la vida diaria.
+          - item: F04-1.9
+            texto: >-
+              Las condiciones se eligen entre prácticas habituales y se revisan antes de aplicarlas; si el diseño cambia, se consulta al CEBB-FI antes de continuar.
+
+      - id: RP-PERS.12
+        titulo: "Intervención informada: condiciones y asignación en el CI; explicación al terminar"
+        aplicaCuando: { p: P-PER-01, incluye: intervencion }
+        compromiso: >-
+          El consentimiento informado indicará que el estudio compara condiciones distintas y cómo se asignan (p. ej., al azar), aunque no revele cuál recibirá cada persona. Al terminar se explicará a los participantes el propósito de cada condición y, si una resulta claramente más favorable, se ofrecerá también a quienes no la recibieron cuando sea factible.
+        fundamento: >-
+          CIOMS 2016 pauta 9 (consentimiento informado) [verificar]; Recomendaciones CEBB-FI §II.3.
+        respuestas:
+          - item: F04-1.6
+            texto: >-
+              El consentimiento informa que se comparan condiciones distintas y cómo se asignan; la participación sigue siendo voluntaria y revocable.
+          - item: F04-1.10
+            texto: >-
+              Al terminar se informa a los participantes el propósito de cada condición y los resultados agregados. Si una condición resulta claramente más favorable, se ofrece a quienes no la recibieron cuando es factible.
+            excluirSi: { cond: RIESGO_PROC }
+            motivoExclusion: >-
+              la intervención tiene elementos de riesgo (o no se sabe si los tiene) o hay mediciones fisiológicas, por lo que la información nueva y los posibles efectos adversos deben ser descritos por el IR.
+
+  # ---------------------------------------------------------------------------
+  - id: RP-DATOS
+    nombre: Protección de datos personales (Ley 21.719)
+    proposito: >-
+      Cumplir los deberes de la Ley 21.719 cuando la MT trata datos personales (incluidos los seudonimizados).
+    reglas:
+      - id: RP-DATOS.1
+        titulo: Finalidad específica, explícita y lícita
+        compromiso: >-
+          Los datos personales se tratarán solo para el fin declarado en «{D-OBJ-GENERAL}» y no se reutilizarán para otro fin.
+        fundamento: >-
+          Ley 21.719, art. 3 b (finalidad); CIOMS pauta 12; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.2
+            texto: >-
+              La finalidad es exclusivamente la descrita en el objetivo general de la MT: {D-OBJ-GENERAL}. Los datos no se reutilizarán para otros fines.
+
+      - id: RP-DATOS.2
+        titulo: Minimización de datos
+        compromiso: >-
+          Se recolectarán solo los datos necesarios, adecuados y pertinentes para la finalidad. Solo se pedirán identificadores (nombre, RUT, correo, IP) si son estrictamente necesarios, y no se pedirán datos personales sensibles.
+        fundamento: >-
+          Ley 21.719, art. 3 c (proporcionalidad: datos necesarios, adecuados y pertinentes); CIOMS pauta 12; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.1
+            texto: >-
+              Se tratan datos personales no sensibles (los que piden los instrumentos) y datos anonimizados en la fase de análisis. No se recolectan datos personales sensibles; con datos verdaderamente anónimos (encuesta anónima o dataset abierto anonimizado), una variable como la situación socioeconómica se pide o se usa en tramos gruesos y sin identificadores, por lo que no permite identificar a nadie (RP-PERS.10 o RP-SEC.3).
+            pista: listar las variables exactas y si hay identificadores
+            excluirSi:
+              alguna:
+                - { p: P-DAT-02, incluyeAlguno: [salud, biometricos, etnia, convicciones, sexualidad, violencia_trauma, ilicitos, desempeno, nose] }
+                - todas:
+                    - { p: P-DAT-02, incluye: socioeconomico }
+                    - { no: { cond: ANON_VERDADERO } }
+                - { p: P-PER-05, incluyeAlguno: [fisiologica, video_rostro] }
+            motivoExclusion: >-
+              hay datos sensibles o de riesgo (o no se sabe si los hay), mediciones fisiológicas, video con rostros o una variable socioeconómica sin datos verdaderamente anónimos, lo que contradice que solo se traten datos no sensibles; el IR debe listar las variables exactas.
+          - item: F04-7.2
+            texto: >-
+              La recolección se limita a las variables necesarias para los objetivos. Se descartaron los datos que no aportaban a la finalidad, en especial los identificadores directos que no eran necesarios.
+
+      - id: RP-DATOS.3
+        titulo: "Base de licitud: consentimiento del titular"
+        compromiso: >-
+          El tratamiento se fundará en el consentimiento libre, informado y específico del titular.
+        fundamento: >-
+          Ley 21.719, art. 12 (consentimiento como regla general) y art. 2 p; para datos sensibles, art. 16 (consentimiento expreso); CIOMS pauta 12; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.3
+            texto: >-
+              La base de licitud es el consentimiento del titular, otorgado por escrito o de forma registrada antes de la recolección.
+        variantes:
+          - clave: fuente_secundaria
+            si: &si_fuente_sec { todas: [ { paquete: RP-DATOS }, { no: { paquete: RP-PERS } } ] }
+            fundamento: >-
+              Ley 21.719, art. 16 quinquies (interés legítimo para tratar datos con fines de investigación de interés público, con medidas de calidad y seguridad acreditadas), en relación con el art. 13 d (interés legítimo); los datos sensibles siguen exigiendo consentimiento expreso (art. 16), por lo que quedan fuera del nivel 1. La aplicación de esta base al caso concreto requiere validación de la Dirección Jurídica [verificar].
+            compromiso: >-
+              La licitud del tratamiento se apoya en el interés legítimo de investigación (art. 16 quinquies), en las condiciones de la fuente al recolectar los datos (RP-SEC.1) y, cuando los entrega una institución, en su autorización formal (RP-SEC.2). No se solicitará consentimiento porque no hay contacto con los titulares.
+            respuestas:
+              - item: F04-7.3
+                texto: >-
+                  No hay consentimiento del titular porque no se contacta a las personas. La base de licitud es el interés legítimo con fines de investigación (Ley 21.719, art. 16 quinquies, en relación con el art. 13 d), junto con las condiciones de la fuente ({D-FUENTE-DATOS}) y, cuando los entrega una institución, su autorización formal. No se tratan datos sensibles.
+                excluirSi: &excl_fuente_sec { p: P-DAT-01, incluye: identificable }
+                motivoExclusion: &mot_fuente_sec >-
+                  se declararon datos identificables, por lo que no hay una fuente que haya informado a los titulares ni una base de licitud de origen; el IR debe redactar la respuesta.
+
+      - id: RP-DATOS.4
+        titulo: Deber de información en el CI
+        compromiso: >-
+          El consentimiento informará: la identidad del responsable (Universidad de Concepción) y del IR, las finalidades, los destinatarios (ninguno, salvo el equipo), el plazo de conservación (datos identificables o seudonimizados: {ajustes.conservacionMeses} meses; consentimientos firmados y conjunto anonimizado: {ajustes.conservacionRespaldoMeses} meses), la ausencia de transferencias, los derechos del titular y la vía para ejercerlos.
+        fundamento: >-
+          Ley 21.719, art. 3 g (transparencia e información) y art. 14 ter (información que publica el responsable: finalidades, base de licitud, derechos, transferencias, plazo de conservación i, fuente de los datos j, retiro del consentimiento k); Recomendaciones CEBB-FI §II.3 y §IV.
+        respuestas:
+          - item: F04-7.5
+            texto: >-
+              El consentimiento informado indica la identidad del responsable (Universidad de Concepción) y del IR, las finalidades, que no hay destinatarios fuera del equipo, el período de conservación (datos identificables o seudonimizados: {ajustes.conservacionMeses} meses; consentimientos firmados y conjunto anonimizado: {ajustes.conservacionRespaldoMeses} meses) y que no hay transferencias.
+        variantes:
+          - clave: fuente_secundaria
+            si: *si_fuente_sec
+            fundamento: >-
+              Ley 21.719, art. 14 ter (incl. fuente de los datos, letra j); la aplicación al caso requiere validación de la Dirección Jurídica [verificar].
+            compromiso: >-
+              No habrá CI porque no se contacta a los titulares. El IR verificará que la fuente informó a los titulares (o publicó un aviso equivalente) sobre el responsable, las finalidades y la posibilidad de uso en investigación, y conservará la constancia.
+            respuestas:
+              - item: F04-7.5
+                texto: >-
+                  No se contacta a los titulares, por lo que no hay CI. La información a los titulares la dio la fuente ({D-FUENTE-DATOS}) mediante su aviso o política de datos, cuya constancia conserva el IR. Los datos se conservan {ajustes.conservacionMeses} meses y no hay transferencias.
+                excluirSi: *excl_fuente_sec
+                motivoExclusion: *mot_fuente_sec
+
+      - id: RP-DATOS.5
+        titulo: Derechos ARSOP y portabilidad, vía institucional UdeC
+        compromiso: >-
+          Los participantes podrán ejercer sus derechos de acceso, rectificación, supresión, oposición y portabilidad por la vía institucional {ajustes.viaDerechos}, y el equipo colaborará para atenderlos oportunamente.
+        fundamento: >-
+          Ley 21.719, art. 4 (derechos, irrenunciables), arts. 5 a 8 (acceso, rectificación, supresión, oposición), art. 8 ter (bloqueo), art. 9 (portabilidad) y arts. 10 y 11 (ejercicio); la supresión y la oposición pueden no proceder con fines de investigación (art. 7, inciso final, letra v; art. 8); UdeC Política de Protección de Datos Personales [verificar]; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.6
+            texto: >-
+              El consentimiento informa los derechos de acceso, rectificación, supresión, oposición y portabilidad, y la vía institucional para ejercerlos: {ajustes.viaDerechos}.
+        variantes:
+          - clave: fuente_secundaria
+            si: *si_fuente_sec
+            compromiso: >-
+              Si un titular contacta al equipo para ejercer sus derechos, el IR lo derivará sin demora a {ajustes.viaDerechos} y a la fuente de los datos. Como los datos llegan anonimizados o seudonimizados, el equipo no podrá identificar al titular.
+            respuestas:
+              - item: F04-7.6
+                texto: >-
+                  No se contacta a los titulares. Cualquier solicitud que llegue al equipo se deriva a {ajustes.viaDerechos} y a la fuente de los datos; los datos llegan anonimizados o seudonimizados, por lo que el equipo no identifica a los titulares.
+                excluirSi: *excl_fuente_sec
+                motivoExclusion: *mot_fuente_sec
+
+      - id: RP-DATOS.6
+        titulo: Revocación del consentimiento y sus efectos
+        compromiso: >-
+          El consentimiento podrá revocarse en cualquier momento sin expresar causa. La revocación no tiene efectos retroactivos: no afecta lo ya tratado ni los resultados agregados o anonimizados, que no pueden desagregarse, y así se informará en el CI. Tras la revocación se dejará de tratar sus datos y se suprimirán los que aún sean identificables, cuando sea posible (p. ej., antes de su anonimización o análisis).
+        fundamento: >-
+          Ley 21.719, art. 12 inciso 4 (revocación sin expresión de causa y sin efectos retroactivos) y art. 14 ter k; la supresión puede no proceder con fines de investigación de interés público (art. 7, inciso final, letra v); CIOMS pauta 12; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.7
+            texto: >-
+              El consentimiento informa que puede revocarse en cualquier momento sin expresión de causa. Efectos: la revocación no es retroactiva y no afecta los resultados ya anonimizados o agregados, que no pueden desagregarse; desde la revocación se deja de tratar los datos de la persona y se suprimen los identificables cuando es posible, por ejemplo antes de anonimizarlos o analizarlos.
+        variantes:
+          - clave: fuente_secundaria
+            si: *si_fuente_sec
+            compromiso: >-
+              No aplica revocación del equipo porque el tratamiento no se funda en consentimiento. Si la fuente comunica que un titular retiró su consentimiento o pidió suprimir sus datos, el equipo eliminará esos registros que aún conserve.
+            respuestas:
+              - item: F04-7.7
+                texto: >-
+                  No aplica: el tratamiento no se funda en el consentimiento del titular, porque los datos secundarios los entrega la fuente y no hay contacto con las personas. Si la fuente informa una revocación o supresión, el equipo elimina esos registros.
+                excluirSi: *excl_fuente_sec
+                motivoExclusion: *mot_fuente_sec
+
+      - id: RP-DATOS.7
+        titulo: Seudonimización y custodia separada de la clave
+        compromiso: >-
+          Los identificadores que se registren se reemplazarán por códigos para el análisis, y la tabla de correspondencia se guardará cifrada, separada de los datos y accesible solo al IR.
+        fundamento: >-
+          Ley 21.719, art. 2 l (seudonimización: información adicional guardada por separado) y art. 14 quinquies (medidas de seguridad); CIOMS pauta 12; Recomendaciones CEBB-FI §IV y §II.2.
+        respuestas:
+          - item: F04-7.9
+            texto: >-
+              Los identificadores registrados se reemplazan por códigos y la clave se guarda cifrada, separada de los datos, con acceso solo del IR.
+            excluirSi: &excl_datos7 { p: P-PER-02, es: identificado }
+            motivoExclusion: &mot_datos7 >-
+              los participantes se registran con identificación directa, por lo que la clave es de identificación directa y el IR debe describir su custodia.
+          - item: F04-2.1
+            texto: >-
+              La confidencialidad se asegura evitando identificadores directos (o reemplazándolos por códigos), con custodia separada de la clave, acceso restringido y reporte solo agregado. El anonimato se conserva porque los resultados nunca se presentan de forma individual.
+            excluirSi: *excl_datos7
+            motivoExclusion: *mot_datos7
+        variantes:
+          - clave: clave_en_fuente
+            si: { p: P-DAT-01, incluye: institucional }
+            compromiso: >-
+              Los datos que entrega la institución llegan seudonimizados y la clave queda en ella; el equipo no intentará obtenerla. Los identificadores que registre el propio equipo se reemplazarán por códigos, con la tabla de correspondencia cifrada, separada de los datos y accesible solo al IR.
+            respuestas:
+              - item: F04-7.9
+                texto: >-
+                  Los datos institucionales llegan seudonimizados y la clave queda en la institución, sin acceso del equipo. Los identificadores que registre el equipo se reemplazan por códigos, con la clave cifrada, separada y con acceso solo del IR.
+                excluirSi: *excl_datos7
+                motivoExclusion: *mot_datos7
+              - item: F04-2.1
+                texto: >-
+                  La confidencialidad se asegura evitando identificadores directos (o reemplazándolos por códigos), con custodia separada de la clave, acceso restringido y reporte solo agregado. El anonimato se conserva porque los resultados nunca se presentan de forma individual.
+                excluirSi: *excl_datos7
+                motivoExclusion: *mot_datos7
+
+      - id: RP-DATOS.8
+        titulo: Almacenamiento solo en infraestructura institucional
+        compromiso: >-
+          Los datos personales se almacenarán y procesarán exclusivamente en {ajustes.almacenamientoInstitucional} No se usarán nubes personales, dispositivos personales ni servicios externos con datos personales.
+        fundamento: >-
+          UdeC Política de Gobierno de Datos y Política de Protección de Datos Personales [verificar]; Ley 21.719, art. 3 f y art. 14 quinquies (seguridad); un servicio externo contratado por UdeC con contrato de encargo (art. 15 bis; art. 2 x) se considera institucional, mientras que servicios de consumo sin contrato no; servidores en el extranjero implican además transferencia internacional (arts. 27 y 28); Recomendaciones CEBB-FI §II.1 y §IV.
+        respuestas:
+          - item: F04-7.11
+            texto: >-
+              Los datos se almacenan solo en {ajustes.almacenamientoInstitucional}. No se usan dispositivos personales ni nubes ajenas, de modo que permanecen bajo control institucional.
+            excluirSi: &excl_almac { p: P-DAT-04, incluyeAlguno: [externo, nose] }
+            motivoExclusion: &mot_almac >-
+              se declararon servicios externos sin contrato institucional (o no se sabe si los hay), y el IR debe describir dónde se almacenan los datos.
+          - item: F04-1.13
+            texto: >-
+              Lugar de almacenamiento: {ajustes.almacenamientoInstitucional}. Responsable: {D-IR-NOMBRE}.
+            excluirSi: *excl_almac
+            motivoExclusion: *mot_almac
+        variantes:
+          - clave: con_organizacion
+            si: { p: P-PER-07, incluyeAlguno: ["si", "nose"] }
+            compromiso: >-
+              Los datos personales se almacenarán y procesarán exclusivamente en {ajustes.almacenamientoInstitucional} o en los sistemas de «{D-ORG-EXTERNA}», si así consta en su autorización. No se usarán nubes personales, dispositivos personales ni servicios externos con datos personales.
+            respuestas:
+              - item: F04-7.11
+                texto: >-
+                  Los datos se almacenan solo en {ajustes.almacenamientoInstitucional}. No se usan dispositivos personales ni nubes ajenas, de modo que permanecen bajo control institucional.
+                excluirSi: *excl_almac
+                motivoExclusion: *mot_almac
+              - item: F04-1.13
+                texto: >-
+                  Lugar de almacenamiento: {ajustes.almacenamientoInstitucional}. Responsable: {D-IR-NOMBRE}.
+                excluirSi: *excl_almac
+                motivoExclusion: *mot_almac
+
+      - id: RP-DATOS.9
+        titulo: Acceso restringido al IR y al estudiante
+        compromiso: >-
+          Solo tendrán acceso a los datos personales {D-IR-NOMBRE} y {D-EST-NOMBRE}, con contraseñas individuales. Cualquier otra persona requerirá autorización previa del IR y constancia escrita.
+        fundamento: >-
+          Ley 21.719, art. 3 h y art. 14 bis (confidencialidad y secreto); CIOMS pauta 12; Recomendaciones CEBB-FI §II.1 y §IV.
+        respuestas:
+          - item: F04-1.13
+            texto: >-
+              Tendrán acceso solo {D-IR-NOMBRE} (IR) y {D-EST-NOMBRE} (estudiante).
+            excluirSi: &excl_datos9 { p: P-DAT-04, incluye: terceros }
+            motivoExclusion: &mot_datos9 >-
+              se declaró que otras personas (terceros) accederán a los datos, y el IR debe describir quiénes tendrán acceso.
+          - item: F04-7.10
+            texto: >-
+              El acceso a los datos personales está limitado al IR y al estudiante, con credenciales individuales.
+            excluirSi: *excl_datos9
+            motivoExclusion: *mot_datos9
+
+      - id: RP-DATOS.10
+        titulo: Medidas de seguridad
+        compromiso: >-
+          Los archivos con datos personales estarán cifrados o en carpetas con control de acceso; se mantendrá respaldo en infraestructura institucional; los equipos con acceso tendrán contraseña y actualizaciones al día; no se enviarán datos personales por medios no institucionales.
+        fundamento: >-
+          Ley 21.719, art. 3 f (seguridad) y art. 14 quinquies (medidas proporcionales a la naturaleza de los datos y al riesgo); CIOMS pauta 12; UdeC Política de Gobierno de Datos [verificar]; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.10
+            texto: >-
+              Además del acceso restringido: los archivos se guardan cifrados o en carpetas protegidas, con respaldo institucional. Los equipos con acceso tienen contraseña y actualizaciones al día. No se envían datos personales por canales no institucionales.
+
+      - id: RP-DATOS.11
+        titulo: Conservación por plazo definido y luego supresión o anonimización
+        compromiso: >-
+          Los datos identificables o seudonimizados se conservarán como máximo {ajustes.conservacionMeses} meses desde el fin de la recolección; después se anonimizarán de manera irreversible o se suprimirán de forma segura. El conjunto anonimizado y los consentimientos firmados se conservarán {ajustes.conservacionRespaldoMeses} meses como respaldo de la MT y luego se eliminarán.
+        fundamento: >-
+          Ley 21.719, art. 3 c (plazo de conservación definido y luego supresión o anonimización) y art. 14 ter i; el art. 16 quinquies permitiría conservar por más tiempo con fines de investigación, pero el proyecto se compromete a un plazo fijo. El conjunto anonimizado ya no es dato personal (art. 2 k); los consentimientos firmados se conservan como prueba del consentimiento (art. 3 e, responsabilidad) [verificar con Dirección Jurídica: plazo de respaldo]; CIOMS pauta 12; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.12
+            texto: >-
+              Los datos identificables o seudonimizados se conservan hasta {ajustes.conservacionMeses} meses desde el fin de la recolección y luego se anonimizan de manera irreversible o se suprimen de forma segura. El conjunto anonimizado y los consentimientos firmados se conservan {ajustes.conservacionRespaldoMeses} meses como respaldo y luego se eliminan.
+            excluirSi: { p: P-DAT-06, es: mayor }
+            motivoExclusion: >-
+              el plazo de conservación declarado es mayor que el extendido: se debe indicar el plazo y su justificación.
+          - item: F04-1.13
+            texto: >-
+              Duración del almacenamiento: datos identificables o seudonimizados, {ajustes.conservacionMeses} meses desde el fin de la recolección; conjunto anonimizado y consentimientos firmados, {ajustes.conservacionRespaldoMeses} meses.
+            excluirSi: { p: P-DAT-06, es: mayor }
+            motivoExclusion: >-
+              el plazo de conservación declarado es mayor que el extendido: se debe indicar el plazo y su justificación.
+        variantes:
+          - clave: fuente_secundaria
+            si: *si_fuente_sec
+            compromiso: >-
+              Los datos identificables o seudonimizados se conservarán como máximo {ajustes.conservacionMeses} meses desde el fin de la recolección; después se anonimizarán de manera irreversible o se suprimirán de forma segura. El conjunto anonimizado se conservará {ajustes.conservacionRespaldoMeses} meses como respaldo de la MT y luego se eliminará.
+            respuestas:
+              - item: F04-7.12
+                texto: >-
+                  Los datos identificables o seudonimizados se conservan hasta {ajustes.conservacionMeses} meses desde el fin de la recolección y luego se anonimizan de manera irreversible o se suprimen de forma segura. El conjunto anonimizado se conserva {ajustes.conservacionRespaldoMeses} meses como respaldo de la MT y luego se elimina.
+                excluirSi: { p: P-DAT-06, es: mayor }
+                motivoExclusion: >-
+                  el plazo de conservación declarado es mayor que el extendido: se debe indicar el plazo y su justificación.
+              - item: F04-1.13
+                texto: >-
+                  Duración del almacenamiento: datos identificables o seudonimizados, {ajustes.conservacionMeses} meses desde el fin de la recolección; conjunto anonimizado, {ajustes.conservacionRespaldoMeses} meses.
+                excluirSi: { p: P-DAT-06, es: mayor }
+                motivoExclusion: >-
+                  el plazo de conservación declarado es mayor que el extendido: se debe indicar el plazo y su justificación.
+          - clave: casilla
+            si: { todas: [ { cond: CI_CASILLA }, { p: P-PER-08, es: en_linea } ] }
+            compromiso: >-
+              Los datos identificables o seudonimizados se conservarán como máximo {ajustes.conservacionMeses} meses desde el fin de la recolección; después se anonimizarán de manera irreversible o se suprimirán de forma segura. El conjunto anonimizado se conservará {ajustes.conservacionRespaldoMeses} meses como respaldo de la MT y luego se eliminará.
+            respuestas:
+              - item: F04-7.12
+                texto: >-
+                  Los datos identificables o seudonimizados se conservan hasta {ajustes.conservacionMeses} meses desde el fin de la recolección y luego se anonimizan de manera irreversible o se suprimen de forma segura. El conjunto anonimizado se conserva {ajustes.conservacionRespaldoMeses} meses como respaldo de la MT y luego se elimina.
+                excluirSi: { p: P-DAT-06, es: mayor }
+                motivoExclusion: >-
+                  el plazo de conservación declarado es mayor que el extendido: se debe indicar el plazo y su justificación.
+              - item: F04-1.13
+                texto: >-
+                  Duración del almacenamiento: datos identificables o seudonimizados, {ajustes.conservacionMeses} meses desde el fin de la recolección; conjunto anonimizado, {ajustes.conservacionRespaldoMeses} meses.
+                excluirSi: { p: P-DAT-06, es: mayor }
+                motivoExclusion: >-
+                  el plazo de conservación declarado es mayor que el extendido: se debe indicar el plazo y su justificación.
+
+      - id: RP-DATOS.12
+        titulo: Sin comunicación ni cesión a terceros
+        compromiso: >-
+          No se comunicarán ni cederán datos personales a terceros, ni dentro ni fuera de Chile. Solo se difundirán resultados agregados o anonimizados (RP-DATOS.15).
+        fundamento: >-
+          Ley 21.719, art. 2 v y art. 15 (cesión: requiere causal y constar por escrito), art. 15 bis (encargado: no es cesión) y arts. 27 y 28 (transferencia internacional); Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.13
+            texto: >-
+              No aplica: no se comunican ni ceden datos personales a terceros ni se transfieren al extranjero.
+            excluirSi:
+              alguna:
+                - { p: P-DAT-04, incluyeAlguno: [terceros, externo, nose] }
+                - { p: P-DAT-05, es: personales }
+            motivoExclusion: >-
+              se declararon datos que salen del control institucional o se entregan a terceros (o no se sabe), o se publicarán datos personales, y el IR debe describir la comunicación o cesión.
+
+      - id: RP-DATOS.13
+        titulo: Control del riesgo de reidentificación
+        compromiso: >-
+          Antes de analizar y difundir resultados, el IR evaluará el riesgo de reidentificación por identificadores indirectos, población pequeña o cruce con otras fuentes, y agregará o suprimirá categorías cuando existan grupos muy pequeños. No se cruzarán las bases con otras fuentes.
+        fundamento: >-
+          Ley 21.719, art. 2 k (anonimización irreversible; el dato anonimizado deja de ser personal) y art. 2 f (medios razonables de identificación); CIOMS pauta 12; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.14
+            texto: >-
+              No se recolectan más identificadores indirectos de los necesarios y no se cruzan bases con otras fuentes. Antes de difundir se revisan las categorías con pocos casos y se agregan o suprimen para evitar la reidentificación.
+
+      - id: RP-DATOS.14
+        titulo: Procedimiento ante vulneraciones de seguridad
+        compromiso: >-
+          Ante filtración, pérdida, alteración o acceso no autorizado a los datos, el IR lo comunicará sin demora a {ajustes.contactoIncidentes} y al CEBB ({ajustes.correoCebb}), contendrá el incidente y colaborará con el reporte que la Universidad, como responsable, debe hacer a la Agencia y, si corresponde, a los titulares.
+        fundamento: >-
+          Ley 21.719, art. 14 sexies (el responsable reporta a la Agencia sin dilación ante riesgo razonable; informa también a los titulares si hay datos sensibles o de menores de 14 años) y art. 14 quinquies; UdeC Política de Gobierno de Datos [verificar]; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.15
+            texto: >-
+              Si ocurre una vulneración, se contiene, se comunica sin demora a las instancias institucionales competentes ({ajustes.contactoIncidentes}) y al CEBB ({ajustes.correoCebb}). La Universidad, como responsable, reporta a la Agencia de Protección de Datos Personales (art. 14 sexies), y el equipo colabora con ese reporte y con la notificación a los titulares cuando corresponda.
+
+      - id: RP-DATOS.15
+        titulo: Difusión solo agregada o anonimizada
+        compromiso: >-
+          Los resultados (informe de la MT, presentaciones, artículos) se difundirán solo de forma agregada o anonimizada, sin permitir identificar a los participantes.
+        fundamento: >-
+          Ley 21.719, art. 3 b y 3 h, y art. 16 quinquies (solo se publican resultados anonimizados); CIOMS pauta 12; Recomendaciones CEBB-FI §II.3.
+        respuestas:
+          - item: F04-7.16
+            texto: >-
+              No aplica la difusión de bases de datos: solo se difunden resultados agregados o anonimizados, sin identificar a participantes.
+            excluirSi: { p: P-DAT-05, es: personales }
+            motivoExclusion: >-
+              se prevé publicar datos personales, y el IR debe describir la difusión de las bases de datos.
+
+      - id: RP-DATOS.16
+        titulo: Plazo de conservación extendido y justificado
+        aplicaCuando: { p: P-DAT-06, es: extendido }
+        compromiso: >-
+          Los datos identificables o seudonimizados se conservarán como máximo {ajustes.conservacionMeses} meses desde el fin de la recolección, un plazo mayor que el común, porque: «{D-CONSERVACION-JUST}». Durante todo ese período se mantendrán el almacenamiento institucional, el acceso restringido y las medidas de seguridad de RP-DATOS.8, .9 y .10. El plazo y su justificación se informarán en el consentimiento informado. Vencido el plazo se aplicará RP-DATOS.11: los datos se anonimizarán de manera irreversible o se suprimirán de forma segura.
+        fundamento: >-
+          Ley 21.719, art. 3 c (conservación solo por el tiempo necesario para la finalidad; luego supresión o anonimización) y art. 16 quinquies (tratamiento con fines de investigación, con medidas de calidad y seguridad acreditadas) [verificar con Dirección Jurídica: que un plazo mayor, justificado, se ajuste al art. 16 quinquies; valor del plazo pendiente de CEBB/UdeC]; art. 14 ter i (información del plazo al titular); CIOMS pauta 12; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.12
+            texto: >-
+              El plazo de conservación de los datos identificables o seudonimizados es mayor que el común y se justifica así: {D-CONSERVACION-JUST}. Durante ese período se mantienen el almacenamiento institucional, el acceso restringido y las medidas de seguridad descritas en este plan, y el plazo y su justificación se informan en el consentimiento informado.
+          - item: F04-1.13
+            texto: >-
+              La duración del almacenamiento de los datos identificables o seudonimizados excede el plazo común por la razón siguiente: {D-CONSERVACION-JUST}.
+        variantes:
+          - clave: fuente_secundaria
+            si: *si_fuente_sec
+            compromiso: >-
+              Los datos identificables o seudonimizados se conservarán como máximo {ajustes.conservacionMeses} meses desde el fin de la recolección, un plazo mayor que el común, porque: «{D-CONSERVACION-JUST}». Durante todo ese período se mantendrán el almacenamiento institucional, el acceso restringido y las medidas de seguridad de RP-DATOS.8, .9 y .10. Vencido el plazo se aplicará RP-DATOS.11: los datos se anonimizarán de manera irreversible o se suprimirán de forma segura.
+            respuestas:
+              - item: F04-7.12
+                texto: >-
+                  El plazo de conservación de los datos identificables o seudonimizados es mayor que el común y se justifica así: {D-CONSERVACION-JUST}. Durante ese período se mantienen el almacenamiento institucional, el acceso restringido y las medidas de seguridad descritas en este plan.
+              - item: F04-1.13
+                texto: >-
+                  La duración del almacenamiento de los datos identificables o seudonimizados excede el plazo común por la razón siguiente: {D-CONSERVACION-JUST}.
+
+  # ---------------------------------------------------------------------------
+  - id: RP-GRAB
+    nombre: Grabaciones y registros de participantes
+    proposito: >-
+      Regular las grabaciones y los registros de los participantes (audio para transcribir, captura de pantalla, seguimiento ocular), sin imagen reconocible de personas.
+    reglas:
+      - id: RP-GRAB.1
+        titulo: Grabación solo con consentimiento explícito y específico
+        aplicaCuando: { p: P-PER-05, incluye: audio }
+        compromiso: >-
+          No se grabará a nadie sin su consentimiento explícito y específico para la grabación, distinto del consentimiento general. Quien no consienta la grabación podrá participar sin ser grabado o retirarse sin perjuicio.
+        fundamento: >-
+          Ley 21.719, art. 12 y art. 2 p (consentimiento específico e inequívoco); CIOMS pauta 9 [verificar] y pauta 12; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.3
+            texto: >-
+              Las grabaciones se hacen solo con consentimiento explícito y específico, consignado en el CI (casilla aparte).
+
+      - id: RP-GRAB.2
+        titulo: Sin imagen reconocible de personas ni uso de los registros para identificarlas
+        aplicaCuando: { p: P-PER-05, incluyeAlguno: [audio, pantalla, seguimiento_ocular] }
+        compromiso: >-
+          No se grabará video ni se tomarán fotografías en que se reconozca a las personas, y los registros no se usarán para identificarlas.
+        fundamento: >-
+          Ley 21.719, art. 16 ter (datos biométricos: tratamiento técnico que permite la identificación única, como rasgos faciales o voz) y art. 2 g. El audio para transcribir es dato personal pero no biométrico, porque no hay tratamiento técnico para identificar; el video o la imagen de rostro sí lo son (nivel 2), como el análisis de voz para identificar; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.1
+            texto: >-
+              No se registra imagen reconocible de personas ni se extraen datos biométricos de los registros.
+            excluirSi: &excl_video { p: P-PER-05, incluye: video_rostro }
+            motivoExclusion: &mot_video >-
+              se declaró video o fotografías con rostros reconocibles (o, con seguimiento ocular, se guardarían imágenes de cámara), y el IR debe describir los registros y sus datos biométricos.
+
+      - id: RP-GRAB.3
+        titulo: Transcripción seudonimizada y eliminación de la grabación
+        aplicaCuando: { p: P-PER-05, incluye: audio }
+        compromiso: >-
+          La grabación se transcribirá reemplazando nombres y datos identificadores por códigos, y se eliminará de forma segura una vez verificada la transcripción, a más tardar {ajustes.conservacionMeses} meses después del fin de la recolección. La transcripción seudonimizada sigue el plazo de RP-DATOS.11. La transcripción no incluirá datos que identifiquen a terceros.
+        fundamento: >-
+          Ley 21.719, art. 2 l (seudonimización), art. 3 c (conservación por plazo definido y luego supresión) y art. 14 quinquies; CIOMS pauta 12; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.9
+            texto: >-
+              Las grabaciones se transcriben con seudónimos y sin datos identificadores. La clave se guarda cifrada y separada, con acceso solo del IR.
+            excluirSi: &excl_grab3 { p: P-PER-05, incluyeAlguno: [video_rostro, audio_datos] }
+            motivoExclusion: &mot_grab3 >-
+              se declaró video con rostros reconocibles o audio que se conserva o analiza como dato, y el IR debe describir cómo se tratan y cuándo se eliminan las grabaciones.
+          - item: F04-7.12
+            texto: >-
+              Las grabaciones se eliminan de forma segura tras verificar la transcripción y, a más tardar, {ajustes.conservacionMeses} meses después del fin de la recolección. La transcripción seudonimizada se conserva según el plazo del plan de datos.
+            excluirSi: *excl_grab3
+            motivoExclusion: *mot_grab3
+
+      - id: RP-GRAB.4
+        titulo: Uso exclusivo para la investigación; prohibida su difusión
+        compromiso: >-
+          Los registros se usarán solo para esta MT. No se publicarán, ni serán compartidos, ni se citarán fragmentos que permitan identificar a la persona.
+        fundamento: >-
+          Ley 21.719, art. 3 b (finalidad); Recomendaciones CEBB-FI §II.3 y §IV.
+        respuestas:
+          - item: F04-7.2
+            texto: >-
+              Los registros se usan solo para el análisis de la MT. No se difunden ni se comparten fuera del equipo.
+
+      - id: RP-GRAB.5
+        titulo: "Captura de pantalla: cuentas y datos de prueba"
+        aplicaCuando: { p: P-PER-05, incluye: pantalla }
+        compromiso: >-
+          En las capturas de pantalla se usarán cuentas y datos de prueba (no cuentas personales reales), con notificaciones desactivadas y archivos nombrados con códigos.
+        fundamento: >-
+          Ley 21.719, art. 3 b y 3 c (finalidad y proporcionalidad); Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.1
+            texto: >-
+              En las capturas de pantalla se usan cuentas y datos de prueba, sin notificaciones y con archivos codificados.
+            excluirSi: *excl_video
+            motivoExclusion: *mot_video
+          - item: F04-7.2
+            texto: >-
+              Las capturas de pantalla se usan solo para evaluar la interacción con el sistema de la MT.
+            excluirSi: *excl_video
+            motivoExclusion: *mot_video
+
+      - id: RP-GRAB.6
+        titulo: "Seguimiento ocular: solo coordenadas de mirada, sin imágenes de cámara ni inferencias"
+        aplicaCuando: { p: P-PER-05, incluye: seguimiento_ocular }
+        compromiso: >-
+          Del seguimiento ocular solo se guardarán las coordenadas de la mirada: no se almacenarán las imágenes de la cámara ni se inferirá salud, fatiga, identidad ni rasgos cognitivos de las personas.
+        fundamento: >-
+          Ley 21.719, art. 16 ter (solo es dato biométrico el obtenido con un tratamiento técnico que permite la identificación única; guardar el rostro o inferir rasgos lo sería) y art. 3 b y 3 c (finalidad y proporcionalidad); Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.1
+            texto: >-
+              Del seguimiento ocular solo se guardan coordenadas de mirada; no se almacenan imágenes de la cámara ni se extraen datos biométricos.
+            excluirSi: *excl_video
+            motivoExclusion: *mot_video
+          - item: F04-7.2
+            texto: >-
+              Las coordenadas de mirada se usan solo para analizar la interacción con el material del estudio. No se infiere salud, fatiga, identidad ni rasgos cognitivos de las personas.
+            excluirSi: *excl_video
+            motivoExclusion: *mot_video
+
+  # ---------------------------------------------------------------------------
+  - id: RP-SEC
+    nombre: Datos secundarios
+    proposito: >-
+      Regular el uso de datos ya existentes sobre personas: datasets y registros institucionales que llegan anonimizados o seudonimizados por la fuente, y contenido público obtenido por web scraping, que el equipo seudonimiza al capturarlo.
+    reglas:
+      - id: RP-SEC.1
+        titulo: Compatibilidad con las condiciones y licencia de la fuente
+        compromiso: >-
+          Los datos se usarán solo si su licencia o condiciones de uso permiten este fin, y se cumplirán sus condiciones (atribución, restricciones). El IR conservará constancia de la licencia o de las condiciones de la fuente declarada ({D-FUENTE-DATOS}).
+        fundamento: >-
+          Ley 21.719, art. 3 b (finalidad), art. 14 b (fuentes de acceso lícitas) y art. 2 i (fuentes de acceso público sujetas a la ley); CIOMS pauta 12 y 22 [verificar]; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.4
+            texto: >-
+              Los datos provienen de la fuente indicada: {D-FUENTE-DATOS}. Su licencia o condiciones de uso permiten su empleo con fines de investigación académica como esta MT, y se conserva constancia de ellas.
+
+      - id: RP-SEC.2
+        titulo: Autorización formal de la institución que entrega los datos
+        aplicaCuando: { p: P-DAT-01, incluye: institucional }
+        compromiso: >-
+          Cuando los datos los entregue una institución, el IR obtendrá su autorización escrita (fuente declarada: {D-FUENTE-DATOS}), que indique el fin permitido y que los datos se entregan ya anonimizados o seudonimizados, y la adjuntará.
+        fundamento: >-
+          Ley 21.719, art. 14 b (fuentes lícitas y fines específicos) y art. 16 quinquies (acreditar medidas de calidad y seguridad); UdeC Política de Gobierno de Datos [verificar].
+        respuestas:
+          - item: F04-7.4
+            texto: >-
+              La institución fuente ({D-FUENTE-DATOS}) autoriza por escrito el uso de los datos para esta MT; la autorización se adjunta.
+            excluirSi: &excl_ident { p: P-DAT-01, incluye: identificable }
+            motivoExclusion: &mot_ident >-
+              se declararon datos identificables, por lo que no se puede suponer que la fuente los entregue anonimizados o seudonimizados con autorización formal; el IR debe redactar la respuesta.
+
+      - id: RP-SEC.3
+        titulo: Prohibición de reidentificar y de cruzar bases
+        compromiso: >-
+          No se intentará reidentificar a ninguna persona ni se cruzarán los datos con otras bases que permitan hacerlo.
+        fundamento: >-
+          Ley 21.719, art. 2 f (medios razonables de identificación) y art. 2 k (anonimización); CIOMS pauta 12; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.14
+            texto: >-
+              El equipo se obliga a no reidentificar a personas ni cruzar las bases con otras fuentes que lo permitan.
+            excluirSi: *excl_ident
+            motivoExclusion: >-
+              se declararon datos identificables, que no llegan anonimizados de la fuente, y el IR debe describir cómo se controla el riesgo de reidentificación.
+
+      - id: RP-SEC.4
+        titulo: Uso exclusivo para la finalidad informada
+        compromiso: >-
+          Los datos se usarán solo para los objetivos de esta MT y no se reutilizarán para otros fines.
+        fundamento: >-
+          Ley 21.719, art. 3 b (finalidad); Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.2
+            texto: >-
+              Los datos secundarios se usan únicamente para los objetivos de la MT y no se reutilizan para otros fines.
+
+      - id: RP-SEC.5
+        titulo: Anonimización o seudonimización por la fuente; la clave queda en ella
+        aplicaCuando: { p: P-DAT-01, incluye: institucional }
+        compromiso: >-
+          La anonimización o seudonimización la realizará la fuente antes de la entrega. La clave, si existe, quedará en poder de la fuente y el equipo no la solicitará.
+        fundamento: >-
+          Ley 21.719, art. 2 k y 2 l (anonimización y seudonimización); CIOMS pauta 12; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.9
+            texto: >-
+              La fuente entrega los datos ya anonimizados o seudonimizados. La clave, si existe, queda bajo su custodia y el equipo no accede a ella.
+            excluirSi: *excl_ident
+            motivoExclusion: *mot_ident
+
+      - id: RP-SEC.6
+        titulo: "Web scraping: solo contenido público, seudonimizado al capturar"
+        aplicaCuando: { p: P-DAT-01, incluye: web_scraping }
+        compromiso: >-
+          Solo se extraerá contenido de acceso público, sin iniciar sesión, sin eludir restricciones técnicas del sitio y respetando sus términos de uso y su archivo robots.txt, con una tasa de consultas que no afecte al servicio. Los nombres de usuario, identificadores y enlaces a perfiles se reemplazarán por códigos al capturar los datos, y no se guardarán fotos ni otros datos que no sean necesarios. No se contactará a los autores. La MT no reproducirá citas textuales que permitan encontrar a su autor con un buscador. El equipo publicará un aviso breve del proyecto (responsable, finalidad, datos extraídos y vía para ejercer derechos: {ajustes.viaDerechos}).
+        fundamento: >-
+          Ley 21.719, art. 2 i (fuentes de acceso público sujetas a la ley), art. 3 b y c (finalidad y proporcionalidad), art. 14 ter (información a los titulares) y art. 16 quinquies (investigación) [verificar]; CIOMS pauta 22 [verificar]; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.4
+            texto: >-
+              Los datos se obtienen por extracción automatizada de contenido de acceso público ({D-FUENTE-DATOS}), sin iniciar sesión ni eludir restricciones del sitio y respetando sus términos de uso. Los identificadores de usuario se reemplazan por códigos al capturar los datos, no se contacta a los autores, no se publican citas textuales rastreables y el proyecto publica un aviso con su finalidad y la vía para ejercer derechos.
+
+  # ---------------------------------------------------------------------------
+  - id: RP-IA
+    nombre: IA y modelos con datos de personas
+    proposito: >-
+      Permitir entrenar o aplicar modelos con datos de personas solo cuando están anonimizados, y el uso de asistentes de IA institucionales de UdeC solo con datos seudonimizados. Documentar el modelo.
+    reglas:
+      - id: RP-IA.1
+        titulo: Entrenamiento y evaluación solo con datos anonimizados
+        aplicaCuando: { p: P-DAT-03, incluye: modelo_anonimo }
+        compromiso: >-
+          El entrenamiento, ajuste y evaluación se harán exclusivamente con datos anonimizados. No se usarán datos identificables.
+        fundamento: >-
+          Ley 21.719, art. 2 k (anonimización) y art. 3 c (proporcionalidad); CIOMS pauta 12 y 22 [verificar]; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.8
+            texto: >-
+              Los modelos se entrenan y evalúan solo con datos anonimizados.
+            excluirSi: &excl_ia12 { p: P-DAT-03, incluye: sobre_personas }
+            motivoExclusion: &mot_ia12 >-
+              se declararon perfiles, predicciones o decisiones automatizadas sobre personas identificables, y el IR debe describir el uso de IA.
+
+      - id: RP-IA.2
+        titulo: Sin perfiles ni decisiones automatizadas sobre personas
+        aplicaCuando: { p: P-DAT-03, incluye: modelo_anonimo }
+        compromiso: >-
+          El modelo no elaborará perfiles ni predicciones, ni tomará decisiones automatizadas sobre personas identificables.
+        fundamento: >-
+          Ley 21.719, art. 8 bis (oposición a decisiones automatizadas y perfiles; derecho a explicación e intervención humana), art. 2 w (elaboración de perfiles) y art. 14 ter l; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.8
+            texto: >-
+              El modelo no genera perfiles, predicciones ni decisiones sobre personas identificables, por lo que no hay consecuencias directas para los titulares.
+            excluirSi: *excl_ia12
+            motivoExclusion: *mot_ia12
+
+      - id: RP-IA.3
+        titulo: Servicios externos (APIs, nubes) solo con datos anonimizados
+        aplicaCuando: { p: P-DAT-03, incluye: modelo_anonimo }
+        compromiso: >-
+          Solo se enviarán datos anonimizados a servicios externos (incluidas APIs de IA). Nunca se enviarán datos personales.
+        fundamento: >-
+          Ley 21.719, art. 15 (cesión), art. 15 bis (encargado: un servicio contratado por UdeC con contrato de encargo puede considerarse institucional; una API o nube de consumo sin contrato, no) y arts. 27 y 28 (un servidor en el extranjero implica transferencia internacional); UdeC Política de Gobierno de Datos [verificar]; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.11
+            texto: >-
+              Los servicios externos usados (APIs, nubes) reciben únicamente datos anonimizados. Los datos personales permanecen en infraestructura institucional.
+            excluirSi: *excl_almac
+            motivoExclusion: *mot_almac
+          - item: F04-7.13
+            texto: >-
+              No aplica: a los servicios externos solo se envían datos anonimizados, no personales.
+            excluirSi: *excl_almac
+            motivoExclusion: *mot_almac
+
+      - id: RP-IA.4
+        titulo: Documentación de la lógica, límites y sesgos del modelo
+        aplicaCuando: { p: P-DAT-03, incluye: modelo_anonimo }
+        compromiso: >-
+          La memoria describirá la lógica del modelo, sus límites y los sesgos posibles, y cómo se los evaluó.
+        fundamento: >-
+          Ley 21.719, art. 3 g y art. 14 ter l (transparencia; lógica de las decisiones automatizadas); Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.8
+            texto: >-
+              La memoria documenta la lógica del modelo, sus límites y sus sesgos posibles.
+
+      - id: RP-IA.5
+        titulo: "Asistentes de IA institucionales: cuenta UdeC, datos seudonimizados, sin datos sensibles"
+        aplicaCuando: { p: P-DAT-03, incluye: asistente_institucional }
+        compromiso: >-
+          Los asistentes de IA se usarán solo con la cuenta institucional de UdeC y con servicios contratados por UdeC. Los datos se seudonimizarán antes de subirlos; no se subirán datos sensibles ni se elaborarán perfiles de personas con ellos.
+        fundamento: >-
+          Ley 21.719, art. 15 bis (encargado: un servicio contratado por UdeC con contrato de encargo no es cesión y puede considerarse institucional), art. 2 l (seudonimización), art. 16 (datos sensibles) y art. 2 w y 8 bis (perfiles); Recomendaciones CEBB-FI §IV
+        respuestas:
+          - item: F04-7.11
+            texto: >-
+              Los asistentes de IA se usan solo con la cuenta institucional de UdeC y servicios contratados por la Universidad, como encargado del tratamiento; los datos se seudonimizan antes de subirlos y no se usan cuentas ni servicios de consumo.
+            excluirSi: &excl_ia5
+              alguna:
+                - { p: P-DAT-03, incluye: sobre_personas }
+                - { p: P-DAT-04, incluyeAlguno: [externo, nose] }
+                - { p: P-DAT-02, incluyeAlguno: [salud, biometricos, etnia, socioeconomico, convicciones, sexualidad, nose] }
+            motivoExclusion: &mot_ia5 >-
+              se declararon perfiles sobre personas, servicios externos sin contrato institucional o datos sensibles (o no se sabe si los hay), y el IR debe describir el uso del asistente de IA.
+          - item: F04-7.8
+            texto: >-
+              El asistente se usa para apoyar el análisis de textos seudonimizados, sin datos sensibles y sin elaborar perfiles ni tomar decisiones sobre personas.
+            excluirSi: *excl_ia5
+            motivoExclusion: *mot_ia5
+
+  # ---------------------------------------------------------------------------
+  - id: RP-PUB
+    nombre: Publicación abierta de datos anonimizados
+    proposito: >-
+      Condicionar el depósito de datos en repositorios abiertos a que estén anonimizados.
+    reglas:
+      - id: RP-PUB.1
+        titulo: Verificación de anonimización antes de publicar
+        compromiso: >-
+          Antes de publicar, el IR verificará que los datos estén anonimizados de modo que no sea razonable reidentificar a nadie, incluso cruzándolos con otras fuentes, y dejará constancia escrita de la verificación.
+        fundamento: >-
+          Ley 21.719, art. 2 k (anonimización) y art. 16 quinquies (solo se publican resultados anonimizados); CIOMS pauta 12; Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.16
+            texto: >-
+              Antes de publicar se verifica y documenta que el conjunto está anonimizado, y no compromete la privacidad de los titulares.
+          - item: F04-7.14
+            texto: >-
+              La verificación previa a la publicación incluye evaluar identificadores indirectos, tamaño de grupos y posible cruce con otras fuentes.
+
+      - id: RP-PUB.2
+        titulo: Publicación informada en el CI
+        aplicaCuando: { cond: HAY_PERS }
+        compromiso: >-
+          El CI informará que se publicarán datos anonimizados, dónde y bajo qué licencia.
+        fundamento: >-
+          Ley 21.719, art. 3 g (transparencia) y art. 14 ter; Recomendaciones CEBB-FI §II.3.
+        respuestas:
+          - item: F04-7.5
+            texto: >-
+              El consentimiento informa que se publicarán datos anonimizados, indicando el repositorio y la licencia.
+
+      - id: RP-PUB.3
+        titulo: Repositorio y licencia declarados
+        compromiso: >-
+          Se declarará el repositorio abierto y la licencia de los datos publicados.
+        fundamento: >-
+          Recomendaciones CEBB-FI §IV.
+        respuestas:
+          - item: F04-7.16
+            texto: >-
+              Los datos anonimizados se depositan en el repositorio y con la licencia que se declaran en la memoria.
+            pista: indicar el repositorio y la licencia
+
+  # ---------------------------------------------------------------------------
+  - id: RP-LAB
+    nombre: Laboratorio de ingeniería
+    proposito: >-
+      Asegurar condiciones básicas de seguridad en laboratorios de ingeniería con riesgos estándar, incluido el uso de reactivos de uso corriente.
+    reglas:
+      - id: RP-LAB.1
+        titulo: Reglamento y normas de seguridad del laboratorio; inducción del estudiante
+        compromiso: >-
+          El estudiante cumplirá el reglamento y las normas de seguridad del laboratorio y recibirá inducción del encargado antes de comenzar.
+        fundamento: >-
+          Recomendaciones CEBB-FI §III (procedimientos de manejo; capacitación del personal); normativa interna de la unidad [verificar].
+        respuestas:
+          - item: F04-III
+            texto: >-
+              Se cumple el reglamento y las normas de seguridad del laboratorio, y el estudiante recibe inducción del encargado antes de comenzar.
+            excluirSi: &excl_lab { p: P-MAT-01, incluyeAlguno: [peligrosas, biologico, animales] }
+            motivoExclusion: &mot_lab >-
+              el proyecto incluye sustancias peligrosas, material biológico o animales, lo que requiere el Formulario de Bioseguridad; el IR debe redactar esta sección.
+
+      - id: RP-LAB.2
+        titulo: Elementos de protección personal adecuados
+        compromiso: >-
+          Se usarán los elementos de protección personal que el laboratorio exija para cada ensayo.
+        fundamento: >-
+          Recomendaciones CEBB-FI §III (EPP).
+        respuestas:
+          - item: F04-III
+            texto: >-
+              Se usan los elementos de protección personal exigidos por el laboratorio para cada ensayo.
+            excluirSi: *excl_lab
+            motivoExclusion: *mot_lab
+
+      - id: RP-LAB.3
+        titulo: Supervisión de los ensayos con riesgo
+        compromiso: >-
+          Los ensayos con riesgo (máquinas o herramientas de potencia, alta tensión, cargas, presión, temperatura o reactivos) se realizarán en el horario autorizado del laboratorio y con una persona responsable presente; el estudiante no los hará solo.
+        fundamento: >-
+          Recomendaciones CEBB-FI §III (condiciones del lugar de trabajo); normativa interna [verificar].
+        respuestas:
+          - item: F04-III
+            texto: >-
+              Los ensayos con riesgo se realizan en el horario autorizado y con una persona responsable del laboratorio presente.
+            excluirSi: *excl_lab
+            motivoExclusion: *mot_lab
+
+      - id: RP-LAB.4
+        titulo: Manejo de residuos según normativa institucional
+        compromiso: >-
+          Los residuos se dispondrán según la normativa institucional del laboratorio.
+        fundamento: >-
+          Recomendaciones CEBB-FI §III (disposición de residuos).
+        respuestas:
+          - item: F04-III
+            texto: >-
+              Los residuos se disponen según la normativa institucional del laboratorio.
+            excluirSi: *excl_lab
+            motivoExclusion: *mot_lab
+
+      - id: RP-LAB.5
+        titulo: Registro y notificación de accidentes
+        compromiso: >-
+          Todo accidente o incidente se registrará y se notificará al encargado del laboratorio y al IR de inmediato.
+        fundamento: >-
+          Recomendaciones CEBB-FI §III (medidas ante emergencias).
+        respuestas:
+          - item: F04-III
+            texto: >-
+              Todo accidente o incidente se registra y se notifica de inmediato al encargado del laboratorio y al IR.
+            excluirSi: *excl_lab
+            motivoExclusion: *mot_lab
+
+  # ---------------------------------------------------------------------------
+  - id: RP-TER
+    nombre: Trabajo en terreno
+    proposito: >-
+      Asegurar seguridad y respeto en visitas y mediciones sin intervención del medio, incluido el terreno con riesgo para el equipo (altura, buceo, zonas remotas, faenas), que se maneja con un plan de seguridad.
+    reglas:
+      - id: RP-TER.1
+        titulo: Autorización del propietario o de la organización
+        compromiso: >-
+          Antes de ir a terreno, el IR obtendrá autorización escrita del propietario o de la organización del sitio y la adjuntará.
+        fundamento: >-
+          Recomendaciones CEBB-FI §III (autorizaciones de acceso al sitio).
+        respuestas:
+          - item: F04-III
+            texto: >-
+              Se cuenta con autorización escrita del propietario u organización del sitio, que se adjunta.
+            excluirSi: &excl_ter { p: P-MAT-02, incluyeAlguno: [area_protegida, territorio_indigena, colecta, intervencion_ambiental] }
+            motivoExclusion: &mot_ter >-
+              el terreno requiere permisos o puede intervenir el medio (área protegida, territorio indígena, colecta o intervención ambiental); el IR debe redactar esta sección.
+
+      - id: RP-TER.2
+        titulo: Plan de seguridad del equipo
+        compromiso: >-
+          El equipo definirá antes de salir un plan con medio de comunicación, primeros auxilios y contactos de emergencia, y no irá solo. Recibirá la inducción y usará los elementos de protección del sitio. El estudiante estará cubierto por el seguro escolar (DS 313/1972), y el IR verificará su vigencia antes de salir.
+        fundamento: >-
+          Recomendaciones CEBB-FI §III (seguridad del equipo en terreno); DS 313/1972 (seguro escolar) [verificar].
+        respuestas:
+          - item: F04-III
+            texto: >-
+              Hay un plan de seguridad con comunicación, primeros auxilios y contactos de emergencia. Nunca se va solo a terreno; se recibe la inducción y se usan los elementos de protección del sitio. El estudiante cuenta con seguro escolar (DS 313/1972).
+
+      - id: RP-TER.3
+        titulo: Sin intervención del medio ni colecta; retiro de residuos
+        compromiso: >-
+          No se intervendrá el medio ni se colectarán especies, muestras o material. Todo residuo generado se retirará del sitio.
+        fundamento: >-
+          Recomendaciones CEBB-FI §III (impacto ambiental; recolección de residuos).
+        respuestas:
+          - item: F04-III
+            texto: >-
+              Solo se realizan mediciones o visitas, sin intervención ni colecta. Se retira del sitio todo residuo generado.
+            excluirSi: *excl_ter
+            motivoExclusion: *mot_ter
+
+      - id: RP-TER.4
+        titulo: Respeto a las comunidades locales
+        compromiso: >-
+          El equipo respetará a las personas y comunidades del lugar, sus derechos y sus normas, e informará su presencia y propósito cuando corresponda.
+        fundamento: >-
+          Recomendaciones CEBB-FI §III (comunidades locales); CIOMS pauta 7 (participación de comunidades) [verificar].
+        respuestas:
+          - item: F04-III
+            texto: >-
+              El equipo respeta a las comunidades locales, sus derechos y sus normas, e informa su presencia y propósito cuando corresponde.
+
+      - id: RP-TER.5
+        titulo: Registro y notificación de accidentes
+        compromiso: >-
+          Todo accidente o incidente en terreno se registrará y se notificará al IR de inmediato.
+        fundamento: >-
+          Recomendaciones CEBB-FI §III (emergencias).
+        respuestas:
+          - item: F04-III
+            texto: >-
+              Todo accidente o incidente se registra y se notifica de inmediato al IR.

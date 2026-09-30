@@ -1,0 +1,905 @@
+# config/documentos.yaml — catálogo de anexos y documentos, Formulario 04, consentimiento informado y textos fijos.
+# BORRADOR — requiere validación CEBB/Dirección Jurídica UdeC (los textos de reglas que usan los documentos viven en compromisos.yaml).
+# Fuentes: specs/ids.md §6–§8, specs/04-documentos.md, specs/03-compromisos.md §5, specs/fuentes/04-formulario-antecedentes.md (v1.0).
+# Marcadores permitidos: {D-*} (ids.md §3) y {ajustes.*} (ids.md §10).
+
+anexos:
+  - id: ANX-CARTA-IR
+    nombre: Carta de compromiso del IR (formato CEBB-VRID)
+    enlace: urlCartaCompromiso
+  - id: ANX-PROPUESTA
+    nombre: Propuesta completa (resumen, objetivos, metodología, plan de trabajo o Gantt)
+  - id: ANX-F04
+    nombre: Formulario de antecedentes del proyecto, completado
+    prellenadoPor: DOC-F04
+  - id: ANX-AUTORIZ
+    nombre: Autorizaciones y cartas de apoyo de organizaciones participantes
+  - id: ANX-CI
+    nombre: Consentimiento informado
+    prellenadoPor: DOC-CI
+    enlace: urlModeloCI
+  - id: ANX-ASENT
+    nombre: Asentimiento y autorización del representante legal
+  - id: ANX-INSTR
+    nombre: Copia de los instrumentos (cuestionarios, pautas de entrevista)
+  - id: ANX-PROT-ANIMAL
+    nombre: Protocolo de manejo y cuidado de animales
+  - id: ANX-F-BIOSEG
+    nombre: Formulario de Bioseguridad
+    enlace: urlFormularioBioseguridad
+  - id: ANX-PERMISOS
+    nombre: Permisos de colecta y de acceso al sitio (SAG, SUBPESCA/SERNAPESCA, CONAF, comunidad)
+  - id: ANX-CERT-ADS
+    nombre: Certificado de aprobación ética del proyecto mayor
+  - id: ANX-RESP-ADS
+    nombre: Respaldo firmado por el IR del proyecto mayor (si no es el profesor guía)
+
+documentos:
+  - id: DOC-CARTA-ADS
+    nombre: Comunicación de adscripción al CEBB
+    formato: pdf
+    instruccion: Se guarda en PDF, se firma y se adjunta al correo junto con el certificado del proyecto mayor.
+  - id: DOC-CONSTANCIA
+    nombre: Constancia de autoevaluación
+    formato: pdf
+    instruccion: Se guarda en PDF y se conserva junto a los antecedentes de la MT. No se envía al CEBB.
+  - id: DOC-COMPROMISO
+    nombre: Compromiso de cumplimiento
+    formato: pdf
+    instruccion: Se guarda en PDF, lo firman el profesor guía y el estudiante, y se adjunta al correo.
+  - id: DOC-CI
+    nombre: Consentimiento informado prellenado
+    formato: pdf
+    instruccion: Se revisa y se completan los campos marcados «[completar]». Cada participante lo recibe antes de participar; una copia se adjunta al correo.
+  - id: DOC-PGD
+    nombre: Plan de gestión de datos
+    formato: pdf
+    instruccion: Se guarda en PDF y se adjunta al correo.
+  - id: DOC-F04
+    nombre: Formulario de antecedentes del proyecto (prellenado)
+    formato: doc
+    instruccion: Se descarga, se completan los campos marcados «[completar]» y se guarda en PDF para adjuntarlo al correo.
+  - id: DOC-CORREO
+    nombre: Correo al CEBB
+    formato: mailto
+  - id: DOC-BORRADOR
+    nombre: Respuestas exportadas para retomar después
+    formato: json
+
+f04:
+  secciones:
+    - id: F04-I
+      titulo: I. Información general de la solicitud
+      items:
+        - enunciado: "Título del Proyecto:"
+          plantilla: "{D-TITULO}"
+        - enunciado: "Investigador(a) Responsable (IR):"
+          plantilla: "{D-IR-NOMBRE}"
+        - enunciado: "Unidad académica del IR (UdeC):"
+          plantilla: "{D-IR-UNIDAD}"
+        - enunciado: "Estudiante a cargo del proyecto:"
+          plantilla: "{D-EST-NOMBRE} ({D-EST-CARRERA})"
+        - enunciado: "Objetivo General:"
+          plantilla: "{D-OBJ-GENERAL}"
+        - enunciado: "Objetivos Específicos:"
+          plantilla: "{D-OBJ-ESPECIFICOS}"
+        - enunciado: "Documentación incluida en esta solicitud (listado):"
+          listaAnexos: true
+
+    - id: F04-JUST
+      titulo: Justificación ética
+      items:
+        - enunciado: "Justificación ética (problemática, solución, población objetivo, impacto, valor social, riesgos, beneficios):"
+          plantilla: "{D-RESUMEN}"
+
+    - id: F04-II-1
+      titulo: 1. Metodología del estudio
+      instruccion: Complete esta subsección cuando el proyecto involucra participación de personas.
+      items:
+        - id: F04-1.1
+          enunciado: ¿Cuál es la población objetivo del estudio y cuál es la fuente de obtención de los/las participantes?
+          pista: describir perfil (adultos, cargo, carrera), tamaño del universo y de dónde se obtienen.
+        - id: F04-1.2
+          enunciado: ¿Cuál es el objetivo de la participación de los/las voluntarios/as en el estudio?
+          pista: qué se les pedirá a los participantes y para qué (ver el objetivo general del proyecto).
+        - id: F04-1.3
+          enunciado: ¿Cómo se realizará el reclutamiento de los/las participantes?
+          pista: canal, quién contacta y cómo se garantiza la libertad de participar (si hay organización externa, mencionar su autorización).
+        - id: F04-1.4
+          enunciado: ¿Cuál es el tamaño de la muestra y cuál es su justificación?
+          pista: n, justificación y método de muestreo.
+        - id: F04-1.5
+          enunciado: ¿Cuál es la duración del procedimiento y el número de veces que se accederá a los/las participantes?
+          pista: minutos por sesión y número de veces que se accederá a los participantes.
+        - id: F04-1.6
+          enunciado: ¿De qué manera el protocolo establece la seguridad, el respeto a la dignidad del sujeto y la autonomía de la participación de los sujetos?
+        - id: F04-1.7
+          enunciado: ¿Qué medidas se consideran para la protección de participantes en situación de vulnerabilidad (p. ej., menores de edad, personas con discapacidad, comunidades indígenas, inmigrantes, población penal, personas mayores)? Si no aplica, indíquelo.
+        - id: F04-1.8
+          enunciado: ¿Cuáles son los posibles riesgos para los/las participantes (identifique al menos el riesgo mínimo)?
+        - id: F04-1.9
+          enunciado: ¿Qué acciones se proponen para minimizar o corregir dichos riesgos?
+        - id: F04-1.10
+          enunciado: ¿Cómo se informará a los/las voluntarios/as ante la obtención de información nueva sobre riesgos y beneficios de las intervenciones, efectos adversos o hallazgos incidentales?
+          noAplica:
+            texto: "No aplica: el estudio es de una sola sesión, sin intervención, sin seguimiento ni exámenes que generen hallazgos incidentales."
+            si:
+              no: { alguna: [{ p: P-PER-01, incluye: intervencion }, { p: P-PER-05, incluye: fisiologica }] }
+            sugerencia: true
+        - id: F04-1.11
+          enunciado: ¿Cómo están diseñados los criterios de inclusión y exclusión para asegurar equidad, evitar sesgos y evitar discriminación arbitraria de personas o grupos?
+        - id: F04-1.12
+          enunciado: Describa el plan de análisis de datos y su adecuación a los objetivos del estudio.
+          pista: técnicas de análisis y su relación con los objetivos.
+        - id: F04-1.13
+          enunciado: "Respecto de los datos y/o muestras del estudio: ¿dónde y por cuánto tiempo se almacenarán, quién estará a cargo del almacenamiento y quiénes tendrán acceso?"
+          noAplica:
+            texto: "No aplica: no se almacenan datos personales; los datos anonimizados se guardan en {ajustes.almacenamientoInstitucional}, bajo responsabilidad de {D-IR-NOMBRE}."
+            si:
+              no: { paquete: RP-DATOS }
+        - id: F04-1.14
+          enunciado: ¿Qué mecanismo se propone, si corresponde, para informar a los/las participantes sobre los resultados y lo aprendido una vez concluido el estudio?
+        - id: F04-1.15
+          enunciado: ¿Qué mecanismo se propone, si corresponde, para la devolución de resultados a la(s) institución(es) participante(s)?
+        - id: F04-1.17
+          enunciado: Argumente el valor científico y social del estudio que justifica éticamente la participación de personas y el uso de muestras o datos humanos.
+          pista: usar el resumen del proyecto (justificación ética) como base.
+
+    - id: F04-II-2
+      titulo: 2. Instrumentos para ser usados en la investigación
+      items:
+        - id: F04-2.1
+          enunciado: ¿De qué manera los instrumentos y procedimientos garantizan la confidencialidad y el anonimato?
+        - id: F04-2.2
+          enunciado: ¿Por qué las preguntas del instrumento son pertinentes y sin ambigüedades?
+        - id: F04-2.3
+          enunciado: En caso de generar incomodidad, ¿qué medidas de prevención, apoyo, interrupción o derivación se consideran?
+        - id: F04-2.4
+          enunciado: ¿Con qué evidencia de validez y confiabilidad cuenta el instrumento? Si no aplica, indíquelo.
+          noAplica:
+            texto: "No aplica: instrumento elaborado para esta MT, sin pretensión de validación psicométrica; el IR revisó su pertinencia (RP-PERS.9)."
+            sugerencia: true
+
+    - id: F04-II-3
+      titulo: 3. Consentimiento Informado (CI) / Asentimiento
+      items:
+        - id: F04-II-3
+          enunciado: Recuerde que, si su proyecto levanta información directa de personas, debe adjuntar a su solicitud el CI/Asentimiento necesario para acceder a los sujetos de investigación, el que debe incluir toda la información recomendad por el modelo.
+
+    - id: F04-III
+      titulo: III. Bioseguridad y otros riesgos asociados
+      items:
+        - id: F04-III
+          enunciado: Recuerde que, si su proyecto hace uso de muestras biológicas, líneas celulares, sustancias químicas peligrosas, agentes patógenos, mutagénicos, tóxicos o neurotóxicos, microorganismos, o sustancias/fuentes de radiación ionizante, y/o actividades en terreno, debe incluir toda la información correspondiente en el Formulario de Bioseguridad.
+
+    - id: F04-IV
+      titulo: IV. Uso, tratamiento y protección de datos
+      instruccion: Complete esta sección en todo proyecto que contemple la recolección, el uso, el almacenamiento, la comunicación o la transferencia de datos personales, incluidos los provenientes de fuentes secundarias, registros institucionales o fuentes de acceso público (Ley N°21.719 sobre protección y tratamiento de datos personales; Política de Protección de Datos Personales y Política de Gobierno de Datos de la Universidad de Concepción; pauta 12 de CIOMS).
+      items:
+        - id: F04-7.1
+          enunciado: Identifique con precisión el universo de datos que se tratarán en el proyecto, distinguiendo datos personales, datos personales sensibles (salud, perfil biológico humano, datos biométricos, origen étnico o racial, situación socioeconómica, convicciones, vida u orientación sexual e identidad de género) y datos anonimizados.
+          pista: listar las variables exactas de datos que se tratarán, distinguiendo personales, sensibles y anonimizados, y si hay identificadores.
+        - id: F04-7.2
+          enunciado: Declare la finalidad específica, explícita y lícita del tratamiento, y explique cómo la recolección se limita a los datos necesarios, adecuados y pertinentes para dicha finalidad.
+        - id: F04-7.3
+          enunciado: Identifique la base de licitud del tratamiento (por ejemplo, consentimiento del titular).
+        - id: F04-7.4
+          enunciado: "Cuando se empleen datos secundarios, registros institucionales o fuentes de acceso público: acredite que su obtención es compatible con las condiciones de la fuente original y con la finalidad informada al momento de su recolección. Si no aplica, indíquelo."
+          noAplica:
+            texto: "No aplica: no se usan datos secundarios, registros institucionales ni fuentes de acceso público."
+        - id: F04-7.5
+          enunciado: Describa cómo se informará a los/las titulares —en el consentimiento informado o en un aviso equivalente— la identidad del responsable del tratamiento, las finalidades, los destinatarios, el período de conservación y la existencia de transferencias.
+        - id: F04-7.6
+          enunciado: Describa cómo se informarán los derechos de acceso, rectificación, supresión, oposición y portabilidad, así como la vía institucional para ejercerlos.
+        - id: F04-7.7
+          enunciado: "Cuando el tratamiento se funde en el consentimiento: describa cómo se informará el derecho a revocarlo en cualquier momento y sin expresión de causa, y los efectos de dicha revocación sobre los datos ya recolectados. Si no aplica, indíquelo."
+        - id: F04-7.8
+          enunciado: "Cuando el proyecto contemple decisiones automatizadas, elaboración de perfiles o el uso de sistemas de inteligencia artificial sobre los datos: describa la lógica aplicada y las consecuencias previstas para los/las titulares. Si no aplica, indíquelo."
+          noAplica:
+            texto: "No aplica: no se usan decisiones automatizadas, perfiles ni IA sobre los datos."
+            si:
+              no:
+                alguna:
+                  - { regla: RP-IA.1 }
+                  - { regla: RP-IA.2 }
+                  - { regla: RP-IA.3 }
+                  - { regla: RP-IA.4 }
+                  - { regla: RP-IA.5 }
+        - id: F04-7.9
+          enunciado: Describa los procedimientos de anonimización o seudonimización, precisando quién custodia la información adicional o clave de reidentificación y bajo qué condiciones de acceso.
+        - id: F04-7.10
+          enunciado: Especifique las medidas técnicas y organizativas de seguridad proporcionales a la naturaleza de los datos (control de acceso, cifrado, respaldo, registro de accesos, gestión de dispositivos).
+        - id: F04-7.11
+          enunciado: Identifique el lugar de almacenamiento de los datos (servidores institucionales, servicios en la nube, dispositivos personales) y describa cómo se resguarda que permanezcan bajo control institucional.
+        - id: F04-7.12
+          enunciado: Defina el período de conservación de los datos y su destino al término de dicho período (supresión o anonimización).
+        - id: F04-7.13
+          enunciado: "En caso de comunicación o cesión de datos a terceros: identifique al destinatario, la finalidad y el instrumento que la respalda. Tratándose de transferencia internacional, declare las garantías de un nivel adecuado de protección. Si no aplica, indíquelo."
+          noAplica:
+            texto: "No aplica: no se comunican ni ceden datos a terceros."
+            si:
+              no: { p: P-DAT-04, incluyeAlguno: [terceros, nose] }
+        - id: F04-7.14
+          enunciado: Describa cómo se evalúa y resguarda el riesgo de reidentificación derivado del cruce de bases de datos, del uso de identificadores indirectos o del tamaño reducido de la población estudiada.
+        - id: F04-7.15
+          enunciado: Describa el procedimiento de actuación ante vulneraciones de seguridad (filtración, pérdida, alteración o acceso no autorizado), incluida la notificación oportuna a las instancias institucionales competentes.
+        - id: F04-7.16
+          enunciado: "Cuando el proyecto contemple la difusión pública de bases de datos o su depósito en repositorios abiertos: justifique que dicha apertura no compromete la privacidad de los/las titulares. Si no aplica, indíquelo."
+
+    - id: F04-DECL
+      titulo: Declaración del/de la investigador(a) responsable
+      instruccion: Declaro que la información entregada en este formulario es fidedigna y completa según mi mejor conocimiento, y me comprometo a informar oportunamente al CEBB-FI cualquier modificación relevante al proyecto durante su ejecución.
+      items:
+        - enunciado: "Nombre:"
+          plantilla: "{D-IR-NOMBRE}"
+        - enunciado: "Firma:"
+        - enunciado: "Fecha:"
+
+ci:
+  variantes:
+    # Variante con firmas: CI estándar (y, con P-PER-08 = mixta, el texto para la aplicación en papel).
+    - clave: firma
+      si:
+        alguna:
+          - { no: { cond: CI_CASILLA } }
+          - { p: P-PER-08, es: mixta }
+      titulo: Consentimiento informado
+      elementos:
+        # 1. Lenguaje comprensible (nota al IR)
+        - clave: lenguaje
+          titulo: Lenguaje comprensible
+          notaIR: true
+          texto: >-
+            Este texto está en segunda persona y con frases breves. Se debe adaptar al nivel de lectura y a las
+            características de la población participante, y revisar que no use términos técnicos sin explicar.
+        # 2. Objetivo y participación
+        - clave: objetivo
+          titulo: Objetivo del estudio y en qué consiste su participación
+          texto: >-
+            Le invitamos a participar en el estudio «{D-TITULO}». El objetivo general es: {D-OBJ-GENERAL}.
+            {D-RESUMEN}
+        # 3. Procedimientos, duración, riesgos y beneficios
+        - clave: modalidad_encuesta
+          titulo: Procedimientos, duración, riesgos y beneficios
+          si: { p: P-PER-01, incluye: encuesta }
+          texto: Su participación consiste en responder una encuesta.
+        - clave: modalidad_entrevista
+          si: { p: P-PER-01, incluye: entrevista }
+          texto: Su participación consiste en conversar con el equipo en una entrevista o grupo focal.
+        - clave: modalidad_usabilidad
+          si: { p: P-PER-01, incluye: usabilidad }
+          texto: Su participación consiste en probar un prototipo o sistema y comentar su experiencia.
+        - clave: modalidad_observacion
+          si: { p: P-PER-01, incluye: observacion }
+          texto: Su participación consiste en ser observado/a durante su actividad habitual, sin que se altere.
+        - clave: modalidad_intervencion
+          si: { p: P-PER-01, incluye: intervencion }
+          texto: Su participación consiste en realizar las actividades del experimento, que el equipo le explicará antes de comenzar.
+        - clave: intervencion_condiciones
+          si: { regla: RP-PERS.12 }
+          texto: >-
+            El estudio compara condiciones distintas y a cada participante se le asigna una de ellas
+            mediante ___ (por ejemplo, al azar). Es posible que no se le indique de antemano cuál le
+            corresponde. Al terminar, el equipo le explicará el propósito de cada condición.
+        - clave: intervencion_condiciones_nota
+          notaIR: true
+          si: { regla: RP-PERS.12 }
+          texto: Completar en la frase anterior cómo se asignan las condiciones; puede omitirse cuál recibirá cada persona, pero no que se comparan condiciones distintas.
+        - clave: modalidad_seguimiento_ocular
+          si: { p: P-PER-05, incluye: seguimiento_ocular }
+          texto: Su participación incluye el registro de hacia dónde mira en la pantalla.
+        - clave: modalidad_fisiologica
+          si: { p: P-PER-05, incluye: fisiologica }
+          texto: Su participación incluye mediciones fisiológicas o corporales, que el equipo le explicará antes de comenzar.
+        - clave: duracion
+          texto: >-
+            Su participación durará aproximadamente ___ minutos y se realizará en ___ sesión(es).
+        - clave: duracion_nota
+          notaIR: true
+          texto: Completar la duración estimada y el número de sesiones en la frase anterior.
+        - clave: riesgos
+          si: { todas: [{ regla: RP-PERS.6 }, { no: { alguna: [{ p: P-DAT-02, incluyeAlguno: [violencia_trauma, ilicitos, desempeno, nose] }, { p: P-PER-04, incluyeAlguno: ["si", "nose"] }, { cond: RIESGO_PROC }] } }] }
+          texto: >-
+            El riesgo de participar es mínimo: podría sentir alguna incomodidad por el tiempo que requiere
+            o por el contenido de las preguntas. Puede omitir cualquier pregunta o interrumpir la actividad
+            en cualquier momento, y el equipo se detendrá si nota incomodidad.
+        - clave: riesgos_ir
+          si: { todas: [{ regla: RP-PERS.6 }, { alguna: [{ p: P-DAT-02, incluyeAlguno: [violencia_trauma, ilicitos, desempeno, nose] }, { p: P-PER-04, incluyeAlguno: ["si", "nose"] }, { cond: RIESGO_PROC }] }] }
+          texto: >-
+            Los riesgos de participar y las medidas para reducirlos son: ___
+        - clave: riesgos_ir_nota
+          notaIR: true
+          si: { todas: [{ regla: RP-PERS.6 }, { alguna: [{ p: P-DAT-02, incluyeAlguno: [violencia_trauma, ilicitos, desempeno, nose] }, { p: P-PER-04, incluyeAlguno: ["si", "nose"] }, { cond: RIESGO_PROC }] }] }
+          texto: >-
+            Las respuestas indican que el estudio podría superar el riesgo mínimo (temas de riesgo, engaño o duda sobre él, una intervención con elementos de riesgo o mediciones fisiológicas): se debe describir en la frase anterior los riesgos concretos y cómo se mitigan. No debe afirmarse que el riesgo es mínimo si no lo justifica.
+        - clave: beneficios
+          texto: >-
+            Participar puede no darle un beneficio directo. Los beneficios esperados son: ___.
+        - clave: beneficios_nota
+          notaIR: true
+          texto: Completar los beneficios esperados; si no hay beneficio directo, indicarlo.
+        # 4. Investigadores y contacto
+        - clave: investigadores
+          titulo: Quiénes realizan el estudio y cómo contactarlos
+          texto: >-
+            El estudio lo realiza {D-EST-NOMBRE}, estudiante de {D-EST-CARRERA}, bajo la dirección de
+            {D-IR-NOMBRE} ({D-IR-UNIDAD}, Universidad de Concepción), a quien puede escribir a {D-IR-CORREO}.
+            Si tiene dudas sobre sus derechos como participante, puede escribir al Comité de Ética,
+            Bioética y Bioseguridad de la Facultad de Ingeniería (CEBB-FI): {ajustes.correoCebb}.
+        # 5. Difusión
+        - clave: difusion
+          titulo: Difusión de los resultados
+          si: { todas: [{ alguna: [{ regla: RP-DATOS.15 }, { regla: RP-PERS.10 }] }, { no: { p: P-DAT-05, es: personales } }] }
+          texto: >-
+            Los resultados se difundirán solo de forma agregada o anonimizada, sin permitir que usted
+            sea identificado/a.
+        - clave: difusion_ir
+          titulo: Difusión de los resultados
+          si: { todas: [{ alguna: [{ regla: RP-DATOS.15 }, { regla: RP-PERS.10 }] }, { p: P-DAT-05, es: personales }] }
+          texto: >-
+            Los datos personales se difundirán de la siguiente forma: ___
+        - clave: difusion_ir_nota
+          notaIR: true
+          si: { todas: [{ alguna: [{ regla: RP-DATOS.15 }, { regla: RP-PERS.10 }] }, { p: P-DAT-05, es: personales }] }
+          texto: >-
+            Las respuestas indican que se publicarán datos personales: se debe describir en la frase anterior qué datos, dónde y con qué condiciones se difundirán. No debe afirmarse que la difusión es solo agregada o anonimizada.
+        - clave: publicacion
+          si: { paquete: RP-PUB }
+          texto: >-
+            Además, se publicarán en un repositorio abierto datos anonimizados, de modo que no sea posible
+            identificarle. El repositorio y la licencia de uso se indican en este documento.
+        # 6. Datos personales (Ley 21.719)
+        - clave: datos_responsable
+          titulo: Sus datos personales
+          si: { paquete: RP-DATOS }
+          texto: >-
+            El responsable del tratamiento de sus datos es la Universidad de Concepción; el investigador
+            responsable es {D-IR-NOMBRE}.
+        - clave: datos_finalidad
+          si: { regla: RP-DATOS.1 }
+          texto: >-
+            Finalidad: sus datos se usarán solo para el objetivo del estudio ({D-OBJ-GENERAL}) y no se
+            reutilizarán para otros fines.
+        - clave: datos_licitud
+          si: { regla: RP-DATOS.3 }
+          texto: "Base de licitud: su consentimiento, que es libre, informado y específico."
+        - clave: datos_destinatarios
+          si: { todas: [{ regla: RP-DATOS.12 }, { no: { alguna: [{ p: P-DAT-04, incluyeAlguno: [terceros, externo, nose] }, { p: P-DAT-05, es: personales }] } }] }
+          texto: >-
+            Destinatarios y transferencias: ninguno. No se comunican ni ceden sus datos a terceros ni se
+            transfieren al extranjero.
+        - clave: datos_destinatarios_ir
+          si: { todas: [{ regla: RP-DATOS.12 }, { alguna: [{ p: P-DAT-04, incluyeAlguno: [terceros, externo, nose] }, { p: P-DAT-05, es: personales }] }] }
+          texto: >-
+            Destinatarios y transferencias: ___
+        - clave: datos_destinatarios_ir_nota
+          notaIR: true
+          si: { todas: [{ regla: RP-DATOS.12 }, { alguna: [{ p: P-DAT-04, incluyeAlguno: [terceros, externo, nose] }, { p: P-DAT-05, es: personales }] }] }
+          texto: >-
+            Las respuestas indican que los datos se entregan a terceros, salen del control institucional o se publican como datos personales (o no se sabe): se debe describir quiénes los reciben, con qué causal y si hay transferencia al extranjero. No debe afirmarse que no se comunican ni ceden.
+        - clave: datos_seudonimizacion
+          si: { todas: [{ regla: RP-DATOS.7 }, { no: { p: P-PER-02, es: identificado } }] }
+          texto: >-
+            Si se registra algún identificador suyo, se reemplaza por un código y la clave se guarda cifrada,
+            separada de los datos, con acceso solo del investigador responsable.
+        - clave: datos_seudonimizacion_ir
+          si: { todas: [{ regla: RP-DATOS.7 }, { p: P-PER-02, es: identificado }] }
+          texto: >-
+            Identificación de los participantes y su custodia: ___
+        - clave: datos_seudonimizacion_ir_nota
+          notaIR: true
+          si: { todas: [{ regla: RP-DATOS.7 }, { p: P-PER-02, es: identificado }] }
+          texto: >-
+            Las respuestas indican participantes identificados, por lo que la clave de códigos no basta como descripción: se debe describir qué datos identificadores se guardan, dónde y quién los custodia.
+        - clave: datos_almacenamiento
+          si: { todas: [{ regla: RP-DATOS.8 }, { no: { p: P-DAT-04, incluyeAlguno: [externo, nose] } }] }
+          texto: "Sus datos se almacenan solo en {ajustes.almacenamientoInstitucional}."
+        - clave: datos_almacenamiento_ir
+          si: { todas: [{ regla: RP-DATOS.8 }, { p: P-DAT-04, incluyeAlguno: [externo, nose] }] }
+          texto: >-
+            Sus datos se almacenan en: ___
+        - clave: datos_almacenamiento_ir_nota
+          notaIR: true
+          si: { todas: [{ regla: RP-DATOS.8 }, { p: P-DAT-04, incluyeAlguno: [externo, nose] }] }
+          texto: >-
+            Las respuestas indican almacenamiento fuera de la infraestructura institucional (o no se sabe): se debe describir dónde se guardan los datos y con qué resguardos. No debe afirmarse que se guardan solo en infraestructura institucional.
+        - clave: datos_acceso
+          si: { todas: [{ regla: RP-DATOS.9 }, { no: { p: P-DAT-04, incluye: terceros } }] }
+          texto: "Tienen acceso a sus datos únicamente {D-IR-NOMBRE} y {D-EST-NOMBRE}."
+        - clave: datos_acceso_ir
+          si: { todas: [{ regla: RP-DATOS.9 }, { p: P-DAT-04, incluye: terceros }] }
+          texto: >-
+            Tienen acceso a sus datos: ___
+        - clave: datos_acceso_ir_nota
+          notaIR: true
+          si: { todas: [{ regla: RP-DATOS.9 }, { p: P-DAT-04, incluye: terceros }] }
+          texto: >-
+            Las respuestas indican que otras personas (por ejemplo, la contraparte) acceden a los datos: se debe describir quiénes son y qué acceso tienen. No debe afirmarse que solo acceden el IR y el estudiante.
+        - clave: datos_seguridad
+          si: { regla: RP-DATOS.10 }
+          texto: >-
+            Los archivos con sus datos se protegen con cifrado o control de acceso y con respaldo institucional.
+        - clave: datos_conservacion
+          si: { todas: [{ regla: RP-DATOS.11 }, { no: { p: P-DAT-06, es: mayor } }] }
+          texto: >-
+            Conservación: los datos identificables o seudonimizados se guardan como máximo
+            {ajustes.conservacionMeses} meses desde el fin de la recolección y luego se anonimizan o se
+            eliminan de forma segura. El conjunto anonimizado y los consentimientos firmados se guardan
+            {ajustes.conservacionRespaldoMeses} meses y luego se eliminan.
+        - clave: datos_conservacion_just
+          si: { regla: RP-DATOS.16 }
+          texto: >-
+            El plazo de conservación de sus datos identificables o seudonimizados es mayor que el común y se
+            justifica así: {D-CONSERVACION-JUST}.
+        - clave: datos_conservacion_ir
+          si: { todas: [{ regla: RP-DATOS.11 }, { p: P-DAT-06, es: mayor }] }
+          texto: >-
+            Conservación: los datos identificables o seudonimizados se guardan durante ___
+        - clave: datos_conservacion_ir_nota
+          notaIR: true
+          si: { todas: [{ regla: RP-DATOS.11 }, { p: P-DAT-06, es: mayor }] }
+          texto: >-
+            Las respuestas indican que los datos identificables o seudonimizados se conservarán más allá del plazo extendido: se debe describir el plazo y su justificación.
+        - clave: datos_derechos
+          si: { regla: RP-DATOS.5 }
+          texto: >-
+            Sus derechos: puede solicitar el acceso, la rectificación, la supresión, la oposición y la
+            portabilidad de sus datos por la vía {ajustes.viaDerechos}.
+        - clave: datos_revocacion
+          si: { regla: RP-DATOS.6 }
+          texto: >-
+            Revocación: puede retirar su consentimiento en cualquier momento, sin dar razones. La revocación
+            no afecta lo ya tratado ni los resultados anonimizados o agregados, que no pueden separarse;
+            desde entonces dejaremos de tratar sus datos y eliminaremos los que aún sean identificables,
+            cuando sea posible.
+        - clave: datos_grabacion
+          si: { todas: [{ regla: RP-GRAB.1 }, { no: { p: P-PER-05, incluyeAlguno: [video_rostro, audio_datos] } }] }
+          texto: |-
+            Grabación: con su autorización, la actividad se grabará solo en audio, para transcribirla. Si no autoriza la grabación, puede participar sin ser grabado/a o retirarse sin perjuicio.
+            ☐ Autorizo que se grabe mi audio.
+        # W8 (04-documentos §5.1 bis): voz conservada o analizada como dato.
+        - clave: datos_grabacion_voz_ir
+          si: { p: P-PER-05, incluye: audio_datos }
+          texto: >-
+            Grabación de voz: con su autorización, su voz se grabará y se conservará para ___
+        - clave: datos_grabacion_voz_ir_nota
+          notaIR: true
+          si: { p: P-PER-05, incluye: audio_datos }
+          texto: >-
+            Las respuestas indican que la grabación de voz se conservará o analizará como dato: se debe describir qué se graba, con qué fin, cuánto tiempo se conserva, quién accede y si se usará para evaluar o entrenar sistemas, y agregar una casilla aparte para que el participante autorice la grabación y su conservación. No debe afirmarse que el audio se elimina tras transcribirlo.
+        - clave: datos_grabacion_ir
+          si: { todas: [{ regla: RP-GRAB.1 }, { p: P-PER-05, incluye: video_rostro }] }
+          texto: >-
+            Grabación: con su autorización, la actividad se registrará de la siguiente forma: ___
+        - clave: datos_grabacion_ir_nota
+          notaIR: true
+          si: { todas: [{ regla: RP-GRAB.1 }, { p: P-PER-05, incluye: video_rostro }] }
+          texto: >-
+            Las respuestas indican grabación de video con rostro: se debe describir qué se graba, con qué fin y cómo se resguarda, y agregar una casilla aparte para que el participante autorice la grabación. No debe afirmarse que se graba solo audio.
+        - clave: datos_grabacion_eliminacion
+          si: { todas: [{ regla: RP-GRAB.3 }, { no: { p: P-PER-05, incluyeAlguno: [video_rostro, audio_datos] } }] }
+          texto: >-
+            La grabación se transcribe reemplazando nombres y datos identificadores por códigos, y se elimina
+            de forma segura una vez verificada la transcripción, a más tardar {ajustes.conservacionMeses}
+            meses después del fin de la recolección.
+        - clave: datos_grabacion_eliminacion_ir
+          si: { todas: [{ regla: RP-GRAB.3 }, { p: P-PER-05, incluye: video_rostro }] }
+          texto: >-
+            Tratamiento y eliminación de las grabaciones: ___
+        - clave: datos_grabacion_eliminacion_ir_nota
+          notaIR: true
+          si: { todas: [{ regla: RP-GRAB.3 }, { p: P-PER-05, incluye: video_rostro }] }
+          texto: >-
+            Las respuestas indican video con rostro: se debe describir cómo se tratan las grabaciones, quién las revisa y cuándo se eliminan. No debe afirmarse que se transcriben con códigos y se eliminan tras la verificación.
+        - clave: datos_registros_pantalla
+          si: { todas: [{ regla: RP-GRAB.5 }, { no: { p: P-PER-05, incluye: video_rostro } }] }
+          texto: >-
+            Las capturas de pantalla se hacen con cuentas y datos de prueba, no con sus cuentas personales.
+        - clave: datos_registros_pantalla_ir
+          si: { todas: [{ regla: RP-GRAB.5 }, { p: P-PER-05, incluye: video_rostro }] }
+          texto: >-
+            Registros de la pantalla que se guardan: ___
+        - clave: datos_registros_pantalla_ir_nota
+          notaIR: true
+          si: { todas: [{ regla: RP-GRAB.5 }, { p: P-PER-05, incluye: video_rostro }] }
+          texto: >-
+            Las respuestas indican video con rostro: se debe describir qué se guarda de la interacción con el sistema y cómo se protege. No debe afirmarse que solo se usan cuentas y datos de prueba.
+        - clave: datos_registros_mirada
+          si: { todas: [{ regla: RP-GRAB.6 }, { no: { p: P-PER-05, incluye: video_rostro } }] }
+          texto: >-
+            Del seguimiento ocular solo se guardan las coordenadas de su mirada; no se guardan imágenes
+            de la cámara.
+        - clave: datos_registros_mirada_ir
+          si: { todas: [{ regla: RP-GRAB.6 }, { p: P-PER-05, incluye: video_rostro }] }
+          texto: >-
+            Registros del seguimiento ocular que se guardan: ___
+        - clave: datos_registros_mirada_ir_nota
+          notaIR: true
+          si: { todas: [{ regla: RP-GRAB.6 }, { p: P-PER-05, incluye: video_rostro }] }
+          texto: >-
+            Las respuestas indican video con rostro: se debe describir qué se guarda del seguimiento ocular (por ejemplo, si se guardan imágenes de la cámara) y cómo se protege. No debe afirmarse que solo se guardan coordenadas de mirada.
+        - clave: datos_anonima
+          si: { regla: RP-PERS.10 }
+          texto: >-
+            Sus respuestas son anónimas. Si hay sorteo, la inscripción es confidencial, se hace en un
+            formulario separado y los correos se borran después del sorteo.
+        - clave: datos_ia
+          si: { todas: [{ regla: RP-IA.5 }, { no: { alguna: [{ p: P-DAT-03, incluye: sobre_personas }, { p: P-DAT-04, incluyeAlguno: [externo, nose] }, { p: P-DAT-02, incluyeAlguno: [salud, biometricos, etnia, socioeconomico, convicciones, sexualidad, nose] }] } }] }
+          texto: >-
+            Se usan asistentes de inteligencia artificial institucionales de la Universidad de Concepción
+            sobre datos seudonimizados.
+        - clave: datos_ia_ir
+          si: { todas: [{ regla: RP-IA.5 }, { alguna: [{ p: P-DAT-03, incluye: sobre_personas }, { p: P-DAT-04, incluyeAlguno: [externo, nose] }, { p: P-DAT-02, incluyeAlguno: [salud, biometricos, etnia, socioeconomico, convicciones, sexualidad, nose] }] }] }
+          texto: >-
+            Uso de asistentes de inteligencia artificial con sus datos: ___
+        - clave: datos_ia_ir_nota
+          notaIR: true
+          si: { todas: [{ regla: RP-IA.5 }, { alguna: [{ p: P-DAT-03, incluye: sobre_personas }, { p: P-DAT-04, incluyeAlguno: [externo, nose] }, { p: P-DAT-02, incluyeAlguno: [salud, biometricos, etnia, socioeconomico, convicciones, sexualidad, nose] }] }] }
+          texto: >-
+            Las respuestas indican perfiles sobre personas, servicios externos o datos sensibles (o no se sabe): se debe describir qué asistente de inteligencia artificial se usa, con qué datos y con qué resguardos. No debe afirmarse que son institucionales y con datos seudonimizados.
+        - clave: datos_modelos
+          si: { todas: [{ regla: RP-IA.1 }, { no: { p: P-DAT-03, incluye: sobre_personas } }] }
+          texto: Los modelos de inteligencia artificial se usan solo con datos anonimizados.
+        - clave: datos_modelos_ir
+          si: { todas: [{ regla: RP-IA.1 }, { p: P-DAT-03, incluye: sobre_personas }] }
+          texto: >-
+            Uso de modelos de inteligencia artificial con sus datos: ___
+        - clave: datos_modelos_ir_nota
+          notaIR: true
+          si: { todas: [{ regla: RP-IA.1 }, { p: P-DAT-03, incluye: sobre_personas }] }
+          texto: >-
+            Las respuestas indican perfiles sobre personas con modelos de inteligencia artificial: se debe describir qué modelos se usan y con qué datos. No debe afirmarse que se usan solo datos anonimizados.
+        # 7. Población vulnerable (nota al IR; no aplica en nivel 1)
+        - clave: vulnerables_asentimiento
+          titulo: Población vulnerable
+          notaIR: true
+          si:
+            todas:
+              - { nivel: ["2"] }
+              - { p: P-PER-03, incluyeAlguno: [menores, discapacidad] }
+          texto: >-
+            Hay participantes menores de edad o con discapacidad: adjuntar el asentimiento y la autorización del
+            representante legal y adaptar este consentimiento informado.
+        - clave: vulnerables_otros
+          titulo: Población vulnerable
+          notaIR: true
+          si:
+            todas:
+              - { nivel: ["2"] }
+              - { p: P-PER-03, algunaSalvo: [ninguno, menores, discapacidad] }
+          texto: >-
+            Hay participantes de otros grupos que requieren atención especial: se debe adaptar este consentimiento
+            informado a la situación de esos grupos (no se requiere asentimiento ni autorización de un representante legal).
+        # 8. Costos y compensaciones
+        - clave: costos
+          titulo: Costos y compensaciones
+          texto: Participar no tiene costo para usted.
+        - clave: compensacion_ninguna
+          si: { todas: [{ no: { p: P-PER-06, incluye: simbolico } }, { no: { p: P-PER-06, es: relevante } }] }
+          texto: No se ofrece compensación por participar.
+        - clave: compensacion_ir
+          si: { todas: [{ no: { p: P-PER-06, incluye: simbolico } }, { p: P-PER-06, es: relevante }] }
+          texto: >-
+            Compensación o incentivo por participar: ___
+        - clave: compensacion_ir_nota
+          notaIR: true
+          si: { todas: [{ no: { p: P-PER-06, incluye: simbolico } }, { p: P-PER-06, es: relevante }] }
+          texto: >-
+            Las respuestas indican un incentivo relevante (monto, nota u otro beneficio académico): se debe describir en la frase anterior en qué consiste y justificar por qué no afecta la voluntariedad. No debe escribirse que no se ofrece compensación.
+        - clave: compensacion_nota
+          notaIR: true
+          si: { p: P-PER-06, incluye: simbolico }
+          texto: >-
+            Se ofrece un incentivo simbólico: se debe describir en el consentimiento en qué consiste. Debe ser de bajo
+            valor y no condicionar la participación (RP-PERS.5).
+        # 9. Quién accede a la información
+        - clave: acceso
+          titulo: Quién accede a la información
+          si: { no: { p: P-DAT-04, incluye: terceros } }
+          texto: >-
+            Solo tendrán acceso a la información que usted entregue {D-IR-NOMBRE} y {D-EST-NOMBRE}.
+        - clave: acceso_ir
+          titulo: Quién accede a la información
+          si: { p: P-DAT-04, incluye: terceros }
+          texto: >-
+            Tendrán acceso a la información que usted entregue: ___
+        - clave: acceso_ir_nota
+          notaIR: true
+          si: { p: P-DAT-04, incluye: terceros }
+          texto: >-
+            Las respuestas indican que otras personas (por ejemplo, la contraparte) acceden a los datos: se debe describir quiénes son y qué acceso tienen. No debe afirmarse que solo acceden el IR y el estudiante.
+        # 10. Derecho a retirarse
+        - clave: retiro
+          titulo: Derecho a retirarse
+          texto: >-
+            Su participación es voluntaria. Puede retirarse en cualquier momento, sin dar razones y sin
+            ninguna consecuencia académica, laboral ni de otro tipo.
+        # 11. Identificación del participante y firmas (solo en la variante con firmas)
+        - clave: identificacion_identificado
+          titulo: Consentimiento y firmas
+          si: { p: P-PER-02, es: identificado }
+          texto: |-
+            Nombre completo del participante: ______________________
+            RUT: ______________________
+        - clave: identificacion_otro
+          titulo: Consentimiento y firmas
+          si:
+            no: { p: P-PER-02, es: identificado }
+          texto: |-
+            Nombre completo del participante (o el código que le asigne el equipo): ______________________
+        - clave: declaracion
+          texto: >-
+            Declaro que leí este documento, que me explicaron el estudio y resolvieron mis dudas, y que
+            acepto participar voluntariamente.
+        - clave: firmas
+          texto: |-
+            Firma del participante: ______________________
+            Firma del investigador: ______________________
+            Firma del ministro de fe: ______________________
+        # 12. CI para la prueba piloto (nota al IR)
+        - clave: piloto
+          titulo: Prueba piloto
+          notaIR: true
+          texto: Si hay prueba piloto, se debe generar una copia de este consentimiento y cambiar el título.
+
+    # Variante por casilla: encuesta anónima en línea (CI_CASILLA). Reemplaza el elemento 11 y abrevia el resto.
+    - clave: casilla
+      si: { cond: CI_CASILLA }
+      titulo: Consentimiento informado (aceptación por casilla en el formulario en línea)
+      elementos:
+        - clave: lenguaje
+          titulo: Lenguaje comprensible
+          notaIR: true
+          texto: >-
+            Este texto va al inicio del formulario en línea, en segunda persona y con frases breves. Se debe adaptar
+            al nivel de lectura de la población participante.
+        - clave: objetivo
+          titulo: Objetivo del estudio
+          texto: >-
+            Le invitamos a responder una encuesta del estudio «{D-TITULO}». El objetivo general es:
+            {D-OBJ-GENERAL}. Responderla toma aproximadamente ___ minutos.
+        - clave: duracion_nota
+          notaIR: true
+          texto: Completar la duración estimada en la frase anterior.
+        - clave: voluntario_anonimo
+          titulo: Participación voluntaria y anónima
+          texto: >-
+            Su participación es voluntaria y anónima: el formulario no registra su nombre, su correo ni su
+            dirección IP.
+        - clave: anonima_sorteo
+          si: { regla: RP-PERS.10 }
+          texto: >-
+            Si hay sorteo, la inscripción es confidencial, se hace en un formulario separado y los correos se
+            borran después del sorteo.
+        - clave: riesgos
+          titulo: Riesgos y beneficios
+          si: { no: { alguna: [{ p: P-DAT-02, incluyeAlguno: [violencia_trauma, ilicitos, desempeno, nose] }, { p: P-PER-04, incluyeAlguno: ["si", "nose"] }, { cond: RIESGO_PROC }] } }
+          texto: >-
+            El riesgo es mínimo: podría sentir alguna incomodidad con algunas preguntas, y puede omitir
+            cualquiera de ellas. Participar puede no darle un beneficio directo. Los beneficios esperados
+            son: ___.
+        - clave: riesgos_ir
+          titulo: Riesgos y beneficios
+          si: { alguna: [{ p: P-DAT-02, incluyeAlguno: [violencia_trauma, ilicitos, desempeno, nose] }, { p: P-PER-04, incluyeAlguno: ["si", "nose"] }, { cond: RIESGO_PROC }] }
+          texto: >-
+            Los riesgos de participar y las medidas para reducirlos son: ___. Los beneficios esperados son: ___
+        - clave: riesgos_ir_nota
+          notaIR: true
+          si: { alguna: [{ p: P-DAT-02, incluyeAlguno: [violencia_trauma, ilicitos, desempeno, nose] }, { p: P-PER-04, incluyeAlguno: ["si", "nose"] }, { cond: RIESGO_PROC }] }
+          texto: >-
+            Las respuestas indican que el estudio podría superar el riesgo mínimo (temas de riesgo, engaño o duda sobre él, una intervención con elementos de riesgo o mediciones fisiológicas): se debe describir en la frase anterior los riesgos concretos y cómo se mitigan. No debe afirmarse que el riesgo es mínimo si no lo justifica.
+        - clave: beneficios_nota
+          notaIR: true
+          texto: Completar los beneficios esperados; si no hay beneficio directo, indicarlo.
+        - clave: retiro
+          titulo: Retiro
+          texto: >-
+            Puede retirarse cerrando el formulario antes de enviarlo. Una vez enviadas, las respuestas no
+            pueden retirarse, porque son anónimas y no es posible saber cuáles son las suyas.
+        - clave: costos
+          titulo: Costos y compensaciones
+          texto: Participar no tiene costo para usted.
+        - clave: compensacion_ninguna
+          si: { todas: [{ no: { p: P-PER-06, incluye: simbolico } }, { no: { p: P-PER-06, es: relevante } }] }
+          texto: No se ofrece compensación por participar.
+        - clave: compensacion_ir
+          si: { todas: [{ no: { p: P-PER-06, incluye: simbolico } }, { p: P-PER-06, es: relevante }] }
+          texto: >-
+            Compensación o incentivo por participar: ___
+        - clave: compensacion_ir_nota
+          notaIR: true
+          si: { todas: [{ no: { p: P-PER-06, incluye: simbolico } }, { p: P-PER-06, es: relevante }] }
+          texto: >-
+            Las respuestas indican un incentivo relevante (monto, nota u otro beneficio académico): se debe describir en la frase anterior en qué consiste y justificar por qué no afecta la voluntariedad. No debe escribirse que no se ofrece compensación.
+        - clave: compensacion_nota
+          notaIR: true
+          si: { p: P-PER-06, incluye: simbolico }
+          texto: >-
+            Se ofrece un incentivo simbólico: se debe describir en el texto en qué consiste. Debe ser de bajo valor y
+            no condicionar la participación (RP-PERS.5).
+        - clave: contactos
+          titulo: Contacto
+          texto: >-
+            El estudio lo realiza {D-EST-NOMBRE} ({D-EST-CARRERA}), bajo la dirección de {D-IR-NOMBRE}
+            ({D-IR-UNIDAD}, Universidad de Concepción), a quien puede escribir a {D-IR-CORREO}. Para dudas
+            sobre sus derechos como participante, escriba al CEBB-FI: {ajustes.correoCebb}.
+        - clave: uso_agregado
+          titulo: Uso de los resultados
+          si: { no: { p: P-DAT-05, es: personales } }
+          texto: >-
+            Los resultados se difundirán solo de forma agregada, sin permitir identificar a nadie.
+        - clave: uso_agregado_ir
+          titulo: Uso de los resultados
+          si: { p: P-DAT-05, es: personales }
+          texto: >-
+            Los datos personales se difundirán de la siguiente forma: ___
+        - clave: uso_agregado_ir_nota
+          notaIR: true
+          si: { p: P-DAT-05, es: personales }
+          texto: >-
+            Las respuestas indican que se publicarán datos personales: se debe describir qué datos, dónde y con qué condiciones se difundirán. No debe afirmarse que la difusión es solo agregada.
+        - clave: datos_breve
+          titulo: Sus datos
+          si: { todas: [{ paquete: RP-DATOS }, { no: { p: P-DAT-04, incluyeAlguno: [externo, nose] } }] }
+          texto: >-
+            El responsable del tratamiento es la Universidad de Concepción. Los datos se guardan en
+            {ajustes.almacenamientoInstitucional} y se conservan como máximo {ajustes.conservacionMeses}
+            meses. Para ejercer sus derechos de acceso, rectificación, supresión, oposición y portabilidad,
+            use la vía {ajustes.viaDerechos}.
+        - clave: datos_breve_ir
+          titulo: Sus datos
+          si: { todas: [{ paquete: RP-DATOS }, { p: P-DAT-04, incluyeAlguno: [externo, nose] }] }
+          texto: >-
+            El responsable del tratamiento es la Universidad de Concepción. Para ejercer sus derechos de acceso, rectificación, supresión, oposición y portabilidad, use la vía {ajustes.viaDerechos}. Lugar donde se guardan sus datos y plazo de conservación: ___
+        - clave: datos_breve_ir_nota
+          notaIR: true
+          si: { todas: [{ paquete: RP-DATOS }, { p: P-DAT-04, incluyeAlguno: [externo, nose] }] }
+          texto: >-
+            Las respuestas indican almacenamiento fuera de la infraestructura institucional (o no se sabe): se debe describir dónde se guardan los datos y por cuánto tiempo. No debe afirmarse que se guardan solo en infraestructura institucional.
+        - clave: opciones
+          titulo: Aceptación
+          texto: ¿Acepta participar en este estudio?
+        - clave: configuracion_nota
+          notaIR: true
+          texto: >-
+            El formulario debe configurarse para no recolectar correo ni dirección IP y para que la aceptación sea
+            obligatoria. Con «No acepto», el formulario debe terminar sin mostrar preguntas.
+
+textos:
+  comun:
+    encabezado: Universidad de Concepción — Facultad de Ingeniería — CEBB-FI
+    comite: Comité de Ética, Bioética y Bioseguridad (CEBB-FI)
+    nivel: Nivel
+    propuesta: Este documento es una propuesta del CEBB-FI y puede ser revisado por él.
+    borrador: BORRADOR — requiere validación CEBB/Dirección Jurídica UdeC
+    pieVersion: "Versión de configuración: {ajustes.version}"
+    pieGenerado: "Generado el"
+    piePagina: Página
+    paginaDe: de
+    etiquetaTitulo: Título del proyecto
+    etiquetaIr: Investigador(a) responsable (IR)
+    etiquetaUnidad: Unidad académica del IR
+    etiquetaCorreoIr: Correo del IR
+    etiquetaEstudiante: Estudiante a cargo
+    etiquetaCarrera: Carrera
+    motivosTitulo: Motivos de este compromiso
+    anexosTitulo: Anexos
+    prellenado: prellenado por la herramienta
+    firmaIr: Firma del IR
+    firmaEstudiante: Firma del estudiante
+    fecha: Fecha
+
+  DOC-CARTA-ADS:
+    titulo: Comunicación de adscripción de Memoria de Título
+    destinatario: "Comité de Ética, Bioética y Bioseguridad, Facultad de Ingeniería ({ajustes.correoCebb})"
+    asunto: Comunicación de adscripción de Memoria de Título a proyecto con certificación ética vigente
+    itemTitulo: "Título tentativo de la MT: {D-TITULO}"
+    itemEstudiante: "Estudiante: {D-EST-NOMBRE}, {D-EST-CARRERA}"
+    itemProyecto: "Proyecto al que está adscrita: {D-ADS-PROYECTO}"
+    respaldo: Respaldo firmado por {D-ADS-IR}, IR del proyecto mayor, que se adjunta.
+    itemCertificado: "Certificado de aprobación ética vigente: comité {D-ADS-COMITE}, vigencia hasta {D-ADS-VIGENCIA}"
+    certificado: Se adjunta copia.
+    declaracion: La MT y todas sus actividades (población, procedimientos, datos y sitios) están cubiertas por la certificación indicada.
+    nota: Con el envío de esta comunicación el proyecto queda autorizado, sin necesidad de otra evaluación del CEBB-FI.
+    avisoVencida: "Advertencia: la vigencia del certificado indicada ya venció a la fecha de generación de este documento; debe verificarse que la certificación esté vigente."
+
+  DOC-CONSTANCIA:
+    titulo: Constancia de autoevaluación
+    resultado: Nivel 0 — Sin evaluación. Ninguna de las respuestas activó revisión por el CEBB-FI.
+    respuestasTitulo: Respuestas dadas
+    alertasTitulo: Alertas
+    recomendacion: Se recomienda conservar este documento como respaldo.
+    nota: >-
+      El CEBB-FI puede solicitar esta constancia en cualquier momento y puede revisar el proyecto si cambian
+      sus condiciones. Si el proyecto cambia (p. ej., se incorporan personas, datos personales o laboratorio),
+      debe repetirse la autoevaluación.
+
+  DOC-COMPROMISO:
+    titulo_registro: Registro de Memoria de Título — Compromiso de cumplimiento
+    titulo_solicitud_abreviada: Solicitud abreviada de Memoria de Título — Compromiso de cumplimiento
+    descripcionTitulo: Descripción del proyecto
+    etiquetaObjetivo: Objetivo general
+    etiquetaResumen: Resumen y justificación
+    etiquetaFechaInicio: Fecha estimada de inicio del trabajo con personas o datos
+    etiquetaOrganizacion: Organización externa
+    etiquetaFuenteDatos: Fuente de los datos
+    reglasTitulo: Paquetes y reglas aplicados
+    fundamentoEtiqueta: Fundamento
+    generalesTitulo: Compromisos generales
+    generalCambios: >-
+      Informaremos al CEBB-FI cualquier cambio relevante del proyecto. Si un cambio hace que el proyecto deje de cumplir las condiciones de este compromiso, solicitaremos la revisión del CEBB-FI antes de continuar.
+    inicio_registro: >-
+      Enviado este registro al CEBB-FI, el trabajo con personas o datos puede comenzar; no se requiere acuse
+      de recibo. El CEBB-FI podrá solicitar información adicional o revisar el proyecto con posterioridad.
+    inicio_solicitud_abreviada: >-
+      Enviada esta solicitud al CEBB-FI, el trabajo con personas o datos puede comenzar; no se requiere acuse
+      de recibo. El CEBB-FI podrá solicitar información adicional o revisar el proyecto con posterioridad.
+    propuesta: Este compromiso es una propuesta del CEBB-FI y puede ser revisado por él.
+    firmasTitulo: Firmas
+    fundamentosTitulo: "Anexo: fundamentos de las reglas"
+    fundamentosIntro: >-
+      Fuente legal o ética de cada regla aplicada. Este anexo es informativo y no forma parte de lo que se firma.
+    fundamentosRegla: Regla
+
+  DOC-CI:
+    notaIrTitulo: Nota para el IR (no se entrega al participante)
+    notaMixta: >-
+      Este estudio se aplica en línea y en papel. Se debe usar el texto de aceptación por casilla en el formulario en
+      línea y el consentimiento con firmas en la aplicación en papel.
+    aceptar: ☐ Acepto participar
+    noAceptar: ☐ No acepto
+
+  DOC-PGD:
+    titulo: Plan de gestión de datos
+    introduccion: >-
+      Plan de gestión de datos elaborado a partir de los compromisos del Compromiso de cumplimiento
+      (Ley 21.719, CIOMS pauta 12, políticas UdeC).
+    responsableTitulo: Datos del responsable
+    conservacion: "Conservación de los datos identificables o seudonimizados: {ajustes.conservacionMeses} meses desde el fin de la recolección."
+    viaDerechos: "Vía para ejercer los derechos de acceso, rectificación, supresión, oposición y portabilidad: {ajustes.viaDerechos}"
+
+  DOC-F04:
+    titulo: Formulario de Antecedentes del Proyecto — prellenado
+    motivosTitulo: Motivos de revisión
+    motivosAviso: >-
+      Este recuadro fue generado por la herramienta Triaje Ético MT y no forma parte del formulario original;
+      el IR puede editarlo.
+    noPrellenado: No se prellenó porque
+    # Ítem prellenado en parte (04-documentos §7.1): «Se prellenó solo en parte: se omitió lo que corresponde a «título» (RP-X.n) porque …»
+    omitidoParcial: "Se prellenó solo en parte: se omitió lo que corresponde a"
+    omitidoPorque: porque
+    completarPista: "Completar:"
+    sugerenciaEtiqueta: Sugerencia (revisar y editar si corresponde)
+    etiquetaNombre: "Nombre:"
+    etiquetaFirma: "Firma:"
+    etiquetaFecha: "Fecha:"
+
+  DOC-CORREO:
+    asunto_A: "[MT nivel A] {D-TITULO} — {D-EST-NOMBRE} — IR {D-IR-NOMBRE}"
+    asunto_1_registro: "Registro [MT nivel 1] {D-TITULO} — {D-EST-NOMBRE} — IR {D-IR-NOMBRE}"
+    asunto_1_solicitud_abreviada: "Solicitud abreviada [MT nivel 1] {D-TITULO} — {D-EST-NOMBRE} — IR {D-IR-NOMBRE}"
+    asunto_2: "[MT nivel 2] {D-TITULO} — {D-EST-NOMBRE} — IR {D-IR-NOMBRE}"
+    saludo: "Estimados miembros del CEBB-FI:"
+    cuerpo_A: >-
+      Comunicamos la adscripción de la MT “{D-TITULO}” al proyecto {D-ADS-PROYECTO}, con certificación vigente
+      de {D-ADS-COMITE} hasta {D-ADS-VIGENCIA}.
+    cuerpo_1_registro: >-
+      Remitimos el registro de nivel 1 (compromiso de cumplimiento) de la MT “{D-TITULO}”, firmado por el IR y
+      el estudiante. Con este envío iniciamos el trabajo; quedamos disponibles por si el CEBB-FI requiere
+      información o revisar el proyecto.
+    cuerpo_1_solicitud_abreviada: >-
+      Remitimos la solicitud abreviada de nivel 1 (compromiso de cumplimiento) de la MT “{D-TITULO}”, firmada
+      por el IR y el estudiante. Con este envío iniciamos el trabajo; quedamos disponibles por si el CEBB-FI
+      requiere información o revisar el proyecto.
+    cuerpo_2: Solicitamos la revisión del CEBB-FI de la MT “{D-TITULO}”.
+    paquetesTitulo: Paquetes de reglas aplicados
+    motivosTitulo: Motivos de revisión
+    comentarioTitulo: Comentario del IR
+    adjuntosTitulo: Adjuntos (cada uno como PDF independiente)
+    justificarAnexos: Si algún anexo no aplica, se justifica en este correo.
+    completadoPdf: generado por la herramienta, completado y guardado en PDF
+    cierre: |-
+      Atentamente,
+      {D-IR-NOMBRE}
+      {D-IR-UNIDAD}
+      {D-IR-CORREO}

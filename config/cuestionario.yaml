@@ -1,0 +1,1157 @@
+# Cuestionario del triaje (05-diseno §2.1; 02-triaje; ids.md §1-§4, §9).
+# BORRADOR — requiere validación CEBB/Dirección Jurídica UdeC.
+niveles:
+  - id: "A"
+    nombre: Adscrito
+    resumen: >-
+      La MT es parte de un proyecto mayor con certificación ética vigente que cubre todas sus
+      actividades: se comunica la adscripción al CEBB-FI y no se requiere una nueva evaluación.
+    documentos:
+      - doc: DOC-CARTA-ADS
+      - doc: DOC-CORREO
+  - id: "0"
+    nombre: Sin evaluación
+    resumen: >-
+      El proyecto no involucra personas, datos sobre personas ni actividades de riesgo: no requiere
+      evaluación ni compromisos. Se emite una constancia de autoevaluación.
+    documentos:
+      - doc: DOC-CONSTANCIA
+  - id: "1"
+    nombre: Compromiso
+    resumen: >-
+      El proyecto tiene riesgo mínimo o bajo y se gestiona con compromisos: el profesor guía y el
+      estudiante aceptan los paquetes de reglas aplicables y firman el compromiso de cumplimiento.
+    documentos:
+      - doc: DOC-COMPROMISO
+      - doc: DOC-CI
+        si: { cond: HAY_PERS }
+      - doc: DOC-PGD
+        si: { paquete: RP-DATOS }
+      - doc: DOC-CORREO
+  - id: "2"
+    nombre: Revisión CEBB
+    resumen: >-
+      El proyecto requiere evaluación del CEBB-FI: se prepara el formulario de antecedentes del proyecto, prellenado con las respuestas, con la lista de anexos que el profesor guía adjunta al correo.
+    documentos:
+      - doc: DOC-F04
+      - doc: DOC-CI
+        si: { cond: HAY_PERS }
+      - doc: DOC-CORREO
+
+datos:
+  - id: D-TITULO
+    etiqueta: Título tentativo de la MT
+    tipo: texto
+    etapa: inicio
+    requerido: true
+  - id: D-IR-NOMBRE
+    etiqueta: Nombre del profesor/a guía (IR)
+    tipo: texto
+    etapa: inicio
+    requerido: true
+  - id: D-IR-UNIDAD
+    etiqueta: Unidad académica (departamento) del profesor/a guía
+    tipo: texto
+    etapa: inicio
+    requerido: true
+  - id: D-IR-CORREO
+    etiqueta: Correo institucional del profesor/a guía
+    tipo: correo
+    etapa: inicio
+    requerido: true
+  - id: D-EST-NOMBRE
+    etiqueta: Nombre del/la estudiante
+    tipo: texto
+    etapa: inicio
+    requerido: true
+  - id: D-EST-CARRERA
+    etiqueta: Carrera del/la estudiante
+    tipo: texto
+    etapa: inicio
+    requerido: true
+  - id: D-OBJ-GENERAL
+    etiqueta: Objetivo general
+    tipo: parrafo
+    etapa: final
+    pedirSi: { nivel: ["1", "2"] }
+    requerido: true
+  - id: D-OBJ-ESPECIFICOS
+    etiqueta: Objetivos específicos
+    tipo: parrafo
+    etapa: final
+    pedirSi: { nivel: ["2"] }
+    requerido: true
+  - id: D-RESUMEN
+    etiqueta: Resumen breve y justificación ética
+    ayuda: Problema, población y valor social del proyecto.
+    tipo: parrafo
+    etapa: final
+    pedirSi: { nivel: ["1", "2"] }
+    requerido: true
+  - id: D-FECHA-INICIO
+    etiqueta: Fecha estimada de inicio del trabajo con personas o datos
+    tipo: fecha
+    etapa: final
+    pedirSi: { nivel: ["1", "2"] }
+    requerido: true
+  - id: D-ORG-EXTERNA
+    etiqueta: Organización externa donde se recluta o se trabaja con personas
+    ayuda: Nombre de la empresa, colegio o servicio.
+    tipo: texto
+    etapa: final
+    pedirSi: { todas: [ { nivel: ["1", "2"] }, { p: P-PER-07, incluyeAlguno: ["si", "nose"] } ] }
+    requerido: true
+  - id: D-FUENTE-DATOS
+    etiqueta: Fuente de los datos secundarios
+    ayuda: Nombre, origen y licencia o condiciones de uso de los datos existentes sobre personas.
+    tipo: parrafo
+    etapa: final
+    pedirSi: { todas: [ { nivel: ["1", "2"] }, { cond: HAY_DATOS } ] }
+    requerido: true
+  - id: D-CONSERVACION-JUST
+    etiqueta: Justificación del plazo de conservación de los datos identificables o seudonimizados
+    ayuda: Razón de investigación que exige conservarlos más allá del plazo común, como un seguimiento posterior de los participantes.
+    tipo: parrafo
+    etapa: final
+    pedirSi: { p: P-DAT-06, es: extendido }
+    requerido: true
+  - id: D-ADS-PROYECTO
+    etiqueta: Nombre y código del proyecto mayor
+    tipo: texto
+    etapa: final
+    pedirSi: { nivel: ["A"] }
+    requerido: true
+  - id: D-ADS-IR
+    etiqueta: Investigador/a responsable del proyecto mayor
+    ayuda: >-
+      Se deja VACÍO si el profesor/a guía de la MT es el IR del proyecto mayor. Si el IR del proyecto
+      mayor es otra persona, se escribe su nombre: se agregará el respaldo firmado por esa persona
+      a los adjuntos.
+    tipo: texto
+    etapa: final
+    pedirSi: { nivel: ["A"] }
+  - id: D-ADS-COMITE
+    etiqueta: Comité que certificó el proyecto mayor
+    tipo: texto
+    etapa: final
+    pedirSi: { nivel: ["A"] }
+    requerido: true
+  - id: D-ADS-VIGENCIA
+    etiqueta: Fecha de término de vigencia de la certificación
+    tipo: fecha
+    etapa: final
+    pedirSi: { nivel: ["A"] }
+    requerido: true
+  - id: D-COMENTARIO
+    etiqueta: Comentario para el CEBB (opcional)
+    ayuda: Se incluye en el correo al CEBB. Debe ser breve y no incluir datos personales de participantes.
+    tipo: parrafo
+    etapa: final
+    pedirSi: { nivel: ["A", "1", "2"] }
+
+bloques:
+  # ---------------------------------------------------------------- ADS
+  - id: ADS
+    titulo: Adscripción a un proyecto mayor
+    descripcion: >-
+      Si la MT ya está cubierta por la certificación ética de un proyecto mayor, el triaje termina
+      aquí.
+    preguntas:
+      - id: P-ADS-01
+        tipo: unica
+        texto: >-
+          ¿La Memoria de Título forma parte de un proyecto de investigación mayor con certificación
+          ética vigente?
+        ayuda: >-
+          Ejemplos: la MT es un subproyecto de un FONDECYT, un proyecto Anillo o un proyecto con
+          convenio, y el proyecto mayor tiene certificado de un comité de ética (CEBB, CEC u otro
+          comité institucional).
+        opciones:
+          - valor: "no"
+            etiqueta: "No"
+            ayuda: Un proyecto en trámite o sin certificado es «No».
+            efectos:
+              - motivo: 'No hay certificación de un proyecto mayor: se aplica el triaje completo.'
+          - valor: cubierta
+            etiqueta: Sí, y la certificación cubre todas las actividades de la MT
+            ayuda: >-
+              El certificado abarca todas las actividades de la MT (población, procedimientos, datos y
+              sitios) y está vigente durante la MT.
+            terminaCuestionario: true
+            efectos:
+              - nivel: "A"
+                anexos: [ANX-CERT-ADS]
+                motivo: 'La certificación vigente del proyecto mayor cubre todas las actividades de la MT.'
+          - valor: parcial
+            etiqueta: Sí, pero la MT agrega actividades no cubiertas
+            ayuda: >-
+              La MT forma parte del proyecto, pero agrega una encuesta, otra población, otro sitio o
+              un tipo de dato que el protocolo aprobado no contempla.
+            efectos:
+              - alertas: [ALR-ADS-FUERA]
+                motivo: 'Hay actividades fuera de la certificación: se sigue el triaje normal para la MT.'
+          - valor: nose
+            etiqueta: No estoy seguro/a
+            efectos:
+              - alertas: [ALR-NOSE]
+                motivo: 'Sin certeza de la adscripción, se aplica el triaje completo.'
+
+  # ---------------------------------------------------------------- PER
+  - id: PER
+    titulo: Participación de personas
+    descripcion: Preguntas sobre cómo participan personas en la MT y qué registros se harán de ellas.
+    preguntas:
+      - id: P-PER-01
+        tipo: multiple
+        texto: ¿Cómo participan personas en la MT?
+        ayuda: >-
+          Se marca cada forma en que personas ajenas al equipo de la MT aportan datos o son
+          observadas. Las grabaciones y mediciones (audio, pantalla, seguimiento ocular, sensores) se
+          declaran más adelante.
+        opciones:
+          - valor: ninguna
+            etiqueta: Ninguna
+            ayuda: >-
+              Simulaciones, análisis de datos ya existentes (se declaran en el bloque de datos),
+              pruebas de equipos o software sin usuarios, o validación con el propio equipo de la MT.
+              Si se mide o se registra a personas, no corresponde «Ninguna».
+            exclusiva: true
+            efectos:
+              - motivo: 'Sin participación directa de personas: se cierra el bloque de personas.'
+          - valor: encuesta
+            etiqueta: Encuesta
+            ayuda: Cuestionario en línea o en papel.
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-PERS]
+                motivo: 'Encuesta a adultos: riesgo mínimo, se gestiona con participación voluntaria y consentimiento.'
+          - valor: entrevista
+            etiqueta: Entrevista o grupo focal
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-PERS]
+                motivo: 'Entrevista o grupo focal: riesgo mínimo con consentimiento y confidencialidad.'
+          - valor: usabilidad
+            etiqueta: Prueba de usabilidad o evaluación de prototipo
+            ayuda: Usuarios prueban el prototipo o el sistema de la MT.
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-PERS]
+                motivo: 'Prueba de usabilidad: riesgo mínimo con consentimiento y derecho a retirarse.'
+          - valor: observacion
+            etiqueta: Observación en contexto (no encubierta)
+            ayuda: >-
+              Se observa a personas en su contexto, sabiendo ellas que se las observa. Incluye medir a
+              personas en su actividad habitual (p. ej., postura en un puesto de trabajo).
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-PERS]
+                motivo: 'Observación no encubierta: riesgo mínimo con consentimiento.'
+          - valor: intervencion
+            etiqueta: 'Experimento: intervención o comparación de condiciones'
+            ayuda: >-
+              Se asigna a las personas a condiciones distintas para comparar su efecto (grupo control, dos métodos de enseñanza, dos interfaces, dos productos, un tratamiento). Sus características se detallan en la pregunta siguiente.
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-PERS]
+                motivo: 'Intervención o comparación de condiciones: el nivel depende de sus riesgos (pregunta siguiente); si solo compara condiciones habituales y sin riesgo, se gestiona con compromisos.'
+          - valor: nose
+            etiqueta: No estoy seguro/a
+            exclusiva: true
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-PERS]
+                alertas: [ALR-NOSE]
+                motivo: 'Sin certeza sobre la participación de personas: se trata como participación (mínimo nivel 1) y las respuestas siguientes deciden el nivel.'
+
+      - id: P-PER-09
+        tipo: multiple
+        texto: ¿La intervención tiene alguno de estos elementos?
+        ayuda: >-
+          Se marcan los elementos presentes en alguna de las condiciones que se comparan. Si participan estudiantes del propio profesor guía, esa relación se declara en la pregunta de grupos.
+        mostrarSi: { p: P-PER-01, incluye: intervencion }
+        opciones:
+          - valor: riesgo_fisico
+            etiqueta: Esfuerzo físico, ingesta o estímulos sobre el cuerpo
+            ayuda: >-
+              Ejercicio o esfuerzo mayor que el de la vida diaria; alimentos, bebidas, fármacos o
+              suplementos; estímulos o dispositivos aplicados sobre el cuerpo (luz intensa, ruido,
+              calor, estimulación eléctrica).
+            efectos:
+              - nivel: "2"
+                motivo: 'Una intervención con esfuerzo físico, ingesta o estímulos sobre el cuerpo supera el riesgo mínimo: requiere evaluación del CEBB.'
+          - valor: estres
+            etiqueta: Estímulos estresantes o emocionalmente intensos
+            ayuda: >-
+              Inducir frustración, miedo o presión; mostrar contenido perturbador; tareas con
+              consecuencias para la persona.
+            efectos:
+              - nivel: "2"
+                motivo: 'Los estímulos estresantes o emocionalmente intensos superan el riesgo mínimo: requiere evaluación del CEBB (CIOMS 2016 pauta 4).'
+          - valor: privacion
+            etiqueta: Algún grupo recibe menos que la práctica habitual
+            ayuda: >-
+              Un grupo queda sin un método, apoyo o beneficio que ya recibía o que se ofrece
+              normalmente (p. ej., una sección de un curso sin las ayudantías habituales).
+            efectos:
+              - nivel: "2"
+                motivo: 'Privar a un grupo de la práctica habitual o de un beneficio establecido requiere evaluación del CEBB (CIOMS 2016 pauta 5).'
+          - valor: evaluacion
+            etiqueta: La condición asignada afecta notas, evaluaciones o condiciones laborales
+            ayuda: >-
+              La nota, la evaluación de desempeño, la remuneración o las condiciones de trabajo de la
+              persona dependen de la condición que le toca.
+            efectos:
+              - nivel: "2"
+                motivo: 'Si la condición asignada afecta notas, evaluaciones o condiciones laborales, la intervención no es de riesgo mínimo: requiere evaluación del CEBB.'
+          - valor: ninguno
+            etiqueta: 'Ninguno: condiciones habituales y sin riesgo'
+            ayuda: >-
+              Todas las condiciones son de uso habitual, sin riesgos físicos ni emocionales, y ningún
+              grupo recibe menos que lo habitual.
+            exclusiva: true
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-PERS]
+                motivo: 'Intervención de riesgo mínimo: compara condiciones habituales, sin riesgos físicos ni emocionales, sin privar de beneficios ni afectar evaluaciones; se gestiona con compromisos (RP-PERS.11 y RP-PERS.12).'
+          - valor: nose
+            etiqueta: No estoy seguro/a
+            exclusiva: true
+            efectos:
+              - nivel: "2"
+                alertas: [ALR-NOSE]
+                motivo: 'Sin certeza sobre los riesgos de la intervención, se aplica el criterio más exigente.'
+
+      - id: P-PER-02
+        tipo: unica
+        texto: ¿Cómo se identificará a los participantes en los registros?
+        ayuda: >-
+          Una población pequeña y conocida (un curso, un equipo, una empresa pequeña) no es anónima
+          aunque no se pida el nombre: corresponde «Seudonimizado».
+        mostrarSi: { cond: HAY_PERS }
+        opciones:
+          - valor: anonimo
+            etiqueta: Anónimo
+            ayuda: >-
+              No se guarda nada que identifique (ni nombre, correo, RUT, IP ni datos de contacto) y la
+              población es lo bastante grande para que nadie pueda ser singularizado. Si la
+              inscripción a un sorteo se hace en un formulario separado, sin vínculo con las
+              respuestas (sin IP ni marcas de tiempo que permitan vincular) y los correos se borran
+              tras el sorteo, la encuesta sigue siendo anónima.
+            efectos:
+              - nivel: "1"
+                motivo: 'Sin datos identificadores: el dato anonimizado deja de ser dato personal (Ley 21.719, art. 2 k).'
+          - valor: seudonimizado
+            etiqueta: Seudonimizado
+            ayuda: >-
+              Se usan códigos (P01, P02) y la tabla que los vincula con nombres se guarda aparte. Si
+              el correo del sorteo queda en la misma base, corresponde «Seudonimizado».
+            efectos:
+              - nivel: "1"
+                motivo: 'Los datos seudonimizados siguen siendo datos personales: aplica el paquete de protección de datos (Ley 21.719, arts. 2 f y 2 l).'
+          - valor: identificado
+            etiqueta: Identificado
+            ayuda: Los datos quedan asociados a nombre, correo, RUT u otro identificador.
+            efectos:
+              - nivel: "1"
+                motivo: 'Datos identificados: aplica el paquete de protección de datos (Ley 21.719, art. 2 f).'
+
+      - id: P-PER-03
+        tipo: multiple
+        texto: ¿Participan personas de alguno de estos grupos?
+        mostrarSi: { cond: HAY_PERS }
+        opciones:
+          - valor: menores
+            etiqueta: Menores de 18 años
+            ayuda: Por ejemplo, estudiantes de colegios o liceos.
+            efectos:
+              - nivel: "2"
+                anexos: [ANX-ASENT]
+                motivo: 'Participan menores de edad: requiere evaluación del CEBB y asentimiento con autorización del representante legal (CIOMS 2016 pautas 15 y 17; Ley 21.719, art. 16 quáter).'
+          - valor: discapacidad
+            etiqueta: Discapacidad cognitiva o psicosocial, o que no pueden consentir por sí mismas
+            efectos:
+              - nivel: "2"
+                anexos: [ANX-ASENT]
+                motivo: 'Población en situación de vulnerabilidad o que no puede consentir por sí misma: requiere evaluación del CEBB y asentimiento con autorización del representante legal (CIOMS 2016 pauta 15).'
+          - valor: indigenas
+            etiqueta: Personas o comunidades indígenas
+            ayuda: Personas o comunidades indígenas en cuanto tales.
+            efectos:
+              - nivel: "2"
+                motivo: 'Personas o comunidades indígenas: requiere evaluación del CEBB (CIOMS 2016 pauta 15).'
+          - valor: migrantes
+            etiqueta: Migrantes (barreras idiomáticas o situación irregular)
+            efectos:
+              - nivel: "2"
+                motivo: 'Migrantes con barreras idiomáticas o situación irregular: requiere evaluación del CEBB (CIOMS 2016 pauta 15).'
+          - valor: privados_libertad
+            etiqueta: Personas privadas de libertad
+            efectos:
+              - nivel: "2"
+                motivo: 'Personas privadas de libertad: requiere evaluación del CEBB (CIOMS 2016 pauta 15).'
+          - valor: mayores_dependientes
+            etiqueta: Personas mayores dependientes
+            efectos:
+              - nivel: "2"
+                motivo: 'Personas mayores dependientes: requiere evaluación del CEBB (CIOMS 2016 pauta 15).'
+          - valor: pacientes
+            etiqueta: Pacientes o usuarios de servicios de salud
+            efectos:
+              - nivel: "2"
+                motivo: 'Pacientes o usuarios de servicios de salud: requiere evaluación del CEBB.'
+          - valor: subordinacion
+            etiqueta: Relación de poder con el equipo (subordinación)
+            ayuda: >-
+              Estudiantes del propio profesor guía, subordinados laborales, o reclutamiento a través
+              de una jefatura que puede presionar.
+            efectos:
+              - nivel: "2"
+                motivo: 'Relación de poder con el equipo (estudiantes propios, subordinados): la voluntariedad requiere evaluación del CEBB (CIOMS 2016 pauta 9).'
+          - valor: ninguno
+            etiqueta: Ninguno
+            exclusiva: true
+            efectos:
+              - motivo: 'Sin grupos vulnerables ni relaciones de dependencia; solo adultos que consienten por sí mismos (RP-PERS.4).'
+          - valor: nose
+            etiqueta: No estoy seguro/a
+            exclusiva: true
+            efectos:
+              - nivel: "2"
+                alertas: [ALR-NOSE]
+                motivo: 'Sin certeza sobre la edad, la vulnerabilidad o la dependencia de los participantes: se aplica el criterio más exigente.'
+
+      - id: P-PER-04
+        tipo: sino
+        texto: >-
+          ¿Se oculta el objetivo real del estudio o se engaña a los participantes de alguna forma?
+        ayuda: Omitir detalles irrelevantes del método no es engaño.
+        mostrarSi: { cond: HAY_PERS }
+        opciones:
+          - valor: "si"
+            etiqueta: "Sí"
+            ayuda: >-
+              Incluye la observación encubierta (los observados no saben que lo son) y los estudios
+              donde se informa un objetivo distinto del real.
+            efectos:
+              - nivel: "2"
+                motivo: 'El engaño o la ocultación del objetivo requiere justificación y evaluación del CEBB (CIOMS 2016 pauta 10).'
+          - valor: "no"
+            etiqueta: "No"
+            efectos:
+              - motivo: 'Consentimiento plenamente informado.'
+          - valor: nose
+            etiqueta: No estoy seguro/a
+            efectos:
+              - nivel: "2"
+                alertas: [ALR-NOSE]
+                motivo: 'Sin certeza sobre el engaño, se aplica el criterio más exigente.'
+
+      - id: P-PER-05
+        tipo: multiple
+        pantallaNueva: true
+        texto: ¿Qué registros o mediciones se harán de los participantes?
+        ayuda: >-
+          Se declara todo lo que se grabe o se mida de las personas, además de sus respuestas. Si no
+          se graba ni se mide nada, corresponde «Ninguno».
+        mostrarSi: { cond: HAY_PERS }
+        opciones:
+          - valor: ninguno
+            etiqueta: Ninguno
+            ayuda: Solo se registran las respuestas o las notas del equipo.
+            exclusiva: true
+            efectos:
+              - motivo: 'Sin grabaciones ni mediciones de los participantes.'
+          - valor: audio
+            etiqueta: Audio (solo para transcribir)
+            ayuda: >-
+              Solo para transcribir entrevistas o sesiones; el audio se elimina después. Si la grabación
+              se conserva o se analiza, corresponde «Audio conservado o analizado como dato».
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-GRAB]
+                motivo: 'La voz es un dato personal: se permite grabar solo con consentimiento específico, transcribir con seudónimos y eliminar el audio (Ley 21.719, art. 2 f). No es biométrico si no se usa para identificar (art. 16 ter).'
+          - valor: audio_datos
+            etiqueta: Audio conservado o analizado como dato
+            ayuda: >-
+              La grabación de voz se conserva o se analiza como dato: corpus de habla, evaluación de un
+              sistema de reconocimiento de voz, análisis acústico o del habla. Si la voz se usa para
+              identificar a la persona, corresponde además el tema «Datos biométricos»; si se infiere
+              salud o emociones, «Salud o perfil biológico o genético».
+            efectos:
+              - nivel: "2"
+                motivo: 'Conservar o analizar la grabación de voz como dato (corpus, análisis acústico o del habla) requiere evaluación del CEBB: la voz es un dato personal identificable que no se elimina tras transcribir (Ley 21.719, art. 2 f; art. 16 ter si se usa para identificar).'
+          - valor: pantalla
+            etiqueta: Captura de pantalla (sin rostro)
+            ayuda: >-
+              Captura de la pantalla o de la interacción con el sistema de la MT, sin rostro ni voz,
+              con cuentas y datos de prueba y notificaciones apagadas. Si la pantalla mostrará cuentas
+              personales reales con datos visibles, se debe pedir asesoría al CEBB.
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-GRAB]
+                motivo: 'La captura de pantalla puede contener datos personales: se permite con consentimiento específico, cuentas y datos de prueba, y sin imagen reconocible de personas (RP-GRAB.5).'
+          - valor: seguimiento_ocular
+            etiqueta: Seguimiento ocular (solo coordenadas de mirada)
+            ayuda: >-
+              Un eye-tracker registra solo las coordenadas de la mirada; las imágenes de la cámara no
+              se almacenan y no se infiere salud, fatiga ni rasgos cognitivos. Si se guarda video del
+              rostro, corresponde además «Video o fotografías»; si se infiere salud, «Medición
+              fisiológica».
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-GRAB]
+                motivo: 'Seguimiento ocular sin almacenar imágenes de cámara ni inferir salud: riesgo bajo (RP-GRAB.6; Ley 21.719, art. 16 ter: no hay tratamiento que permita la identificación única). Si se guarda video del rostro o se infiere salud, corresponde nivel 2.'
+          - valor: fisiologica
+            etiqueta: Medición fisiológica o corporal
+            ayuda: >-
+              EEG, ritmo cardíaco, actividad electrodérmica, antropometría u otras mediciones del
+              cuerpo.
+            efectos:
+              - nivel: "2"
+                motivo: 'La medición fisiológica o corporal (salud, perfil biológico o datos biométricos) requiere evaluación del CEBB (Ley 21.719, arts. 2 g, 16 y 16 bis).'
+          - valor: video_rostro
+            etiqueta: Video o fotografías con rostro reconocible
+            ayuda: Se reconoce a las personas (incluye webcam y cámaras donde aparecen personas).
+            efectos:
+              - nivel: "2"
+                motivo: 'Video o fotografías en que se reconoce a personas son datos personales y potencialmente biométricos: requiere evaluación del CEBB (Ley 21.719, art. 16 ter).'
+
+      - id: P-PER-06
+        tipo: unica
+        texto: ¿Habrá algún incentivo por participar?
+        ayuda: Si hay sorteo con correo, véase la ayuda de la pregunta de identificación.
+        mostrarSi: { cond: HAY_PERS }
+        opciones:
+          - valor: ninguno
+            etiqueta: Ninguno
+            efectos:
+              - motivo: 'Sin incentivos que afecten la voluntariedad (RP-PERS.5).'
+          - valor: simbolico
+            etiqueta: Simbólico
+            ayuda: Bajo valor y no condiciona la participación (un café, un sorteo pequeño).
+            efectos:
+              - nivel: "1"
+                motivo: 'Incentivo simbólico que no condiciona la participación (RP-PERS.5).'
+          - valor: relevante
+            etiqueta: Relevante
+            ayuda: >-
+              Monto, nota o beneficio académico que puede influir en la decisión de participar (por
+              ejemplo, décimas para estudiantes).
+            efectos:
+              - nivel: "2"
+                motivo: 'Un incentivo relevante puede comprometer la voluntariedad: requiere evaluación del CEBB (CIOMS 2016 pauta 13).'
+
+      - id: P-PER-07
+        tipo: sino
+        texto: >-
+          ¿El reclutamiento o las actividades con personas ocurren dentro de una organización externa
+          (empresa, colegio, servicio público)?
+        mostrarSi: { cond: HAY_PERS }
+        opciones:
+          - valor: "si"
+            etiqueta: "Sí"
+            ayuda: >-
+              Entrevistas a trabajadores en su empresa, pruebas en una planta, reclutamiento a través
+              de un colegio. La organización se registra en «Organización externa».
+            efectos:
+              - nivel: "1"
+                anexos: [ANX-AUTORIZ]
+                motivo: 'Se requiere la autorización de la organización donde se recluta o se trabaja (RP-PERS.7).'
+          - valor: "no"
+            etiqueta: "No"
+            ayuda: Reclutamiento abierto (redes, correo) sin involucrar a una organización.
+            efectos:
+              - motivo: 'Reclutamiento sin organización externa.'
+          - valor: nose
+            etiqueta: No estoy seguro/a
+            efectos:
+              - nivel: "1"
+                anexos: [ANX-AUTORIZ]
+                alertas: [ALR-NOSE]
+                motivo: 'Se trata como participación mediada por una organización.'
+
+      - id: P-PER-08
+        tipo: unica
+        texto: ¿Cómo se aplicará la encuesta anónima?
+        ayuda: Esta respuesta define el formato del consentimiento informado.
+        mostrarSi: { todas: [{ p: P-PER-01, incluye: encuesta }, { p: P-PER-02, es: anonimo }] }
+        opciones:
+          - valor: en_linea
+            etiqueta: En línea (formulario web)
+            ayuda: Formulario web (Microsoft Forms, Google Forms, LimeSurvey).
+            efectos:
+              - motivo: 'Encuesta anónima en línea: el consentimiento puede darse con una casilla «Acepto», sin firmas (Ley 21.719, art. 2 p).'
+          - valor: papel
+            etiqueta: En papel o presencial
+            efectos:
+              - motivo: 'Encuesta anónima en papel o presencial: el consentimiento se firma.'
+          - valor: mixta
+            etiqueta: Mixta (en línea y en papel)
+            efectos:
+              - motivo: 'Encuesta anónima mixta: se generan los dos formatos de consentimiento.'
+
+  # ---------------------------------------------------------------- DAT
+  - id: DAT
+    titulo: Datos sobre personas
+    descripcion: >-
+      Preguntas sobre datos existentes sobre personas, temas sensibles, uso de IA y destino de los
+      datos.
+    preguntas:
+      - id: P-DAT-01
+        tipo: multiple
+        texto: ¿Se usarán datos ya existentes sobre personas?
+        ayuda: >-
+          No cuentan como datos sobre personas: estadísticas agregadas públicas (tablas del INE,
+          series de tiempo), siempre que no se crucen fuentes para reidentificar y no haya celdas muy
+          pequeñas; datos de máquinas o procesos sin relación con personas; datos de una simulación
+          propia; contenido sin datos sobre personas obtenido por descarga o scraping (código,
+          precios, datos técnicos o científicos). Los metadatos de autoría (nombres de usuario,
+          correos de commits) que no se almacenan ni se analizan tampoco cuentan; si se almacenan o
+          se analizan, corresponde «Web scraping de contenido público con datos de personas».
+        opciones:
+          - valor: ninguno
+            etiqueta: Ninguno
+            ayuda: No se usan datos existentes sobre personas.
+            exclusiva: true
+            efectos:
+              - motivo: 'Sin datos existentes sobre personas: se cierra el bloque de datos.'
+          - valor: abierto_anonimo
+            etiqueta: Datos abiertos ya anonimizados
+            ayuda: >-
+              Datasets públicos ya anonimizados o agregados (Kaggle, datos.gob.cl, repositorios
+              académicos con licencia).
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-SEC]
+                motivo: 'Dataset público ya anonimizado: se usa respetando licencia y sin reidentificar (Ley 21.719, art. 2 k).'
+          - valor: institucional
+            etiqueta: Registros institucionales no sensibles, con autorización
+            ayuda: >-
+              Registros no sensibles que una institución entrega con autorización formal y ya
+              anonimizados o seudonimizados por ella. Si no hay autorización formal, o se entregan sin
+              anonimizar ni seudonimizar, se declaran como «Datos identificables».
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-SEC]
+                anexos: [ANX-AUTORIZ]
+                motivo: 'Registros institucionales no sensibles: requieren autorización formal de la institución y anonimización o seudonimización por ella (Ley 21.719, art. 14 letra b).'
+          - valor: identificable
+            etiqueta: Datos identificables, sin anonimizar
+            ayuda: >-
+              Datos que identifican o permiten identificar a personas y no fueron anonimizados, de
+              cualquier origen.
+            efectos:
+              - nivel: "2"
+                anexos: [ANX-AUTORIZ]
+                motivo: 'Datos identificables de terceros, sin anonimizar: requieren evaluación del CEBB (Ley 21.719, arts. 12, 13 y 16 quinquies).'
+          - valor: web_scraping
+            etiqueta: Web scraping de contenido público con datos de personas
+            ayuda: >-
+              Extracción automatizada de sitios web o redes sociales que contienen datos personales, solo de contenido de acceso público (sin iniciar sesión ni eludir restricciones del sitio). Los temas del contenido y el uso de perfiles se declaran en las preguntas siguientes.
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-SEC]
+                motivo: 'Extracción automatizada de contenido público con datos personales: los datos de fuentes de acceso público siguen sujetos a la ley (Ley 21.719, art. 2 i y art. 14 letra b). Sin temas sensibles ni perfilamiento se gestiona en nivel 1 con la regla RP-SEC.6; las preguntas sobre temas sensibles e IA pueden subir el nivel.'
+          - valor: nose
+            etiqueta: No estoy seguro/a
+            exclusiva: true
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-SEC]
+                alertas: [ALR-NOSE]
+                motivo: 'Sin certeza sobre los datos existentes: se trata como uso de datos (mínimo nivel 1) y como tratamiento de datos personales; las respuestas siguientes deciden el nivel.'
+
+      - id: P-DAT-02
+        tipo: multiple
+        texto: ¿Las preguntas o los datos tratan alguno de estos temas?
+        ayuda: >-
+          Una encuesta de satisfacción con un sistema o una entrevista sobre flujos de trabajo no cae
+          aquí. Las variables demográficas generales (carrera, curso, tramo de edad) tampoco.
+        mostrarSi: { alguna: [{ cond: HAY_PERS }, { cond: HAY_DATOS }] }
+        opciones:
+          - valor: salud
+            etiqueta: Salud o perfil biológico o genético
+            efectos:
+              - nivel: "2"
+                motivo: 'Datos de salud o perfil biológico: sensibles, requieren consentimiento expreso y evaluación del CEBB (Ley 21.719, arts. 2 g, 16 y 16 bis; CIOMS 2016 pauta 12).'
+          - valor: biometricos
+            etiqueta: Datos biométricos
+            ayuda: Rostro, voz o huella usados para identificar.
+            efectos:
+              - nivel: "2"
+                motivo: 'Datos biométricos: sensibles, requieren evaluación del CEBB (Ley 21.719, arts. 2 g y 16 ter).'
+          - valor: etnia
+            etiqueta: Origen étnico o racial
+            efectos:
+              - nivel: "2"
+                motivo: 'Origen étnico o racial: dato sensible, requiere evaluación del CEBB (Ley 21.719, arts. 2 g y 16).'
+          - valor: socioeconomico
+            etiqueta: Situación socioeconómica
+            ayuda: >-
+              Ingresos, deudas, beneficios sociales.
+            efectos:
+              - si: { cond: ANON_VERDADERO }
+                nivel: "1"
+                motivo: 'Variable socioeconómica en una encuesta verdaderamente anónima: el dato anonimizado no es dato personal (Ley 21.719, art. 2 k), por lo que no requiere evaluación del CEBB.'
+              - nivel: "2"
+                motivo: 'La situación socioeconómica es dato sensible: requiere evaluación del CEBB (Ley 21.719, art. 2 g).'
+          - valor: convicciones
+            etiqueta: Convicciones políticas, religiosas o filosóficas; afiliación sindical
+            efectos:
+              - nivel: "2"
+                motivo: 'Convicciones políticas, religiosas o filosóficas, o afiliación sindical: dato sensible, requiere evaluación del CEBB (Ley 21.719, arts. 2 g y 16).'
+          - valor: sexualidad
+            etiqueta: Vida u orientación sexual, identidad de género
+            efectos:
+              - nivel: "2"
+                motivo: 'Vida u orientación sexual, identidad de género: dato sensible, requiere evaluación del CEBB (Ley 21.719, arts. 2 g y 16).'
+          - valor: violencia_trauma
+            etiqueta: Violencia o experiencias traumáticas
+            efectos:
+              - nivel: "2"
+                motivo: 'Temas de violencia o trauma: el riesgo deja de ser mínimo y requiere evaluación del CEBB (CIOMS 2016 pauta 4).'
+          - valor: ilicitos
+            etiqueta: Actividades ilícitas
+            efectos:
+              - nivel: "2"
+                motivo: 'Actividades ilícitas: el riesgo deja de ser mínimo y requiere evaluación del CEBB.'
+          - valor: desempeno
+            etiqueta: Desempeño laboral o académico de los participantes
+            ayuda: >-
+              Datos sobre qué tan bien trabaja o estudia cada participante: notas, resultados de pruebas, productividad, errores, evaluaciones de jefaturas o docentes. No corresponde cuando se mide el desempeño de un sistema o prototipo (p. ej., éxito y tiempo de las tareas en una prueba de usabilidad) sin juzgar a la persona.
+            efectos:
+              - nivel: "2"
+                motivo: 'Evaluación del desempeño de la propia persona: riesgo de perjuicio, requiere evaluación del CEBB.'
+          - valor: ninguno
+            etiqueta: Ninguno
+            exclusiva: true
+            efectos:
+              - motivo: 'Sin temas sensibles; riesgo mínimo (RP-PERS.6).'
+          - valor: nose
+            etiqueta: No estoy seguro/a
+            exclusiva: true
+            efectos:
+              - nivel: "2"
+                alertas: [ALR-NOSE]
+                motivo: 'Sin certeza sobre si se tratan temas o datos sensibles: se aplica el criterio más exigente.'
+
+      - id: P-DAT-03
+        tipo: multiple
+        texto: >-
+          ¿Se usará inteligencia artificial, minería de datos o perfilamiento con datos de personas?
+        mostrarSi: { alguna: [{ cond: HAY_DATOS }, { cond: TRATA_DP_PREVIA }] }
+        opciones:
+          - valor: ninguno
+            etiqueta: Ninguno
+            exclusiva: true
+            efectos:
+              - motivo: 'Sin IA ni perfilamiento sobre datos de personas.'
+          - valor: asistente_institucional
+            etiqueta: Asistente de IA institucional de UdeC (datos seudonimizados)
+            ayuda: >-
+              Se usa un asistente de IA institucional de UdeC (por ejemplo Gemini o NotebookLM de
+              Workspace UdeC, o Copilot con cuenta UdeC) sobre datos seudonimizados y sin datos
+              sensibles, para resumir o codificar textos, sin perfilar. Con un servicio de consumo
+              (cuenta personal, ChatGPT gratuito) no es esto: se declara en la pregunta de datos que
+              salen del control institucional.
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-IA]
+                motivo: 'Asistente de IA institucional con datos seudonimizados y sin datos sensibles: riesgo bajo con cuenta UdeC (RP-IA.5; Ley 21.719, art. 15 bis). Pendiente de confirmar el contrato de encargo entre UdeC y el proveedor.'
+          - valor: modelo_anonimo
+            etiqueta: Modelos con datos anonimizados
+            ayuda: >-
+              Entrenar o aplicar modelos de ML con datos de personas ya anonimizados (p. ej.,
+              clasificar comentarios de un dataset público).
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-IA]
+                motivo: 'Modelos con datos anonimizados: riesgo bajo con compromisos de documentación y sin decisiones sobre personas (Ley 21.719, art. 2 k).'
+          - valor: sobre_personas
+            etiqueta: Perfiles o decisiones automatizadas sobre personas
+            ayuda: >-
+              Perfiles, predicciones, clasificación o decisiones automatizadas sobre personas
+              identificables (reconocimiento facial, scoring, perfilamiento de usuarios).
+            efectos:
+              - nivel: "2"
+                motivo: 'Perfilamiento o decisiones automatizadas sobre personas identificables: requiere evaluación del CEBB (Ley 21.719, arts. 2 w y 8 bis).'
+
+      - id: P-DAT-04
+        tipo: multiple
+        texto: >-
+          ¿Algún dato personal sale del control del IR, del estudiante y de los servicios
+          institucionales?
+        mostrarSi: { cond: TRATA_DP_PREVIA_IA }
+        opciones:
+          - valor: ninguno
+            etiqueta: Ninguno
+            ayuda: >-
+              Los datos personales los ven solo el IR y el estudiante, y están en servicios de UdeC o
+              contratados por UdeC con contrato de encargo (cuentas institucionales, servidores del
+              departamento).
+            exclusiva: true
+            efectos:
+              - motivo: 'Los datos permanecen bajo control institucional; un servicio contratado con contrato de encargo no es cesión (RP-DATOS.8; Ley 21.719, art. 15 bis).'
+          - valor: externo
+            etiqueta: Servicios externos sin contrato institucional
+            ayuda: >-
+              Servicios sin contrato institucional: nubes personales, APIs de IA de consumo,
+              servidores en el extranjero.
+            efectos:
+              - nivel: "2"
+                motivo: 'Datos personales en servicios sin contrato institucional o en el extranjero: requiere evaluación del CEBB (Ley 21.719, arts. 15, 27 y 28).'
+          - valor: terceros
+            etiqueta: Entrega a terceros de datos personales no agregados
+            ayuda: >-
+              Se entregan datos personales no agregados a otra parte (por ejemplo, las respuestas
+              individuales o las transcripciones a la empresa contraparte). Si solo se entregan
+              resultados agregados o anonimizados, no es «terceros».
+            efectos:
+              - nivel: "2"
+                motivo: 'Entrega de datos personales no agregados a terceros: requiere evaluación del CEBB (Ley 21.719, arts. 2 v y 15).'
+          - valor: nose
+            etiqueta: No estoy seguro/a
+            exclusiva: true
+            efectos:
+              - nivel: "2"
+                alertas: [ALR-NOSE]
+                motivo: 'Sin certeza sobre el destino de los datos, se aplica el criterio más exigente.'
+
+      - id: P-DAT-05
+        tipo: unica
+        texto: ¿Se publicarán los datos de forma abierta?
+        mostrarSi: { alguna: [{ cond: HAY_PERS }, { cond: HAY_DATOS }] }
+        opciones:
+          - valor: "no"
+            etiqueta: "No"
+            ayuda: >-
+              Los datos quedan en custodia de la universidad y solo se publican resultados agregados.
+            efectos:
+              - motivo: 'Sin publicación abierta de datos (RP-DATOS.15).'
+          - valor: anonimizados
+            etiqueta: Sí, datos anonimizados en un repositorio abierto
+            ayuda: >-
+              Se depositan los datos anonimizados en un repositorio abierto (Zenodo, Figshare,
+              institucional).
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-PUB]
+                motivo: 'Publicación de datos anonimizados: se verifica la anonimización y se informa en el consentimiento (Ley 21.719, art. 16 quinquies).'
+          - valor: personales
+            etiqueta: Sí, datos personales
+            ayuda: Se publicarían datos que identifican a las personas.
+            efectos:
+              - nivel: "2"
+                motivo: 'Publicar datos personales requiere evaluación del CEBB: solo se publican resultados anonimizados (Ley 21.719, art. 16 quinquies).'
+
+      - id: P-DAT-06
+        tipo: unica
+        texto: ¿Por cuánto tiempo se conservarán los datos que identifican o permiten identificar a las personas?
+        ayuda: >-
+          Se cuentan los datos identificables y los seudonimizados, incluida la tabla que vincula los
+          códigos con los nombres, desde el fin de la recolección de datos. Pasado ese plazo, los datos
+          se anonimizan de manera irreversible o se eliminan de forma segura. El conjunto ya anonimizado
+          no se cuenta en esta pregunta.
+        mostrarSi: { cond: TRATA_DP }
+        opciones:
+          - valor: plazo_comun
+            etiqueta: Hasta {ajustes.conservacionMeses} meses
+            efectos:
+              - motivo: 'Conservación dentro del plazo común: los datos identificables o seudonimizados se eliminan o anonimizan a más tardar en ese plazo (RP-DATOS.11; Ley 21.719, art. 3 c).'
+          - valor: extendido
+            etiqueta: Hasta {ajustes.conservacionExtendidaMeses} meses, con justificación
+            ayuda: >-
+              Razones de investigación como un seguimiento posterior de los participantes, la publicación
+              de un artículo o la verificación de los resultados. Se pedirá una justificación.
+            efectos:
+              - nivel: "1"
+                parametros: { conservacionMeses: conservacionExtendidaMeses }
+                motivo: 'Una conservación más larga se admite con fines de investigación y resguardos (Ley 21.719, art. 16 quinquies): el compromiso fija ese plazo y su justificación (RP-DATOS.16).'
+          - valor: mayor
+            etiqueta: Más de {ajustes.conservacionExtendidaMeses} meses
+            efectos:
+              - nivel: "2"
+                motivo: 'Conservar datos personales por más tiempo que el plazo extendido requiere evaluación del CEBB (Ley 21.719, art. 3 c).'
+
+  # ---------------------------------------------------------------- MAT
+  - id: MAT
+    titulo: Actividades materiales
+    descripcion: >-
+      Preguntas sobre laboratorio, terreno, animales, muestras biológicas y sustancias peligrosas.
+    preguntas:
+      - id: P-MAT-01
+        tipo: multiple
+        texto: ¿La MT incluye alguna de estas actividades?
+        ayuda: En caso de duda, corresponde «No estoy seguro/a».
+        opciones:
+          - valor: ninguna
+            etiqueta: Ninguna
+            ayuda: >-
+              Programación, simulación, análisis de datos, trabajo en oficina y uso de un laboratorio
+              de computación (sala de computadores, cluster).
+            exclusiva: true
+            efectos:
+              - motivo: 'Trabajo puramente computacional o de oficina: no se evalúan riesgos de laboratorio, terreno ni bioseguridad.'
+          - valor: laboratorio
+            etiqueta: Laboratorio de ingeniería (riesgos estándar)
+            ayuda: >-
+              Ensayos mecánicos, eléctricos, de materiales o prototipos en un laboratorio de
+              ingeniería, con los riesgos usuales y **reactivos de uso corriente** (alcohol
+              isopropílico, ácidos o solventes diluidos, soldadura). Los reactivos de uso corriente
+              con menor peligro que los de «Sustancias peligrosas» corresponden a esta opción.
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-LAB]
+                motivo: 'Laboratorio de ingeniería con riesgos estándar y reactivos de uso corriente: se gestiona con normas de seguridad, protección personal y supervisión (Reglamento de manejo de sustancias peligrosas UdeC).'
+          - valor: terreno
+            etiqueta: Terreno (fuera de dependencias UdeC)
+            ayuda: >-
+              Visitas, mediciones o instalación de sensores fuera de dependencias UdeC (una planta,
+              una obra, un predio).
+            efectos:
+              - nivel: "1"
+                paquetes: [RP-TER]
+                anexos: [ANX-AUTORIZ]
+                motivo: 'Trabajo en terreno: se gestiona con autorización del propietario y plan de seguridad del equipo.'
+          - valor: animales
+            etiqueta: Animales para experimentación o pruebas
+            ayuda: Ensayos con animales vivos.
+            efectos:
+              - nivel: "2"
+                anexos: [ANX-PROT-ANIMAL]
+                motivo: 'El uso de animales requiere evaluación del CEBB y un protocolo de manejo y cuidado.'
+          - valor: biologico
+            etiqueta: Muestras biológicas, líneas celulares u OGM
+            ayuda: Cultivos, sangre, tejidos, saliva, líneas celulares u OGM.
+            efectos:
+              - nivel: "2"
+                anexos: [ANX-F-BIOSEG]
+                motivo: 'Muestras biológicas, líneas celulares u OGM requieren evaluación del CEBB y Formulario de Bioseguridad.'
+          - valor: peligrosas
+            etiqueta: Sustancias peligrosas, patógenos o radiación
+            ayuda: >-
+              Corresponde solo si se usa alguno de estos, según su hoja de seguridad (SDS, sistema
+              GHS): carcinógenos, mutágenos o tóxicos para la reproducción categoría 1A/1B (H340,
+              H350, H360); toxicidad aguda categoría 1 o 2 (H300, H310, H330); toxicidad específica en
+              órganos blanco categoría 1 (H370, H372); patógenos o material biológico de riesgo;
+              fuentes radiactivas o radiación ionizante.
+            efectos:
+              - nivel: "2"
+                anexos: [ANX-F-BIOSEG]
+                motivo: 'Sustancias sobre el umbral de peligro (CMR 1A/1B, toxicidad aguda 1–2, STOT 1), patógenos o radiación ionizante requieren evaluación del CEBB y Formulario de Bioseguridad (DS 57/2019, GHS).'
+          - valor: nose
+            etiqueta: No estoy seguro/a
+            exclusiva: true
+            efectos:
+              - nivel: "2"
+                alertas: [ALR-NOSE]
+                motivo: 'Sin certeza sobre las actividades, no se puede descartar un agente biológico o peligroso: se aplica el criterio más exigente y se preguntan también las condiciones de terreno.'
+
+      - id: P-MAT-02
+        tipo: multiple
+        texto: ¿Qué condiciones tiene el terreno?
+        mostrarSi: { alguna: [{ p: P-MAT-01, incluye: terreno }, { p: P-MAT-01, incluye: nose }] }
+        opciones:
+          - valor: area_protegida
+            etiqueta: Área protegida
+            efectos:
+              - nivel: "2"
+                anexos: [ANX-PERMISOS]
+                motivo: 'Áreas protegidas requieren evaluación del CEBB y permisos de acceso.'
+          - valor: territorio_indigena
+            etiqueta: Tierras o comunidades indígenas o comunitarias
+            efectos:
+              - nivel: "2"
+                anexos: [ANX-PERMISOS]
+                motivo: 'Tierras o comunidades indígenas requieren evaluación del CEBB y acuerdo con la comunidad (CIOMS 2016 pauta 15).'
+          - valor: colecta
+            etiqueta: Colecta de especies, muestras o material genético
+            efectos:
+              - nivel: "2"
+                anexos: [ANX-PERMISOS]
+                motivo: 'La colecta de especies, muestras o material genético requiere evaluación del CEBB y permisos (SAG, SUBPESCA/SERNAPESCA, CONAF).'
+          - valor: intervencion_ambiental
+            etiqueta: Intervención de ecosistemas o hábitats
+            ayuda: Excavar, verter sustancias, alterar hábitats.
+            efectos:
+              - nivel: "2"
+                anexos: [ANX-PERMISOS]
+                motivo: 'Intervenir ecosistemas o hábitats requiere evaluación del CEBB.'
+          - valor: predio_privado
+            etiqueta: Predio privado o instalaciones de una organización
+            ayuda: Instalaciones de una empresa o predio con dueño, con su autorización.
+            efectos:
+              - nivel: "1"
+                anexos: [ANX-AUTORIZ]
+                motivo: 'Predio o instalaciones de una organización: se gestiona con la autorización del propietario (RP-TER.1).'
+          - valor: riesgo_equipo
+            etiqueta: Riesgo para el equipo (altura, buceo, zonas remotas, faenas)
+            efectos:
+              - nivel: "1"
+                motivo: 'Riesgo para el equipo (altura, buceo, zonas remotas, faenas): se gestiona con el plan de seguridad de RP-TER.2; si hay impacto en personas, comunidades o ambiente, corresponde nivel 2 (DS 313/1972, seguro escolar).'
+          - valor: ninguna
+            etiqueta: Ninguna
+            exclusiva: true
+            efectos:
+              - motivo: 'Sin condiciones especiales de terreno.'
+
+condiciones:
+  - id: HAY_PERS
+    descripcion: Participan personas (P-PER-01 distinto de [ninguna]; incluye «no sé»).
+    si: { p: P-PER-01, algunaSalvo: [ninguna] }
+  - id: HAY_DATOS
+    descripcion: Se usan datos existentes sobre personas (P-DAT-01 distinto de [ninguno]; incluye «no sé»).
+    si: { p: P-DAT-01, algunaSalvo: [ninguno] }
+  - id: HAY_MAT
+    descripcion: El proyecto incluye actividades materiales (P-MAT-01 distinto de [ninguna]; incluye «no sé»).
+    si: { p: P-MAT-01, algunaSalvo: [ninguna] }
+  - id: ANON_VERDADERO
+    descripcion: >-
+      Verdaderamente anónimo: sin participantes o anónimos, datos existentes solo ninguno o abiertos
+      anonimizados, al menos un bloque de personas o datos, sin registros ni mediciones (P-PER-05).
+    si:
+      todas:
+        - alguna:
+            - { p: P-PER-01, es: [ninguna] }
+            - { p: P-PER-02, es: anonimo }
+        - no: { p: P-DAT-01, incluyeAlguno: [institucional, identificable, web_scraping, nose] }
+        - alguna:
+            - { cond: HAY_PERS }
+            - { cond: HAY_DATOS }
+        - no: { p: P-PER-05, algunaSalvo: [ninguno] }
+  - id: TRATA_DP_PREVIA
+    descripcion: Se tratan datos personales según las respuestas anteriores a P-DAT-03 (decide la visibilidad de P-DAT-03).
+    si:
+      alguna:
+        - todas:
+            - { cond: HAY_PERS }
+            - { p: P-PER-02, incluyeAlguno: [seudonimizado, identificado] }
+        - todas:
+            - { cond: HAY_PERS }
+            - { p: P-PER-05, algunaSalvo: [ninguno] }
+        - { p: P-DAT-01, incluyeAlguno: [institucional, identificable, web_scraping, nose] }
+        - { p: P-DAT-02, incluyeAlguno: [salud, biometricos, etnia, convicciones, sexualidad, nose] }
+        - todas:
+            - { p: P-DAT-02, incluye: socioeconomico }
+            - no: { cond: ANON_VERDADERO }
+  - id: TRATA_DP_PREVIA_IA
+    descripcion: Se tratan datos personales incluyendo el uso de IA (decide la visibilidad de P-DAT-04).
+    si:
+      alguna:
+        - { cond: TRATA_DP_PREVIA }
+        - { p: P-DAT-03, incluyeAlguno: [asistente_institucional, sobre_personas] }
+  - id: TRATA_DP
+    descripcion: El proyecto trata datos personales (agrega RP-DATOS, F04-IV y ALR-21719).
+    si:
+      alguna:
+        - { cond: TRATA_DP_PREVIA_IA }
+        - { p: P-DAT-04, incluyeAlguno: [externo, terceros] }
+        - { p: P-DAT-05, es: personales }
+  - id: CI_CASILLA
+    descripcion: El consentimiento informado puede darse por casilla «Acepto» (encuesta anónima en línea o mixta, sin registros, sin menores).
+    si:
+      todas:
+        - { p: P-PER-02, es: anonimo }
+        - { p: P-PER-01, es: [encuesta] }
+        - no: { p: P-PER-05, algunaSalvo: [ninguno] }
+        - no: { p: P-PER-03, incluye: menores }
+        - { p: P-PER-08, incluyeAlguno: [en_linea, mixta] }
+  - id: RIESGO_PROC
+    descripcion: >-
+      Procedimiento con riesgo superior al mínimo: la intervención tiene algún elemento de riesgo o
+      incertidumbre (P-PER-09) o hay medición fisiológica (P-PER-05). No cambia el nivel; los documentos
+      la usan para no afirmar «riesgo mínimo».
+    si:
+      alguna:
+        - { p: P-PER-09, incluyeAlguno: [riesgo_fisico, estres, privacion, evaluacion, nose] }
+        - { p: P-PER-05, incluye: fisiologica }
+
+efectosGlobales:
+  - si: { cond: TRATA_DP }
+    paquetes: [RP-DATOS]
+    alertas: [ALR-21719]
+    motivo: El proyecto trata datos personales; aplica el paquete de protección de datos y la Ley 21.719 (vigente desde el 1 de diciembre de 2026).
+  - si: { nivel: ["1", "2"] }
+    alertas: [ALR-BORRADOR]
+    motivo: Los textos de las reglas son borrador pendiente de validación por el CEBB y la Dirección Jurídica UdeC.
+  - si: { nivel: ["2"] }
+    seccionesF04: [F04-I]
+    motivo: La revisión del CEBB requiere el formulario de antecedentes del proyecto; la sección I (información general) siempre se incluye.
+  - si: { nivel: ["2"] }
+    seccionesF04: [F04-JUST]
+    motivo: La revisión del CEBB requiere el formulario de antecedentes del proyecto; la justificación ética siempre se incluye.
+  - si:
+      todas:
+        - { nivel: ["2"] }
+        - { cond: HAY_PERS }
+    seccionesF04: [F04-II-1]
+    motivo: Participan personas; el formulario de antecedentes incluye la metodología del estudio (II.1).
+  - si:
+      todas:
+        - { nivel: ["2"] }
+        - { cond: HAY_PERS }
+    seccionesF04: [F04-II-2]
+    motivo: Participan personas; el formulario de antecedentes incluye los instrumentos (II.2).
+  - si:
+      todas:
+        - { nivel: ["2"] }
+        - { cond: HAY_PERS }
+    seccionesF04: [F04-II-3]
+    motivo: Participan personas; el formulario de antecedentes incluye el consentimiento informado o asentimiento (II.3).
+  - si:
+      todas:
+        - { nivel: ["2"] }
+        - alguna:
+            - { p: P-MAT-01, incluyeAlguno: [animales, biologico, peligrosas, nose] }
+            - { p: P-MAT-02, incluyeAlguno: [area_protegida, territorio_indigena, colecta, intervencion_ambiental] }
+            - { paquete: RP-LAB }
+            - { paquete: RP-TER }
+    seccionesF04: [F04-III]
+    motivo: Hay actividades materiales de riesgo, laboratorio o terreno; el formulario de antecedentes incluye la sección de bioseguridad y otros riesgos (III).
+  - si:
+      todas:
+        - { nivel: ["2"] }
+        - { cond: TRATA_DP }
+    seccionesF04: [F04-IV]
+    motivo: Se tratan datos personales; el formulario de antecedentes incluye la sección de uso, tratamiento y protección de datos (IV).
+  - si: { nivel: ["2"] }
+    seccionesF04: [F04-DECL]
+    motivo: La revisión del CEBB requiere el formulario de antecedentes del proyecto; la declaración del IR siempre se incluye.
+  - si: { nivel: ["2"] }
+    anexos: [ANX-CARTA-IR]
+    motivo: La solicitud de revisión requiere la carta de compromiso del IR.
+  - si: { nivel: ["2"] }
+    anexos: [ANX-PROPUESTA]
+    motivo: La solicitud de revisión requiere la propuesta completa de la MT.
+  - si: { nivel: ["2"] }
+    anexos: [ANX-F04]
+    motivo: La solicitud de revisión requiere el formulario de antecedentes del proyecto, completado.
+  - si:
+      todas:
+        - { nivel: ["1", "2"] }
+        - { paquete: RP-PERS }
+    anexos: [ANX-CI]
+    motivo: Participan personas con consentimiento informado; se adjunta el consentimiento (lo prellena la herramienta).
+  - si:
+      todas:
+        - { nivel: ["2"] }
+        - { cond: HAY_PERS }
+    anexos: [ANX-INSTR]
+    motivo: Participan personas; se adjunta copia de los instrumentos.
+  - si:
+      todas:
+        - { nivel: ["A"] }
+        - { dato: D-ADS-IR }
+    anexos: [ANX-RESP-ADS]
+    motivo: El IR del proyecto mayor es otra persona; se adjunta su respaldo firmado.
+
+alertas:
+  - id: ALR-NOSE
+    texto: Se respondió "no estoy seguro/a" en al menos una pregunta. Se aplicó el criterio más exigente. Se debe consultar al CEBB ({ajustes.correoCebb}) antes de iniciar el trabajo con personas o datos.
+  - id: ALR-ADS-FUERA
+    texto: 'La certificación del proyecto mayor no cubre todas las actividades de la MT: se sigue el triaje normal para la MT.'
+  - id: ALR-21719
+    texto: 'La MT trata datos personales. La Ley 21.719 rige desde el 1 de diciembre de 2026: los compromisos de protección de datos son obligatorios.'
+  - id: ALR-BORRADOR
+    texto: 'Los textos de las reglas son BORRADOR — requiere validación CEBB/Dirección Jurídica UdeC.'

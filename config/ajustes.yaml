@@ -1,0 +1,19 @@
+# Parámetros de la herramienta (ids.md §10; 05-diseno §2.4).
+# BORRADOR — requiere validación CEBB/Dirección Jurídica UdeC.
+# Los valores «por definir por UdeC (provisional)» son textos provisionales explícitos: nunca se dejan vacíos.
+version: "0.1.0"
+correoCebb: eticafi@udec.cl
+conservacionMeses: 12
+conservacionRespaldoMeses: 60
+# Plazo máximo con justificación sin revisión del CEBB (P-DAT-06 = extendido). Provisional: lo definen el CEBB y UdeC (REQ-76).
+conservacionExtendidaMeses: 24
+redaccionNivel1: registro
+fechaVigencia21719: "2026-12-01"
+viaDerechos: "por definir por UdeC (provisional): la vía institucional que UdeC designe para ejercer los derechos de acceso, rectificación, supresión, oposición y portabilidad; mientras tanto, escribir al CEBB (eticafi@udec.cl)"
+contactoIncidentes: "por definir por UdeC (provisional): el delegado de protección de datos u otra instancia UdeC que se designe; mientras tanto, notificar de inmediato al CEBB (eticafi@udec.cl)"
+almacenamientoInstitucional: "cuentas institucionales UdeC (por definir por UdeC, provisional): almacenamiento en la nube institucional o servidores del departamento, con acceso restringido al profesor guía y al estudiante"
+urlModeloCI: "por definir por UdeC (provisional): enlace al modelo de consentimiento informado del CEBB-VRID"
+urlCartaCompromiso: "por definir por UdeC (provisional): enlace al formato de carta de compromiso del IR (CEBB-VRID)"
+urlFormularioBioseguridad: "por definir por UdeC (provisional): enlace al Formulario de Bioseguridad"
+# Logotipo del membrete de los PDF: ruta relativa a un archivo .svg, .png o .jpg servido junto a la herramienta (nunca una URL externa).
+logo: marca/fi-udec.svg
